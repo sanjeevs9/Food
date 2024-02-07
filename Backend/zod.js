@@ -4,7 +4,16 @@ const userSignup=zod.object({
     email:zod.string().email(),
     firstName:zod.string(),
     lastName:zod.string(),
-    password:zod.any()
+    password:zod.any(),
+    phoneNumber:zod.number()
 })
 
-module.exports={userSignup};
+const userSignin=zod.object({
+    email:zod.string().email(),
+    password:zod.any()
+
+})
+
+module.exports={
+    userSignup,userSignin
+};

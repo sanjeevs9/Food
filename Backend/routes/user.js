@@ -1,8 +1,8 @@
 
 const express = require('express');
-const {User} =require('../db')
+const {User,Bank} =require('../db')
 const jwt=require('jsonwebtoken')
-const {userSignup} =require('../zod'); 
+const {userSignup, userSignin} =require('../zod'); 
 
 const router = express.Router();
 
@@ -50,6 +50,11 @@ router.post('/signup',async (req,res)=>{
 
     const UserId=user._id;
     const token=jwt.sign({UserId},"fn");
+
+    await Bank.create({
+        userId:UserId,
+        balance:0
+    })
     
     res.json({
         "message":"Account Created",
@@ -61,7 +66,37 @@ router.post('/signup',async (req,res)=>{
 //login
 router.post('/signin',async(req,res)=>{
     const payload=req.body;
+    
+    const response=userSignin.safeParse(payload);
+    if(!response){
+        res.json({
+            "message":"Invalid credentials"
+           
+        })
+        return
+    }
 
+    const existingUser=await User.find({email:payload.email})
+    if(existingUser.length<0){
+        res.json({
+            "message":"user not found"
+        })
+        return
+    }
+
+    const user=await User.findOne({
+        email:payload.email
+    })
+
+    const UserId=user._id;
+    const token=jwt.sign({UserId},"fn");
+    
+    res.json({
+        "message":"Successfully Login",
+        "token":token
+    })
+
+    
 
 })
 

@@ -6,6 +6,6 @@ const Seller= require('./seller');
 const router = express.Router();
 
 router.use('/user', User);
-// router.use('/seller', Seller);
+router.use('/seller', Seller);
 
 module.exports=router;

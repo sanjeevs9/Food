@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Bank} =require('../db')
+const {User,Bank,Student} =require('../db')
 const jwt=require('jsonwebtoken')
 const {userSignup, userSignin} =require('../zod'); 
 
@@ -10,23 +10,23 @@ const router = express.Router();
 //signup
 router.post('/signup',async (req,res)=>{
     const payload=req.body;
-     const response=userSignup.safeParse(payload);
-     
-     if(!response){
+    const result= userSignup.safeParse(payload)
+    if(!result.success){
         res.json({
-            "message":"please fill details correctly"
+            "message":"invalid Inputs"
+        })
+        return
+    }
+    
+    const student=await Student.find({email:payload.email})
+   
+
+    if(student.length===0){
+        res.json({
+            "message":"Please enter a valid email"
         })
         return
      }
-    
-    // const student=await User.find({email:payload.email})
-
-    // if(student.length<=0){
-    //     res.json({
-    //         "message":"Please enter a valid email"
-    //     })
-    //     return
-    //  }
 
      const existingUser=await User.find({email:payload.email})
 
@@ -44,12 +44,14 @@ router.post('/signup',async (req,res)=>{
         mobileNumber:payload.mobileNumber
     })
 
-    const user=User.findOne({
+    const user=await User.findOne({
         email:payload.email
     })
 
+
     const UserId=user._id;
     const token=jwt.sign({UserId},"fn");
+    console.log(UserId);
 
     await Bank.create({
         userId:UserId,
@@ -67,8 +69,8 @@ router.post('/signup',async (req,res)=>{
 router.post('/signin',async(req,res)=>{
     const payload=req.body;
     
-    const response=userSignin.safeParse(payload);
-    if(!response){
+    const result=userSignin.safeParse(payload);
+    if(!result.success){
         res.json({
             "message":"Invalid credentials"
            
@@ -76,8 +78,12 @@ router.post('/signin',async(req,res)=>{
         return
     }
 
-    const existingUser=await User.find({email:payload.email})
-    if(existingUser.length<0){
+    const existingUser=await User.findOne({
+        email:payload.email,
+        password:payload.password
+    })
+
+    if(!existingUser){
         res.json({
             "message":"user not found"
         })
@@ -92,12 +98,9 @@ router.post('/signin',async(req,res)=>{
     const token=jwt.sign({UserId},"fn");
     
     res.json({
-        "message":"Successfully Login",
+        "message":"Successfully Logined",
         "token":token
     })
-
-    
-
 })
 
 

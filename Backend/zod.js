@@ -14,6 +14,17 @@ const userSignin=zod.object({
 
 })
 
+const sellerSignup=zod.object({
+    phoneNumber:zod.number(),
+    shopName:zod.string(),
+    password:zod.any()
+})
+
+const sellerSignin=zod.object({
+    phoneNumber:zod.number(),
+    password:zod.any()
+})
+
 module.exports={
-    userSignup,userSignin
+    userSignup,userSignin,sellerSignup,sellerSignin
 };

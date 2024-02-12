@@ -10,6 +10,7 @@ const router = express.Router();
 //create Seller acc
 router.post('/create',async (req,res)=>{
     const payload=req.body;
+    
     const result=sellerSignup.safeParse(payload);
     
     if(!result.success){
@@ -38,10 +39,11 @@ router.post('/create',async (req,res)=>{
     const seller=await Seller.findOne({
         phoneNumber:payload.phoneNumber
     })
+   
 
     const SellerId=seller._id;
     const token=jwt.sign({SellerId},"fn")
-    console.log(SellerId)
+    
 
     await Bank.create({
         userId:SellerId,
@@ -79,13 +81,13 @@ router.post('/signin',async(req,res)=>{
         return
     }
 
-    const seller=Seller.findOne({
+    const seller=await Seller.findOne({
         phoneNumber:payload.phoneNumber
     })
 
     const SellerId=seller._id;
     const token=jwt.sign({SellerId},"fn")
-    console.log(SellerId)
+  
 
     res.json({
         "message":"Successfully logined",

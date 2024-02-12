@@ -2,11 +2,32 @@ import work from '../../../public/work/—Pngtree—a man at work_4463549.png'
 import stair from '../../../public/work/pngwing.com.png'
 import man from '../../../public/work/man.png.png'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-import burger from '../../../public/food/p9.png'
+import { useState } from 'react'
+
 
 
 export default function SellerSignin(){
+    const[phone,setphone]=useState(0);
+    const[password,setpassword]=useState("");
+
+    async function handle(){
+        await axios.post("http://localhost:3000/food/seller/signin",
+        {
+            phoneNumber:(Number)(phone),
+            password
+        }
+        )
+        .then(res=>{
+            alert(res.data.message);
+            localStorage.setItem("token",res.data.token)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
     const navigate = useNavigate();
     return(
         <>
@@ -16,8 +37,12 @@ export default function SellerSignin(){
                     <img src={work} className=' hidden md:flex h-96 w-96 mt-auto lg:absolute lg:inset-y-0 lg:left-0' />
                     </div>
                     <div className='flex flex-col p-10 gap-5 w-96 pt-32 xl:ml-16'>
-                        <input placeholder='Phone Number' className='p-2 border-2 rounded-lg'></input>
-                        <input placeholder='Password' className='p-2 border-2 rounded-lg'></input>
+                        <input placeholder='Phone Number' className='p-2 border-2 rounded-lg' onChange={
+                            (e)=>{setphone(e.target.value)}
+                        }></input>
+                        <input placeholder='Password' className='p-2 border-2 rounded-lg' onChange={
+                            (e)=>{setpassword(e.target.value)}
+                        }></input>
                         <div className='flex flex-row justify-between sm:justify-evenly lg:justify-between w-full' >
                         <div className='flex gap-2'>
                             <div className=''><input disabled id="disabled-checkbox" type="checkbox" value="" className=" w-4 h-4 border-gray-300 rounded"></input></div>
@@ -28,7 +53,7 @@ export default function SellerSignin(){
                     </div>
                         
                         <div className=' flex justify-center '>
-                        <button className='bg-blue-500 p-2 w-36  rounded-md text-white '>Signin</button>
+                        <button className='bg-blue-500 p-2 w-36  rounded-md text-white ' onClick={handle}>Signin</button>
                         </div>
                         <div>
                         <span className='font-bold text-sm'>Dont have an account?</span>

@@ -5,7 +5,7 @@ const userSignup=zod.object({
     firstName:zod.string(),
     lastName:zod.string(),
     password:zod.any(),
-    phoneNumber:zod.number()
+    mobileNumber:zod.number()
 })
 
 const userSignin=zod.object({

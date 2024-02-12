@@ -2,8 +2,38 @@ import foodimg from '../../img/victoria-shes-UC0HZdUitWY-unsplash.jpg';
 import burger from '../../../public/food/p9.png'
 import pizza from '../../../public/food/p12.png'
 import { useNavigate } from 'react-router-dom';
+import  { useState } from "react"
+import axios from "axios";
 
 export default function Signup(){
+    const[firstname,setfirstname]=useState("");
+    const[lastname,setlastname]=useState("");
+    const[email,setemail]=useState("");
+    const[password,setpassword]=useState("");
+    const[phone,setphone]=useState(0);
+
+async function handle(){
+    await axios.post('http://localhost:3000/food/user/signup',
+        {
+            firstName:firstname,
+            lastName:lastname,
+            email:email,
+            password:password,
+            mobileNumber:(Number)(phone)
+        })
+    .then(res=>{
+       console.log(res.data.message)
+        alert(res.data.message)
+        localStorage.setItem("token",res.data.token);
+    })
+    .catch(error=>{
+        console.log(error);
+    })
+}
+
+
+
+
     const navigate=useNavigate();
     return(
         <>
@@ -17,11 +47,21 @@ export default function Signup(){
         <div className='flex flex-col '>
             <div className='flex flex-col gap-5 items-center pt-5 h-fit'>
                 <hr className="w-full h-px my-8 bg-gray-200 border-0 flex lg:hidden"/>
-                <input className='p-2 w-96 rounded-lg border-2' placeholder='First Name'></input>
-                <input className='p-2 w-96 rounded-lg border-2' placeholder='Last Name'></input>
-                <input className='p-2 w-96 rounded-lg border-2' placeholder='Email address'></input>
-                <input className='p-2 w-96 rounded-lg border-2' placeholder='Password'></input>
-                <input className='p-2 w-96 rounded-lg border-2' placeholder='Phone Number'></input>
+                <input className='p-2 w-96 rounded-lg border-2' placeholder='First Name' onChange={
+                    (e)=>{setfirstname(e.target.value)}
+                }></input>
+                <input className='p-2 w-96 rounded-lg border-2' placeholder='Last Name' onChange={
+                    (e)=>{setlastname(e.target.value)}
+                }></input>
+                <input className='p-2 w-96 rounded-lg border-2' placeholder='Email address' onChange={
+                    (e)=>{setemail(e.target.value)}
+                }></input>
+                <input className='p-2 w-96 rounded-lg border-2' placeholder='Password' onChange={
+                    (e)=>{setpassword(e.target.value)}
+                }></input>
+                <input className='p-2 w-96 rounded-lg border-2' placeholder='Phone Number' onChange={
+                    (e)=>{setphone(e.target.value)}
+                }></input>
                     <div className='flex flex-row justify-between w-full' >
                         <div className='flex gap-2'>
                             <input disabled id="disabled-checkbox" type="checkbox" value="" className="w-4 h-4 border-gray-300 rounded pt-6"></input>
@@ -30,7 +70,7 @@ export default function Signup(){
                         </div>    
                         <div className='flex cursor-pointer text-xs pt-1'>Term and Conditons</div>
                     </div>
-                <button className='bg-blue-500 p-2 w-32 rounded-md text-white'>Sign Up</button>
+                <button className='bg-blue-500 p-2 w-32 rounded-md text-white' onClick={handle}>Sign Up</button>
                 <div>
                     <span className='font-bold text-sm'>Already have an account?</span>
                     <button className='text-red-600 font-semibold cursor-pointer' onClick={

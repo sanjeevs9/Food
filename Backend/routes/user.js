@@ -10,7 +10,9 @@ const router = express.Router();
 //signup
 router.post('/signup',async (req,res)=>{
     const payload=req.body;
+    
     const result= userSignup.safeParse(payload)
+    
     if(!result.success){
         res.json({
             "message":"invalid Inputs"
@@ -72,7 +74,7 @@ router.post('/signin',async(req,res)=>{
     const result=userSignin.safeParse(payload);
     if(!result.success){
         res.json({
-            "message":"Invalid credentials"
+            "message":"Invalid inputs"
            
         })
         return
@@ -85,7 +87,7 @@ router.post('/signin',async(req,res)=>{
 
     if(!existingUser){
         res.json({
-            "message":"user not found"
+            "message":"Invalid Credentials"
         })
         return
     }

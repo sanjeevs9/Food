@@ -10,6 +10,7 @@ import SellerSignin from './Components/Seller/SellerSignin';
 import Help from './Components/Help';
 import Front from './Components/Front';
 import DropDown from './Components/DropDown';
+import Dashboard from './Components/User/Dashboard';
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
       <Route path='/create' element={<SellerSignup/>}/>
       <Route path='/login' element={<SellerSignin/>}/>
       <Route path='/' element ={<Front/>}/>
-      <Route path='/exp' element={<DropDown/>}/>
+      <Route path='/exp' element={<Dashboard/>}/>
       <Route path='/*' element={<Help/>}/>
     </Routes>
     </BrowserRouter>

@@ -1,16 +1,18 @@
 import work from '../../../public/work/—Pngtree—a man at work_4463549.png'
 import stair from '../../../public/work/pngwing.com.png'
 import man from '../../../public/work/man.png.png'
+import { useNavigate } from 'react-router-dom'
 
 import burger from '../../../public/food/p9.png'
 
+
 export default function SellerSignin(){
+    const navigate = useNavigate();
     return(
         <>
          <div className="min-h-screen p-1 ">
             <div className="bg-[#fff7ed]  min-h-screen   rounded-xl flex flex-row justify-center md:justify-between  lg:justify-center">
                     <div className='flex flex-col'>
-                    
                     <img src={work} className=' hidden md:flex h-96 w-96 mt-auto lg:absolute lg:inset-y-0 lg:left-0' />
                     </div>
                     <div className='flex flex-col p-10 gap-5 w-96 pt-32 xl:ml-16'>
@@ -27,6 +29,12 @@ export default function SellerSignin(){
                         
                         <div className=' flex justify-center '>
                         <button className='bg-blue-500 p-2 w-36  rounded-md text-white '>Signin</button>
+                        </div>
+                        <div>
+                        <span className='font-bold text-sm'>Dont have an account?</span>
+                        <button className='text-red-600 font-semibold cursor-pointer' onClick={
+                        ()=>{navigate('/create')}
+                    }>Sign Up</button>
                         </div>
                         <img src={stair} className='flex md:hidden h-80'/>
                     </div>

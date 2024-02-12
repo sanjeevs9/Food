@@ -1,10 +1,12 @@
 import work from '../../../public/work/—Pngtree—a man at work_4463549.png'
 import stair from '../../../public/work/pngwing.com.png'
 import man from '../../../public/work/man.png.png'
+import { useNavigate } from 'react-router-dom'
 
 import burger from '../../../public/food/p9.png'
 
 export default function SellerSignup(){
+    const navigate =useNavigate();
     return(
         <>
          <div className="min-h-screen p-1 ">
@@ -28,6 +30,13 @@ export default function SellerSignup(){
                         
                         <div className=' flex justify-center '>
                         <button className='bg-blue-500 p-2 w-36  rounded-md text-white '>Create Account</button>
+                        
+                        </div>
+                        <div className='flex gap-2 mx-16'>
+                            <span className='font-semibold text-xs'>Already registered?</span>
+                            <button className='text-red-600 font-semibold -my-2 text-sm' onClick={
+                                ()=>{navigate('/login')}
+                            }>Signin</button>
                         </div>
                         <img src={stair} className='flex md:hidden h-80'/>
                     </div>

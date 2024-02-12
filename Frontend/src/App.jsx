@@ -7,6 +7,9 @@ import SellerSignup from './Components/Seller/SellerSignup'
 
 import './App.css'
 import SellerSignin from './Components/Seller/SellerSignin';
+import Help from './Components/Help';
+import Front from './Components/Front';
+import DropDown from './Components/DropDown';
 
 function App() {
 
@@ -19,6 +22,9 @@ function App() {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/create' element={<SellerSignup/>}/>
       <Route path='/login' element={<SellerSignin/>}/>
+      <Route path='/' element ={<Front/>}/>
+      <Route path='/exp' element={<DropDown/>}/>
+      <Route path='/*' element={<Help/>}/>
     </Routes>
     </BrowserRouter>
       </>

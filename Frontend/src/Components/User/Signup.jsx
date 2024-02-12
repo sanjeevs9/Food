@@ -1,8 +1,10 @@
 import foodimg from '../../img/victoria-shes-UC0HZdUitWY-unsplash.jpg';
 import burger from '../../../public/food/p9.png'
 import pizza from '../../../public/food/p12.png'
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup(){
+    const navigate=useNavigate();
     return(
         <>
         <div className="min-h-screen p-1 ">
@@ -31,7 +33,9 @@ export default function Signup(){
                 <button className='bg-blue-500 p-2 w-32 rounded-md text-white'>Sign Up</button>
                 <div>
                     <span className='font-bold text-sm'>Already have an account?</span>
-                    <span className='text-red-600 font-semibold cursor-pointer'> Login in</span>
+                    <button className='text-red-600 font-semibold cursor-pointer' onClick={
+                        ()=>{navigate('/signin')}
+                    }> Login in</button>
                 </div>
                 {/* <img src={burger} className='xl:hidden h-16 w-16 '></img> */}
             </div>

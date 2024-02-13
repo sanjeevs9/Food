@@ -25,6 +25,12 @@ const sellerSignin=zod.object({
     password:zod.any()
 })
 
+const menuCheck=zod.object({
+    foodName:zod.string(),
+    price:zod.number(),
+    imgUrl:zod.string()
+})
+
 module.exports={
-    userSignup,userSignin,sellerSignup,sellerSignin
+    userSignup,userSignin,sellerSignup,sellerSignin,menuCheck
 };

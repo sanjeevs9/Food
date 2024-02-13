@@ -1,9 +1,7 @@
-export default function  Help(){
-    return(
-        <>
-        <div>
-            ERROR!!!!!!!!!!!!!!!!
-        </div>
-        </>
-    )
+export default function Help() {
+  return (
+    <>
+      <div>ERROR!!!!!!!!!!!!!!!!</div>
+    </>
+  );
 }

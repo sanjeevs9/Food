@@ -11,6 +11,8 @@ import Help from './Components/Help';
 import Front from './Components/Front';
 import DropDown from './Components/DropDown';
 import Dashboard from './Components/User/Dashboard';
+import FoodComponent from './Components/FoodComponent';
+import Carousel from './Components/Carousel';
 
 function App() {
 
@@ -25,7 +27,8 @@ function App() {
       <Route path='/login' element={<SellerSignin/>}/>
       <Route path='/' element ={<Front/>}/>
       <Route path='/exp' element={<Dashboard/>}/>
-      <Route path='/*' element={<Help/>}/>
+      <Route path='/*' element={<FoodComponent name="pizza" price="300" available={true}/>}/>
+      <Route path='/user' element={<Dashboard/>}/>
     </Routes>
     </BrowserRouter>
       </>

@@ -3,6 +3,7 @@ const express = require('express');
 const {User,Bank,Student} =require('../db')
 const jwt=require('jsonwebtoken')
 const {userSignup, userSignin} =require('../zod'); 
+const JWT_SECRET=require("../config");
 
 const router = express.Router();
 
@@ -52,7 +53,7 @@ router.post('/signup',async (req,res)=>{
 
 
     const UserId=user._id;
-    const token=jwt.sign({UserId},"fn");
+    const token=jwt.sign({UserId},JWT_SECRET);
     console.log(UserId);
 
     await Bank.create({
@@ -97,7 +98,7 @@ router.post('/signin',async(req,res)=>{
     })
 
     const UserId=user._id;
-    const token=jwt.sign({UserId},"fn");
+    const token=jwt.sign({UserId},JWT_SECRET);
     
     res.json({
         "message":"Successfully Logined",

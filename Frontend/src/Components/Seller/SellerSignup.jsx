@@ -15,7 +15,7 @@ export default function SellerSignup(){
     const[description,setdescription]=useState("");
 
     async function handle(){
-        await axios.post("http://localhost:3000/food/seller/create",
+        await axios.post("http://192.168.1.247:3000/food/seller/create",
         {
             shopName:ShopName,
             password,
@@ -26,7 +26,7 @@ export default function SellerSignup(){
         )
         .then(res=>{
             alert(res.data.message);
-            localStorage("token",res.data.token)
+            localStorage.setItem("token",`Bearer ${res.data.token}`)
         })
         .catch(error => {
             alert(error.response.data.message)

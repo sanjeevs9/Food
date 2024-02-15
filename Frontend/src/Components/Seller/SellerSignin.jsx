@@ -11,17 +11,20 @@ import { useState } from 'react'
 export default function SellerSignin(){
     const[phone,setphone]=useState(0);
     const[password,setpassword]=useState("");
+    const navigate = useNavigate();
 
     async function handle(){
-        await axios.post("http://localhost:3000/food/seller/signin",
+       
+        await axios.post("http://192.168.1.247:3000/food/seller/signin",
         {
             phoneNumber:(Number)(phone),
             password
-        }
-        )
+
+        })
         .then(res=>{
             alert(res.data.message);
-            localStorage.setItem("token",res.data.token)
+            localStorage.setItem("token",`Bearer ${res.data.token}`)
+            navigate('/vendor');
         })
         .catch(error=>{
             alert(error.response.data.message)
@@ -29,7 +32,7 @@ export default function SellerSignin(){
         })
     }
 
-    const navigate = useNavigate();
+  
     return(
         <>
          <div className="min-h-screen p-1 ">

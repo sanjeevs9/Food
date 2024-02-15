@@ -12,11 +12,8 @@ const router = express.Router();
 //create Seller acc
 router.post('/create',async (req,res)=>{
     const payload=req.body;
-    
- console.log(payload)
-    
     const result=sellerSignup.safeParse(payload);
-    console.log(result.success)
+
     if(!result.success){
         const errorMessages = result.error.errors.map(err => err.message);
         const formattedErrorMessage = errorMessages.join('\n');
@@ -110,12 +107,11 @@ router.post('/menu', middleware, async (req, res) => {
    const UserId=req.UserId;
    const payload=req.body;
 
-   console.log(UserId);
-   console.log(payload);
+   
    const response=menuCheck.safeParse(payload);
 
    if(!response.success){
-    req.status(411).json({
+    res.status(411).json({
         "message":"Please fill correctly"
     })
     return
@@ -145,6 +141,15 @@ res.json({
 })
 });
 
+//menu get
+router.get(('/item'), middleware,async(req,res)=>{
+    const UserId=req.UserId;
+   
+    const menu=await Menu.find({userId:UserId},'foodName price')
+    res.json(menu)
+})
+
+
 
 //get ShopName
 router.get(('/shopname'),async (req,res)=>{
@@ -162,7 +167,7 @@ router.get('/filter', async (req, res) => {
     res.json(shops);
 });
 
-//update
+//update Image
 router.post('/updateimg',middleware,async(req,res)=>{
     const img=req.body.img;
 
@@ -183,7 +188,7 @@ router.post('/updateimg',middleware,async(req,res)=>{
 
 })
 
-//description
+//update description
 router.post('/updatedescription' ,async(req,res)=>{
     const description=req.body.description;
 

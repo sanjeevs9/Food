@@ -33,7 +33,7 @@ const sellerSignin=zod.object({
 
 const menuCheck=zod.object({
     foodName:zod.string().min(2),
-    price:zod.number().refine(num=> num>=10),
+    price:zod.number(),
     imgUrl:zod.string()
 })
 

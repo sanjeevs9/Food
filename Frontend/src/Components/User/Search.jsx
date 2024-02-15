@@ -1,15 +1,17 @@
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams,useLocation } from "react-router-dom";
 
 
 export default function Search({ className }) {
 const[filter,setfilter]=useState("");
 const [param, setParam] = useSearchParams();
+const location = useLocation();
 
 useEffect(() => {
     setParam({ filter: filter }); 
-  }, [filter,setParam]);
+  }, [filter]);
+
 
   return (
     <>

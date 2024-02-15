@@ -11,7 +11,7 @@ export default function Signin(){
     const[password,setpassword]=useState("");
 
     async function handle(){
-        await axios.post("http://localhost:3000/food/user/signin",
+        await axios.post("http://192.168.1.247:3000/food/user/signin",
         {
             email,
             password
@@ -21,7 +21,7 @@ export default function Signin(){
             console.log(res.data.message);
             alert(res.data.message)
             navigate('/user')
-            localStorage.setItem("token",res.data.token)
+            localStorage.setItem("token",`Bearer ${res.data.token}`)
             
         })
         .catch(error => {

@@ -4,6 +4,7 @@ const {User,Bank,Student} =require('../db')
 const jwt=require('jsonwebtoken')
 const {userSignup, userSignin} =require('../zod'); 
 const JWT_SECRET=require("../config");
+const bcrypt = require("bcryptjs")
 
 const router = express.Router();
 
@@ -11,7 +12,8 @@ const router = express.Router();
 //signup
 router.post('/signup',async (req,res)=>{
     const payload=req.body;
-    
+  
+
     const result= userSignup.safeParse(payload)
     
     if(!result.success){
@@ -23,7 +25,7 @@ router.post('/signup',async (req,res)=>{
         })
         return
     }
-    
+
     const student=await Student.find({email:payload.email})
    
 
@@ -42,6 +44,10 @@ router.post('/signup',async (req,res)=>{
         })
         return
      }
+
+     //BcryptJs
+    //  const salt=await bcrypt.genSalt(10);
+    //  const secure=await  bcrypt.hash(payload.password,salt)
     await User.create({
         email:payload.email,
         firstName:payload.firstName,

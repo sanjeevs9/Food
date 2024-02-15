@@ -13,7 +13,7 @@ export default function Signup(){
     const[phone,setphone]=useState(0);
 
 async function handle(){
-    await axios.post('http://localhost:3000/food/user/signup',
+    await axios.post('http://192.168.1.247:3000/food/user/signup',
         {
             firstName:firstname,
             lastName:lastname,
@@ -24,7 +24,7 @@ async function handle(){
     .then(res=>{
        console.log(res.data.message)
         alert(res.data.message)
-        localStorage.setItem("token",res.data.token);
+        localStorage.setItem("token",`Bearer ${res.data.token}`)
     })
     .catch(error=>{
         alert(error.response.data.message)

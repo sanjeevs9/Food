@@ -1,3 +1,5 @@
+import plate from '../../public/Plate.svg'
+
 export default function Resturant({ name, description, imgUrl,onClick }) {
   return (
     <>
@@ -5,7 +7,7 @@ export default function Resturant({ name, description, imgUrl,onClick }) {
       <div className="flex flex-col h-60 w-52 ">
         <div
           className="h-44 rounded-xl w-full bg-cover bg-center"
-          style={{ backgroundImage: `url('${imgUrl}')` }}
+          style={{ backgroundImage: `url('${imgUrl ? imgUrl : plate}')` }}
         ></div>
 
         <div className="h-fit flex flex-col pl-2 ">

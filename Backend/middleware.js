@@ -3,7 +3,7 @@ const jwt=require('jsonwebtoken')
 
 const middleware=((req,res,next)=>{
     const response=req.headers.authorization;
-
+        console.log(response)
     if(!response || !response.startsWith('Bearer')){
         res.sendStatus(403);
         return;
@@ -15,6 +15,7 @@ const middleware=((req,res,next)=>{
         res.sendStatus(403);
         return
     }
+
     req.UserId=decoded.UserId;
     next();
 

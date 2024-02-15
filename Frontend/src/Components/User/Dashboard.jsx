@@ -21,7 +21,7 @@ const[param, setParam] = useSearchParams();
   //all shopname
   useEffect(() => {
     axios
-      .get("http://localhost:3000/food/seller/filter",
+      .get("http://192.168.1.247:3000/food/seller/filter",
       {
         params: {
           filter: param.get("filter"),

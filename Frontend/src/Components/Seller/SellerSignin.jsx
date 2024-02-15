@@ -24,6 +24,7 @@ export default function SellerSignin(){
             localStorage.setItem("token",res.data.token)
         })
         .catch(error=>{
+            alert(error.response.data.message)
             console.log(error)
         })
     }

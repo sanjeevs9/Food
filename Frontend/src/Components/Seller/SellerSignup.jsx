@@ -11,20 +11,25 @@ export default function SellerSignup(){
     const[ShopName,setSopName]=useState("")
     const[phone,setphone]=useState(0);
     const[password,setpassword]=useState("");
+    const[imgUrl,setimgUrl]=useState("");
+    const[description,setdescription]=useState("");
 
     async function handle(){
         await axios.post("http://localhost:3000/food/seller/create",
         {
             shopName:ShopName,
             password,
-            phoneNumber:(Number)(phone)
+            phoneNumber:(Number)(phone),
+            imgUrl,
+            description
         }
         )
         .then(res=>{
             alert(res.data.message);
             localStorage("token",res.data.token)
         })
-        .catch(error=>{
+        .catch(error => {
+            alert(error.response.data.message)
             console.log(error)
         })
     }
@@ -48,6 +53,12 @@ export default function SellerSignup(){
                         }></input>
                         <input placeholder='Password' className='p-2 border-2 rounded-lg' onChange={
                             (e)=>{setpassword(e.target.value)}
+                        }></input>
+                        <input placeholder='Description' className='p-2 border-2 rounded-lg' onChange={
+                            (e)=>{setdescription(e.target.value)}
+                        }></input>
+                        <input placeholder='imgUrl' className='p-2 border-2 rounded-lg' onChange={
+                            (e)=>{setimgUrl(e.target.value)}
                         }></input>
                         <div className='flex flex-row justify-between sm:justify-evenly lg:justify-between w-full' >
                         <div className='flex gap-2'>

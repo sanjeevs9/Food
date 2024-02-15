@@ -13,11 +13,15 @@ const router = express.Router();
 router.post('/create',async (req,res)=>{
     const payload=req.body;
     
-    const result=sellerSignup.safeParse(payload);
+ console.log(payload)
     
+    const result=sellerSignup.safeParse(payload);
+    console.log(result.success)
     if(!result.success){
-        res.json({
-            "message":"please fill details correctly"
+        const errorMessages = result.error.errors.map(err => err.message);
+        const formattedErrorMessage = errorMessages.join('\n');
+        res.status(411).json({
+            "message":formattedErrorMessage
         })
         return
     }
@@ -26,7 +30,7 @@ router.post('/create',async (req,res)=>{
     
 
     if(existingSeller.length>0){
-        res.json({
+        res.status(411).json({
             "message":"seller already exists"
         })
         return
@@ -35,7 +39,9 @@ router.post('/create',async (req,res)=>{
     await Seller.create({
         phoneNumber:payload.phoneNumber,
         password:payload.password,
-        shopName:payload.shopName
+        shopName:payload.shopName,
+        imgUrl:payload.imgUrl,
+        description:payload.description
     })
 
     const seller=await Seller.findOne({
@@ -64,8 +70,9 @@ router.post('/signin',async(req,res)=>{
     const payload=req.body;
     const result=sellerSignin.safeParse(payload)
 
+
     if(!result.success){
-        res.json({
+        res.status(411).json({
             "message":"invalid Credentials"
         })
         return
@@ -77,7 +84,7 @@ router.post('/signin',async(req,res)=>{
     })
 
     if(!existingSeller){
-        res.json({
+        res.status(411).json({
             "message":"seller not found"
         })
         return
@@ -108,7 +115,7 @@ router.post('/menu', middleware, async (req, res) => {
    const response=menuCheck.safeParse(payload);
 
    if(!response.success){
-    req.json({
+    req.status(411).json({
         "message":"Please fill correctly"
     })
     return
@@ -119,7 +126,7 @@ router.post('/menu', middleware, async (req, res) => {
    })
 
    if(!seller){
-    res.json({
+    res.status(411).json({
         "message":"Seller Not found"
        
     })
@@ -144,6 +151,55 @@ router.get(('/shopname'),async (req,res)=>{
 const shop=await Seller.find({},'shopName phoneNumber')
 res.json(shop)
 
+})
+
+//filter
+router.get('/filter', async (req, res) => {
+    const filter = req.query.filter || "";
+
+    const shops = await Seller.find({ shopName: { $regex: filter, $options: 'i' } });
+
+    res.json(shops);
+});
+
+//update
+router.post('/updateimg',middleware,async(req,res)=>{
+    const img=req.body.img;
+
+    const UserId=req.UserId;
+
+    await Seller.updateOne(
+        {_id:UserId},
+        {
+            $set:{
+                imgUrl:img
+        }
+    }
+    )
+    res.status(411).json({
+        "message":"Image updated"
+    })
+    
+
+})
+
+//description
+router.post('/updatedescription' ,async(req,res)=>{
+    const description=req.body.description;
+
+    const UserId=req.UserId;
+
+    await Seller.updateOne(
+        {_id:UserId},
+        {
+            $set:{
+                description:description
+        }
+    }
+    )
+    res.status(411).json({
+        "message":"Description updated"
+    })
 })
 
 module.exports=router;

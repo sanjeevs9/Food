@@ -3,14 +3,15 @@ import burger from '../../../public/food/p9.png'
 import pizza from '../../../public/food/p12.png'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Signin(){
-    const[email,setemail]=useState();
-    const[password,setpassword]=useState();
+    const navigate = useNavigate();
+    const[email,setEmail]=useState("");
+    const[password,setpassword]=useState("");
 
     async function handle(){
-        axios.post("http://localhost:3000/food/user/signin",
+        await axios.post("http://localhost:3000/food/user/signin",
         {
             email,
             password
@@ -19,15 +20,17 @@ export default function Signin(){
         .then(res=>{
             console.log(res.data.message);
             alert(res.data.message)
-            localStorage("token",res.data.token)
+            navigate('/user')
+            localStorage.setItem("token",res.data.token)
+            
         })
-        .catch(error=>{
-            console.log(error);
+        .catch(error => {
+            alert(error.response.data.message)
         })
     }
 
 
-    const navigate = useNavigate();
+   
     return(
         <>
         <div className="min-h-screen p-1 ">
@@ -40,7 +43,8 @@ export default function Signin(){
             <div className='flex flex-col gap-5 pt-10 lg:pt-1  xl:pt-20  items-center h-fit'>
                 <hr className="w-full h-px my-4 bg-gray-200 border-0 flex lg:hidden"/>
                 <input className='p-2 border-2 w-96 rounded-lg ' placeholder='Email address' onChange={
-                    (e)=>{setemail(e.target.value)}
+                    (e)=>{
+                        setEmail(e.target.value)}
                 }></input>
                 <input className='p-2 w-96 rounded-lg border-2' placeholder='Password' onChange={
                     (e)=>{setpassword(e.target.value)}
@@ -53,7 +57,7 @@ export default function Signin(){
                         </div>    
                         <div className='flex cursor-pointer text-xs pt-1'>Term and Conditons</div>
                     </div>
-                <button className='bg-blue-500 p-2 w-32 rounded-md text-white' onClick={handle}>Login</button>
+                <button className='bg-blue-500 p-2 w-32 rounded-md text-white' onClick={()=>{handle()}}>Login</button>
                 <div>
                     <span className='font-bold text-sm'>Dont have an account?</span>
                     <button className='text-red-600 font-semibold cursor-pointer' onClick={

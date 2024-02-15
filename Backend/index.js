@@ -6,15 +6,22 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
+
 const mainRouter = require('./routes/index')
 
-
-
-
-app.use('/food',mainRouter)
 const PORT = process.env.PORT || 3000;
+const IP_ADDRESS = '0.0.0.0'; 
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+
+app.listen(PORT, IP_ADDRESS, () => {
+    console.log(`Server is running on ${IP_ADDRESS}:${PORT}`);
+    });
+
+
+
+
+
+
+    app.use('/food',mainRouter)
+   
 

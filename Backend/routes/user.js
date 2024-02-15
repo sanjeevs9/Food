@@ -15,8 +15,11 @@ router.post('/signup',async (req,res)=>{
     const result= userSignup.safeParse(payload)
     
     if(!result.success){
-        res.json({
-            "message":"invalid Inputs"
+        const errorMessages=result.error.errors.map(err=>err.message);
+        const formattedErrorMessage = errorMessages.join('\n');
+        console.log(formattedErrorMessage);
+        res.status(411).json({
+            message: formattedErrorMessage
         })
         return
     }
@@ -25,7 +28,7 @@ router.post('/signup',async (req,res)=>{
    
 
     if(student.length===0){
-        res.json({
+        res.status(411).json({
             "message":"Please enter a valid email"
         })
         return
@@ -34,7 +37,7 @@ router.post('/signup',async (req,res)=>{
      const existingUser=await User.find({email:payload.email})
 
      if(existingUser.length>0){
-        res.json({
+        res.status(411).json({
             "message":"User already exists"
         })
         return
@@ -71,13 +74,15 @@ router.post('/signup',async (req,res)=>{
 //login
 router.post('/signin',async(req,res)=>{
     const payload=req.body;
+  
+ 
     
     const result=userSignin.safeParse(payload);
     if(!result.success){
-        res.json({
-            "message":"Invalid inputs"
-           
+        res.status(411).json({
+            message: "Error while logging in",     
         })
+    
         return
     }
 
@@ -87,7 +92,7 @@ router.post('/signin',async(req,res)=>{
     })
 
     if(!existingUser){
-        res.json({
+        res.status(411).json({
             "message":"Invalid Credentials"
         })
         return

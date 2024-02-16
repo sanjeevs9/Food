@@ -142,11 +142,10 @@ res.json({
 });
 
 //menu get
-router.get(('/item'), middleware,async(req,res)=>{
-    const UserId=req.UserId;
-   
-    const menu=await Menu.find({userId:UserId},'foodName price')
-    res.json(menu)
+router.get(('/item'),async(req,res)=>{ 
+   const UserId=req.query.id
+    const menu=await Menu.find({userId:UserId},'foodName price imgUrl')
+    res.send(menu);
 })
 
 
@@ -166,6 +165,15 @@ router.get('/filter', async (req, res) => {
 
     res.json(shops);
 });
+
+//get Resturant Details
+router.get('/detail',async(req,res)=>{
+    const UserId=req.query.id;
+    const detail=await Seller.findOne({_id:UserId},'shopName phoneNumber')
+   res.send(detail);
+
+})
+
 
 //update Image
 router.post('/updateimg',middleware,async(req,res)=>{

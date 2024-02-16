@@ -1,9 +1,31 @@
 import logo from "../../../public/Front/logo.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Search from "./Search";
+import { useRecoilValue } from "recoil";
+import { cartSize } from "../../atoms/cartState";
+import Cart from "../Cart";
 
-export default function Navbar() {
+export default function Navbar({className}) {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+  const length=useRecoilValue(cartSize);
+  const [portal,setPortal]=useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+  function help(){
+    setPortal(!portal);
+  }
+
+  const handleItemClick = (itemName) => {
+    // Handle item click here, for example, navigate to a different page or perform an action
+    console.log(`Clicked on ${itemName}`);
+    // For demonstration purposes, let's close the dropdown when an item is clicked
+    setIsOpen(false);
+  };
+
   return (
     <>
       <div className=" flex flex-row justify-between p-1 pr-16 pl-10 sm:pl-16 bg-">
@@ -11,14 +33,15 @@ export default function Navbar() {
           <img src={logo} className="h-16 w-16"></img>
         </div>
         <div className="hidden sm:flex justify-center items-center ">
-      <Search  className={"w-60 lg:w-96"}/>
+      <Search  className={`${className}`}/>
       </div>
+     
+      <Cart portal={portal} fn={help}/>
+      
         <div className="p-4 flex w-44 sm:w-52 md:w-80 lg:w-96">
           <ul className="flex justify-between w-full">
             <li className="flex cursor-pointer"
-            onClick={() => {
-                  navigate("/user");
-                }}>
+            onClick={toggleDropdown}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -38,6 +61,28 @@ export default function Navbar() {
                 User
               </span>
             </li>
+            <div className={`absolute bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4 ${isOpen ? 'block' : 'hidden'}`} id="dropdown">
+          <div className="px-4 py-3">
+            <span className="block text-sm">Bonnie Green</span>
+            <span className="block text-sm font-medium text-gray-900 truncate">name@flowbite.com</span>
+          </div>
+          <ul className="py-1" aria-labelledby="dropdown">
+            <li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Dashboard')}>Dashboard</button>
+            </li>
+            <li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Settings')}>Settings</button>
+            </li>
+            <li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Earnings')}>Earnings</button>
+            </li>
+            <li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Sign out')}>Sign out</button>
+            </li>
+          </ul>
+         
+        </div>
+            
             <li className="hidden md:flex cursor-pointer" onClick={() => {
                   navigate("/help");
                 }}>
@@ -58,9 +103,7 @@ export default function Navbar() {
               <span className="cursor-pointer"
                 >Help</span>
             </li>
-            <li className=" flex cursor-pointer"  onClick={() => {
-                  navigate("/cart");
-                }}>
+            <li className=" flex cursor-pointer"  onClick={help}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -77,7 +120,9 @@ export default function Navbar() {
               </svg>
               <span className="cursor-pointer"
                >Cart</span>
+               <div className={`bg-red-500 h-7 w-7 absolute rounded-full text-white flex justify-center items-center font-extrabold text-sm ${length===0?`hidden` : `flex`}`} style={{ top: '35px', right: '100px' }}>{length}</div>
             </li>
+           
           </ul>
         </div>
       </div>

@@ -3,7 +3,7 @@ const jwt=require('jsonwebtoken')
 
 const middleware=((req,res,next)=>{
     const response=req.headers.authorization;
-        console.log(response)
+        
     if(!response || !response.startsWith('Bearer')){
         res.sendStatus(403);
         return;

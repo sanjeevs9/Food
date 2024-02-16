@@ -19,6 +19,7 @@ import Search from './Components/User/Search';
 import Footer from './Components/Footer';
 import Sdashoard from './Components/Seller/Sdashboard';
 import AddMenu from './Components/Seller/Addmenu';
+import Order from './Components/User/Order';
 
 function App() {
 
@@ -35,8 +36,9 @@ function App() {
       <Route path='/user' element={<Dashboard/>}/>
       <Route path='/addmenu' element={<AddMenu/>}/>
       <Route path='/vendor' element={<Sdashoard/>}/>
+      <Route path='/order' element={<Order/>}/>
       {/* <Route path='/*' element={<Resturant name="Uncles Cafe" description="New Fast Food Chain" imgUrl="https://static.vecteezy.com/system/resources/previews/023/010/452/non_2x/the-fast-food-meal-in-the-black-background-with-ai-generated-free-photo.jpg"/>}/> */}
-      <Route path="/*" element={<Sdashoard/>}/>
+      {/* <Route path="/*" element={<Order/>}/> */}
       
      
     </Routes>

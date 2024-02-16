@@ -7,8 +7,6 @@ import Navbar from "./Navbar";
 import Search from "./Search";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import DropDown from "../DropDown";
-import DropdownButton from "./DropdownButton";
 
 
 

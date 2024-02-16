@@ -1,16 +1,23 @@
 
 import { useEffect, useState } from "react";
-import { useSearchParams,useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+import axios from "axios"
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userState } from "../../atoms/userState";
 
 
 export default function Search({ className }) {
 const[filter,setfilter]=useState("");
 const [param, setParam] = useSearchParams();
-const location = useLocation();
+
+const token=localStorage.getItem("token");
+    const[user,setuser]=useRecoilState(userState);
 
 useEffect(() => {
     setParam({ filter: filter }); 
   }, [filter]);
+
+
 
 
   return (

@@ -1,16 +1,35 @@
 import logo from "../../../public/Front/logo.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Search from "./Search";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue,useRecoilState } from "recoil";
 import { cartSize } from "../../atoms/cartState";
 import Cart from "../Cart";
+import axios from "axios"
+import { userState } from "../../atoms/userState";
+
 
 export default function Navbar({className}) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const length=useRecoilValue(cartSize);
   const [portal,setPortal]=useState(false);
+
+  const token=localStorage.getItem("token");
+    const[user,setuser]=useRecoilState(userState);
+
+  useEffect(()=>{
+    axios.get("http://192.168.1.247:3000/food/user/getUser",
+    {
+      headers:{
+        authorization:token
+      }
+    }
+    )
+    .then(res=>{
+      setuser(res.data)
+    })
+  },[])
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -19,12 +38,10 @@ export default function Navbar({className}) {
     setPortal(!portal);
   }
 
-  const handleItemClick = (itemName) => {
-    // Handle item click here, for example, navigate to a different page or perform an action
-    console.log(`Clicked on ${itemName}`);
-    // For demonstration purposes, let's close the dropdown when an item is clicked
-    setIsOpen(false);
-  };
+function handle(){
+  localStorage.clear()
+  navigate('/signin')
+}
 
   return (
     <>
@@ -40,7 +57,7 @@ export default function Navbar({className}) {
       
         <div className="p-4 flex w-44 sm:w-52 md:w-80 lg:w-96">
           <ul className="flex justify-between w-full">
-            <li className="flex cursor-pointer"
+            <li className=" relative flex cursor-pointer"
             onClick={toggleDropdown}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,23 +78,19 @@ export default function Navbar({className}) {
                 User
               </span>
             </li>
-            <div className={`absolute bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4 ${isOpen ? 'block' : 'hidden'}`} id="dropdown">
+            <div className={` absolute transform translate-y-4 bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4 ${isOpen ? 'block' : 'hidden'}`} id="dropdown">
           <div className="px-4 py-3">
-            <span className="block text-sm">Bonnie Green</span>
-            <span className="block text-sm font-medium text-gray-900 truncate">name@flowbite.com</span>
+            <span className="block text-sm">{user.firstName}  {user.lastName}</span>
+            <span className="block text-xs font-medium text-gray-900 truncate">{user.email}</span>
           </div>
           <ul className="py-1" aria-labelledby="dropdown">
+          
             <li>
-              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Dashboard')}>Dashboard</button>
-            </li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " >Settings</button>
+              </li>
+           
             <li>
-              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Settings')}>Settings</button>
-            </li>
-            <li>
-              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Earnings')}>Earnings</button>
-            </li>
-            <li>
-              <button className="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2" onClick={() => handleItemClick('Sign out')}>Sign out</button>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4"  onClick={handle}>Sign out</button>
             </li>
           </ul>
          

@@ -9,7 +9,7 @@ export default function Sdashoard(){
 
     useEffect(()=>{
         console.log(token);
-        axios.get("http://192.168.1.247:3000/food/seller/item",
+        axios.get("http://192.168.1.247:3000/food/seller/itemm",
         {headers:{
                 Authorization:token
             }}

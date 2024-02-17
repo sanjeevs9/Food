@@ -56,16 +56,7 @@ export default function Front() {
                 )}
               </li>
             </ul>
-            {/* <button className=' bg-red-600 rounded-lg font-semibold w-11  cursor-pointer h-7 text-white sm:hidden' onClick={()=>{
-                                setdrop(!drop)
-                            }}>
-                            Join
-                            </button>
-                            {drop && (
-            <div className="absolute mx-48 my-8 h-64 w-32">
-            <DropDown/>
-                 </div>
-                    )} */}
+           
             <div className="sm:hidden">
               <DropDown />
             </div>

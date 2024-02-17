@@ -5,6 +5,7 @@ const jwt=require('jsonwebtoken')
 const {userSignup, userSignin} =require('../zod'); 
 const JWT_SECRET=require("../config");
 const bcrypt = require("bcryptjs")
+const {middleware}= require('../middleware')
 
 const router = express.Router();
 
@@ -115,6 +116,16 @@ router.post('/signin',async(req,res)=>{
         "message":"Successfully Logined",
         "token":token
     })
+})
+
+//get user detail
+router.get('/getUser',middleware, async (req,res)=>{
+    const UserId=req.UserId;
+    const user=await User.findOne({_id:UserId})
+    if(user){
+        res.send(user)
+
+    }
 })
 
 

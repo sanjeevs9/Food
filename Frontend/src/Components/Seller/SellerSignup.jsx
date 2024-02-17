@@ -13,6 +13,7 @@ export default function SellerSignup(){
     const[password,setpassword]=useState("");
     const[imgUrl,setimgUrl]=useState("");
     const[description,setdescription]=useState("");
+    const navigate=useNavigate();
 
     async function handle(){
         await axios.post("http://192.168.1.247:3000/food/seller/create",
@@ -22,11 +23,10 @@ export default function SellerSignup(){
             phoneNumber:(Number)(phone),
             imgUrl,
             description
-        }
-        )
+        })
         .then(res=>{
             alert(res.data.message);
-            localStorage.setItem("token",`Bearer ${res.data.token}`)
+            navigate('/otp')
         })
         .catch(error => {
             alert(error.response.data.message)
@@ -34,8 +34,6 @@ export default function SellerSignup(){
         })
     }
 
-
-    const navigate =useNavigate();
     return(
         <>
          <div className="min-h-screen p-1 ">

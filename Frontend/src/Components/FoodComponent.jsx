@@ -87,7 +87,7 @@ export default function FoodComponent({
       </button>
     </div>
     </div>
-    <button className="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 active:bg-blue-700 disabled:opacity-50 mt-4 w-full flex items-center justify-center"
+    <button className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 active:bg-red-600 disabled:opacity-50 mt-4 w-full flex items-center justify-center"
     onClick={onClick}>
       Add Item
       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

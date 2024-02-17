@@ -6,8 +6,14 @@ const { route } = require('./user');
 const JWT_SECRET=require("../config");
 const {middleware}= require('../middleware')
 
+const accountSid = 'ACb11c02b5c89f6ab7a7d4b7f9d3bfd40d';
+const authToken = '861513b7fde1394b480c2e67698b4b10';
+const client = require('twilio')(accountSid, authToken);
+
 
 const router = express.Router();
+let otp='';
+let tempSeller={};
 
 //create Seller acc
 router.post('/create',async (req,res)=>{
@@ -33,16 +39,58 @@ router.post('/create',async (req,res)=>{
         return
     }
 
+    otp='';
+  for (let i = 0; i < 4; i++) {
+    otp += Math.floor(Math.random() * 10);
+  }
+
+  //dummy otp json
+  tempSeller = payload;
+  res.json({
+    "message":"dummy otp sended"
+  })
+//   client.messages
+//     .create({
+//         body: `Your verification OTP is ${otp}`,
+//         from: '+14782237838',
+//         to: `+919523001333`
+//     })
+//     .then(response=>{
+//         res.json({
+//             "message":`OTP send on ${payload.phoneNumber}` 
+//         })
+//     })
+//     .catch((error) => {
+//         console.error(error);
+//         res.status(500).json({
+//           "message": "Failed to send OTP"
+//         });
+//       })
+})
+
+
+router.post('/verify',async(req,res)=>{
+    let OTP=req.body.otp;
+    //dummy otp check
+     OTP=otp
+    if(OTP!==otp){
+        res.status(411).json({
+            "message":"Wrong Otp"
+        })
+        return
+    }
+   
+
     await Seller.create({
-        phoneNumber:payload.phoneNumber,
-        password:payload.password,
-        shopName:payload.shopName,
-        imgUrl:payload.imgUrl,
-        description:payload.description
+        phoneNumber:tempSeller.phoneNumber,
+        password:tempSeller.password,
+        shopName:tempSeller.shopName,
+        imgUrl:tempSeller.imgUrl,
+        description:tempSeller.description
     })
 
     const seller=await Seller.findOne({
-        phoneNumber:payload.phoneNumber
+        phoneNumber:tempSeller.phoneNumber
     })
    
 
@@ -56,7 +104,7 @@ router.post('/create',async (req,res)=>{
     })
 
     res.json({
-        "message":"Account created",
+        "message":"Otp verified",
         "token":token
     })
 
@@ -141,12 +189,22 @@ res.json({
 })
 });
 
-//menu get
+//menu get on user interface
 router.get(('/item'),async(req,res)=>{ 
    const UserId=req.query.id
     const menu=await Menu.find({userId:UserId},'foodName price imgUrl')
     res.send(menu);
 })
+
+
+//menu get on seller interface
+router.get(('/itemm'),middleware,async(req,res)=>{ 
+    const UserId=req.UserId
+     const menu=await Menu.find({userId:UserId},'foodName price imgUrl')
+     res.send(menu);
+ })
+
+
 
 
 

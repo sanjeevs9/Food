@@ -6,6 +6,8 @@ import FoodComponent from "../FoodComponent";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { cartState, costState, numberState } from "../../atoms/cartState";
 import { useLocation } from "react-router-dom";
+import burger from '../../../public/food/p9.png'
+import pizza from '../../../public/food/p12.png'
 
 export default function Order() {
   const token = localStorage.getItem("token");
@@ -51,13 +53,28 @@ export default function Order() {
   return (
     <>
       <div className="pl-10 pr-10 ">
+      <div
+          className="absolute inset-0 bg-no-repeat bg-left-top filter blur-[6px] z-[-1] translate-y-10"
+          style={{
+            backgroundImage: `url(${burger})`,
+            backgroundSize: "300px",
+          }}
+        ></div>
+
+        <div
+          className="absolute inset-0 bg-no-repeat bg-right-bottom filter blur-[6px] z-[-1]"
+          style={{
+            backgroundImage: `url(${pizza})`,
+            backgroundSize: "300px",
+          }}
+        ></div>
         <Navbar className="w-60 xl:w-80" />
         <div className="pl-10 pr-10">
-          <div className="bg-red-100 pl-20 pr-20 min-h-screen">
-            <div className=" flex flex-col justify-center items-center pb-7">
-              <div className="text-2xl pt-5">{detail ? detail.shopName : "Loading..."}</div>
+          <div className="bg-[#fff7ed] pl-20 pr-20 min-h-screen">
+            <div className=" flex flex-col  pb-7">
+              <div className="text-2xl pt-5 font-bold">{detail ? detail.shopName : "Loading..."}</div>
               <div className="pt-1">
-                <span>Contact no. :</span>{detail ? detail.phoneNumber : "Loading ..."}
+                <span>Contact no: </span>{detail ? detail.phoneNumber : "Loading ..."}
               </div>
             </div>
             <hr class="h-px my-8 bg-gray-600 border-0"></hr>

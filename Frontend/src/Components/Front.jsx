@@ -8,12 +8,41 @@ import burger from "../../public/food/p9.png";
 import pizza from "../../public/food/p12.png";
 import thali from "../../public/front/thali.png";
 import { useState } from "react";
+import axios from "axios"
 
 import man from "../../public/work/man.png.png";
 import DropDown from "./DropDown";
+import { useNavigate } from "react-router-dom";
 
 export default function Front() {
   const [drop, setdrop] = useState(false);
+  const token=localStorage.getItem("token");
+  const navigate=useNavigate();
+
+async function handle(){
+  if(!token){
+    alert("Please Login or Create Your account")
+    return;
+  }
+  await axios.post('http://192.168.1.247:3000/food/local',{},
+  {
+    headers:{
+      Authorization:token
+    }
+  }
+  )
+  .then(res=>{
+    {res.data==="user"?navigate("/user"):navigate("/vendor")}
+  })
+  .catch((error)=>{
+    alert(error.response.data.message)
+    console.log(error.response.data.message);
+  })
+ 
+}
+
+
+
   return (
     <>
       <div className=" min-h-screen p-16">
@@ -37,7 +66,7 @@ export default function Front() {
           <div className="flex p-12 justify-between">
             <img src={logo} className="h-10 w-10"></img>
             <ul className="hidden sm:flex gap-10 pr-2 ">
-              <li className="cursor-pointer">Home</li>
+              <li className="cursor-pointer" onClick={handle}>Home</li>
               <li className="cursor-pointer">Contact Us</li>
               {/* <li className=>Join</li> */}
               <li>

@@ -41,6 +41,7 @@ export default function FoodComponent({
         {id,name,quantity:number,cost,imageUrl}
       ])
     }
+    console.log(cart)
    }
 
     useEffect(() => {

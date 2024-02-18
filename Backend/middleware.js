@@ -3,16 +3,21 @@ const jwt=require('jsonwebtoken')
 
 const middleware=((req,res,next)=>{
     const response=req.headers.authorization;
+    console.log(response)
         
     if(!response || !response.startsWith('Bearer')){
-        res.sendStatus(403);
+        res.status(403).json({
+            "message":"Please Login or Create Your account"
+        });
         return;
     }
 
     const token=response.split(' ')[1];
     const decoded=jwt.verify(token,JWT_SECRET);
     if(!decoded){
-        res.sendStatus(403);
+        res.status(403).json({
+            "message":"Please Login or Create Your account"
+        });
         return
     }
 

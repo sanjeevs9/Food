@@ -13,7 +13,7 @@ export default function Navbar({className}) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const length=useRecoilValue(cartSize);
-  const [portal,setPortal]=useState(false);
+  const [open,setopen]=useState(false);
 
   const token=localStorage.getItem("token");
     const[user,setuser]=useRecoilState(userState);
@@ -35,7 +35,7 @@ export default function Navbar({className}) {
     setIsOpen(!isOpen);
   };
   function help(){
-    setPortal(!portal);
+    setopen(!open);
   }
 
 function handle(){
@@ -53,7 +53,7 @@ function handle(){
       <Search  className={`${className}`}/>
       </div>
      
-      <Cart portal={portal} fn={help}/>
+      <Cart open={open} fn={help}/>
       
         <div className="p-4 flex w-44 sm:w-52 md:w-80 lg:w-96">
           <ul className="flex justify-between w-full">
@@ -84,7 +84,10 @@ function handle(){
             <span className="block text-xs font-medium text-gray-900 truncate">{user.email}</span>
           </div>
           <ul className="py-1" aria-labelledby="dropdown">
-          
+          <li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={
+                ()=>{navigate('/orderhistory')}}>My order</button>
+              </li>
             <li>
               <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " >Settings</button>
               </li>

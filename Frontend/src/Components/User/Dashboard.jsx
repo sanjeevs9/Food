@@ -7,12 +7,15 @@ import Navbar from "./Navbar";
 import Search from "./Search";
 import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { filterState } from "../../atoms/filterState";
+import { NETWORK } from "../../../network";
 
 
 
 export default function Dashboard() {
   const [resturant, setresturant] = useState([]);
-  const[param, setParam] = useSearchParams();
+ const[filter,setfilter]=useRecoilState(filterState)
   const navigate=useNavigate();
 
     function handle(x){
@@ -24,12 +27,7 @@ export default function Dashboard() {
   //all shopname
   useEffect(() => {
     axios
-      .get("http://192.168.1.247:3000/food/seller/filter",
-      {
-        params: {
-          filter: param.get("filter"),
-        },
-      })
+      .get(`${NETWORK}:3000/food/seller/filter?filter=${filter}`)
       .then((res) => {
         console.log(res.data);
         setresturant(res.data);
@@ -38,7 +36,7 @@ export default function Dashboard() {
       .catch((error) => {
         console.log(error);
       });
-  }, [param.get("filter")]);
+  }, [filter]);
 
 
 

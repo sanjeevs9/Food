@@ -3,7 +3,7 @@ import plate from '../../public/Plate.svg'
 export default function Resturant({ name, description, imgUrl,onClick }) {
   return (
     <>
-     <div onClick={onClick} className='cursor-pointer'>
+     <div onClick={onClick} className='cursor-pointer transform motion-safe:hover:scale-105'>
       <div className="flex flex-col h-60 w-52 ">
         <div
           className="h-44 rounded-xl w-full bg-cover bg-center"

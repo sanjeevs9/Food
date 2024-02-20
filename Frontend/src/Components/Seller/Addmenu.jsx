@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { NETWORK } from "../../../network";
 
 export default function AddMenu() {
   const [details, setdetails] = useState({ foodName: "", price: "", url: "" });
@@ -7,7 +8,7 @@ export default function AddMenu() {
 
   async function click() {
     console.log(token)
-   await  axios.post("http://192.168.1.247:3000/food/seller/menu", 
+   await  axios.post(`${NETWORK}:3000/food/seller/menu`, 
     {
         foodName: details.foodName,
         price: (Number)(details.price),

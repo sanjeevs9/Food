@@ -4,6 +4,7 @@ import pizza from '../../../public/food/p12.png'
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 import { useEffect, useState } from 'react';
+import { NETWORK } from '../../../network';
 
 export default function Signin(){
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ export default function Signin(){
     const[password,setpassword]=useState("");
 
     async function handle(){
-        await axios.post("http://192.168.1.247:3000/food/user/signin",
+        await axios.post(`${NETWORK}:3000/food/user/signin`,
         {
             email,
             password

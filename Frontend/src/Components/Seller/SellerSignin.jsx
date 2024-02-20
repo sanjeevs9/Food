@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import { useState } from 'react'
+import { NETWORK } from '../../../network'
 
 
 
@@ -15,7 +16,7 @@ export default function SellerSignin(){
 
     async function handle(){
        
-        await axios.post("http://192.168.1.247:3000/food/seller/signin",
+        await axios.post(`${NETWORK}:3000/food/seller/signin`,
         {
             phoneNumber:(Number)(phone),
             password

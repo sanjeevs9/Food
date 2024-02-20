@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
+import { NETWORK } from '../../../network';
 
 export default function Otp() {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '']); 
@@ -18,7 +19,7 @@ export default function Otp() {
     const code = verificationCode.join(''); 
     console.log('Verifying code:', code);
     
-    axios.post("http://192.168.1.247:3000/food/seller/verify",
+    axios.post(`${NETWORK}:3000/food/seller/verify`,
     {
         otp:code
     }

@@ -8,6 +8,7 @@ import { cartState, costState, numberState } from "../../atoms/cartState";
 import { useLocation } from "react-router-dom";
 import burger from '../../../public/food/p9.png'
 import pizza from '../../../public/food/p12.png'
+import { NETWORK } from "../../../network";
 
 export default function Order() {
   const token = localStorage.getItem("token");
@@ -28,7 +29,7 @@ export default function Order() {
   //get items for resturant
   useEffect(() => {
     axios
-      .get(`http://192.168.1.247:3000/food/seller/item?id=${rest}`)
+      .get(`${NETWORK}:3000/food/seller/item?id=${rest}`)
       .then((res) => {
         setitem(res.data);
       })
@@ -40,7 +41,7 @@ export default function Order() {
   //get resturant details
   useEffect(() => {
     axios
-      .get(`http://192.168.1.247:3000/food/seller/detail?id=${rest}`)
+      .get(`${NETWORK}:3000/food/seller/detail?id=${rest}`)
       .then((res) => {
         setdetail(res.data);
       })

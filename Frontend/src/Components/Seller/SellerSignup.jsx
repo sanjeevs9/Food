@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import burger from '../../../public/food/p9.png'
 import { useState } from 'react'
+import { NETWORK } from '../../../network'
 
 export default function SellerSignup(){
     const[ShopName,setSopName]=useState("")
@@ -16,7 +17,7 @@ export default function SellerSignup(){
     const navigate=useNavigate();
 
     async function handle(){
-        await axios.post("http://192.168.1.247:3000/food/seller/create",
+        await axios.post(`${NETWORK}:3000/food/seller/create`,
         {
             shopName:ShopName,
             password,

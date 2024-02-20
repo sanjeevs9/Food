@@ -4,6 +4,7 @@ import pizza from '../../../public/food/p12.png'
 import { useNavigate } from 'react-router-dom';
 import  { useState } from "react"
 import axios from "axios";
+import { NETWORK } from '../../../network';
 
 export default function Signup(){
     const[firstname,setfirstname]=useState("");
@@ -13,7 +14,7 @@ export default function Signup(){
     const[phone,setphone]=useState(0);
 
 async function handle(){
-    await axios.post('http://192.168.1.247:3000/food/user/signup',
+    await axios.post(`${NETWORK}:3000/food/user/signup`,
         {
             firstName:firstname,
             lastName:lastname,

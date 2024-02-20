@@ -4,21 +4,11 @@ import { useSearchParams } from "react-router-dom";
 import axios from "axios"
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userState } from "../../atoms/userState";
+import { filterState } from "../../atoms/filterState";
 
 
 export default function Search({ className }) {
-const[filter,setfilter]=useState("");
-const [param, setParam] = useSearchParams();
-
-const token=localStorage.getItem("token");
-    const[user,setuser]=useRecoilState(userState);
-
-useEffect(() => {
-    setParam({ filter: filter }); 
-  }, [filter]);
-
-
-
+const[filter,setfilter]=useRecoilState(filterState);
 
   return (
     <>
@@ -37,7 +27,7 @@ useEffect(() => {
         />
         <button
           type="submit"
-          className="text-white absolute end-2.5 bottom-2.5 bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 "
+          className="text-white absolute end-2.5 bottom-2.5 bg-red-600 hover:bg-red-700 active:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 "
         >
           Search
         </button>

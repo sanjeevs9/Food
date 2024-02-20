@@ -106,6 +106,18 @@ const userSchema=new mongoose.Schema({
         ref: 'Seller',
         required: true
       },
+      status:{
+        type:String,
+        required:true
+      },
+      cost:{
+        type:Number,
+        required:true
+      },
+      name:{
+      type:String,
+      required:true
+      },
       items: [{
         id: {
           type: mongoose.Schema.Types.ObjectId,

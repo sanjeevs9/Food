@@ -7,6 +7,7 @@ import { cartSize } from "../../atoms/cartState";
 import Cart from "../Cart";
 import axios from "axios"
 import { userState } from "../../atoms/userState";
+import { NETWORK } from "../../../network";
 
 
 export default function Navbar({className}) {
@@ -19,7 +20,7 @@ export default function Navbar({className}) {
     const[user,setuser]=useRecoilState(userState);
 
   useEffect(()=>{
-    axios.get("http://192.168.1.247:3000/food/user/getUser",
+    axios.get(`${NETWORK}:3000/food/user/getUser`,
     {
       headers:{
         authorization:token
@@ -57,7 +58,7 @@ function handle(){
       
         <div className="p-4 flex w-44 sm:w-52 md:w-80 lg:w-96">
           <ul className="flex justify-between w-full">
-            <li className=" relative flex cursor-pointer"
+            <li className=" relative flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."
             onClick={toggleDropdown}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -86,10 +87,17 @@ function handle(){
           <ul className="py-1" aria-labelledby="dropdown">
           <li>
               <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={
+                ()=>{navigate('/user')}
+              }>Home</button>
+              </li>
+          <li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={
                 ()=>{navigate('/orderhistory')}}>My order</button>
               </li>
             <li>
-              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " >Settings</button>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={
+                ()=>{navigate('/help')}
+              }>Settings</button>
               </li>
            
             <li>
@@ -99,7 +107,7 @@ function handle(){
          
         </div>
             
-            <li className="hidden md:flex cursor-pointer" onClick={() => {
+            <li className="hidden md:flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..." onClick={() => {
                   navigate("/help");
                 }}>
               <svg
@@ -119,7 +127,7 @@ function handle(){
               <span className="cursor-pointer"
                 >Help</span>
             </li>
-            <li className=" flex cursor-pointer"  onClick={help}>
+            <li className="relative flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."  onClick={help}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -136,7 +144,7 @@ function handle(){
               </svg>
               <span className="cursor-pointer"
                >Cart</span>
-               <div className={`bg-red-500 h-7 w-7 absolute rounded-full text-white flex justify-center items-center font-extrabold text-sm ${length===0?`hidden` : `flex`}`} style={{ top: '35px', right: '100px' }}>{length}</div>
+               <div className={`bg-red-500 h-7 w-7 absolute rounded-full text-white flex justify-center items-center font-extrabold text-sm transform translate-x-28 -translate-y-5 ${length===0?`hidden` : `flex`}`} style={{ top: '35px', right: '100px' }}>{length}</div>
             </li>
            
           </ul>

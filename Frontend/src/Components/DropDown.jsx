@@ -6,12 +6,12 @@ export default function DropDown(){
     return(
         <>
         <div className=" flex flex-col  bg-[#fff7ed] w-44  gap-2 p-4 rounded-lg border-[1px]">
-            <button className="text-white bg-red-600 rounded-md font-semibold p-2" onClick={
+            <button className="text-white bg-red-600 hover:bg-red-700 active:bg-red-600 rounded-md font-semibold p-2" onClick={
                 ()=>{navigate('/signup')}
             }>    
                 Join as user
             </button>
-            <button className=" text-white bg-red-600 rounded-md font-semibold p-2 "onClick={
+            <button className=" text-white bg-red-600 hover:bg-red-700 active:bg-red-600 rounded-md font-semibold p-2 "onClick={
                 ()=>{navigate('/create')}
             }>
             Join as Seller

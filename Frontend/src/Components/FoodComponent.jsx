@@ -52,7 +52,7 @@ export default function FoodComponent({
     return(
         <>
         <div>
-        <div className={`flex flex-col bg-white shadow rounded-lg  ${className}  w-56`} >
+        <div className={`flex flex-col bg-white shadow rounded-lg  ${className}  w-56 `} >
   <div className=" rounded-t-lg  h-32 w-full flex-grow bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center" style={{backgroundImage: `url('${imageUrl}')`}}>
 
    <div className="flex flex-col justify-end flex-grow ">

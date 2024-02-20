@@ -4,6 +4,8 @@ import { cartSize, cartState } from "../atoms/cartState";
 import { useState, useEffect } from "react";
 import axios from "axios"
 import EmptyCart from "../../public/EmptyCart.svg";
+import { NETWORK } from "../../network";
+import { userState } from "../atoms/userState";
 
 export default function Cart({ fn, open }) {
  
@@ -11,6 +13,7 @@ export default function Cart({ fn, open }) {
   const [cart, setCart] = useRecoilState(cartState);
   const [total, setTotal] = useState(0);
   const size = useRecoilValue(cartSize);
+  const user=useRecoilValue(userState)
  
   useEffect(() => {
     const newTotal = cart.reduce((total, item) => total + item.cost, 0);
@@ -31,10 +34,14 @@ export default function Cart({ fn, open }) {
 
 
   async function checkout(){
-    await axios.post("http://192.168.1.247:3000/food/order/create",
+    const name=user.firstName.concat(" ").concat(user.lastName);
+    await axios.post(`${NETWORK}:3000/food/order/create`,
     {
       sellerId:restra,
-      items:cart
+      cost:(Number)(total),
+      status:"placed",
+      items:cart,
+      name:name
     },{
       headers:{
         Authorization:token

@@ -22,6 +22,10 @@ import AddMenu from './Components/Seller/Addmenu';
 import Order from './Components/User/Order';
 import Otp from './Components/Seller/otp';
 import OrderHistory from './Components/User/OrderHistory';
+import Tabble from './Components/Seller/Table';
+import Smenu from './Components/Seller/Smenu';
+import Ssettings from './Components/Seller/Ssettings';
+import Saccount from './Components/Seller/Saccount';
 
 function App() {
 
@@ -41,8 +45,13 @@ function App() {
       <Route path='/order' element={<Order/>}/>
       <Route path='/otp' element={<Otp/>}/>
       <Route path='/orderhistory' element={<OrderHistory/>}/>
+      <Route path='/help' element={<Help/>}/>
+      <Route path='/smenu' element={<Smenu/>}/>
+      <Route path='/ssettings' element={<Ssettings/>}/>
+      <Route path='/saccount' element={<Saccount/>}/>
+      
       {/* <Route path='/*' element={<Resturant name="Uncles Cafe" description="New Fast Food Chain" imgUrl="https://static.vecteezy.com/system/resources/previews/023/010/452/non_2x/the-fast-food-meal-in-the-black-background-with-ai-generated-free-photo.jpg"/>}/> */}
-      <Route path="/*" element={<OrderHistory/>}/>
+      <Route path="/*" element={<Tabble/>}/>
       
      
     </Routes>

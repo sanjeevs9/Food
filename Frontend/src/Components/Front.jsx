@@ -13,6 +13,7 @@ import axios from "axios"
 import man from "../../public/work/man.png.png";
 import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
+import { NETWORK } from "../../network";
 
 export default function Front() {
   const [drop, setdrop] = useState(false);
@@ -24,7 +25,7 @@ async function handle(){
     alert("Please Login or Create Your account")
     return;
   }
-  await axios.post('http://192.168.1.247:3000/food/local',{},
+  await axios.post(`${NETWORK}:3000/food/local`,{},
   {
     headers:{
       Authorization:token
@@ -66,12 +67,12 @@ async function handle(){
           <div className="flex p-12 justify-between">
             <img src={logo} className="h-10 w-10"></img>
             <ul className="hidden sm:flex gap-10 pr-2 ">
-              <li className="cursor-pointer" onClick={handle}>Home</li>
-              <li className="cursor-pointer">Contact Us</li>
+              <li className="cursor-pointer" onClick={handle}>Dashboard</li>
+              <li className="cursor-pointer" onClick={()=>{navigate('/help')}}>Contact Us</li>
               {/* <li className=>Join</li> */}
               <li>
                 <button
-                  className=" bg-red-600 rounded-lg font-semibold w-11  cursor-pointer h-7 text-white"
+                  className=" bg-red-600 hover:bg-red-700 active:bg-red-600 rounded-lg font-semibold w-11  cursor-pointer h-7 text-white"
                   onClick={() => {
                     setdrop(!drop);
                   }}
@@ -105,7 +106,7 @@ async function handle(){
                   placeholder="Search Burger"
                   className="p-3 w-44 md:w-60 "
                 ></input>
-                <button className="bg-red-600 text-white p-3  w-20 md:w-28">
+                <button className="bg-red-600 hover:bg-red-700 active:bg-red-600 text-white p-3  w-20 md:w-28">
                   Search
                 </button>
               </div>

@@ -10,7 +10,7 @@ router.post('',middleware,async(req,res)=>{
     if(!user){
         user=await  Seller.findOne({_id:UserId})
         if(!user){
-            res.send(411).json({
+            res.status(411).json({
                 "message":"Please Login"
             })
             return

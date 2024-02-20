@@ -58,6 +58,18 @@ router.get('/sget',middleware,async(req,res)=>{
     })
 })
 
+//update status
+router.put('/put',async (req,res)=>{
+    const orderId=req.body.id;
+    const status=req.body.status;
+
+    const order=await Order.updateOne(
+        {_id:orderId},
+        { $set:{status:status}}
+    )
+    console.log(order)
+})
+
 
 
 module.exports=router;

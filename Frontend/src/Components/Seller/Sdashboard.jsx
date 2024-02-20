@@ -6,6 +6,9 @@ import Sidebar from "./Sidebar";
 import Table from "./Table";
 
 export default function Sdashoard(){
+    
+
+
     return (
         <>
        <div className="relative bg-[#fff7ed] overflow-hidden min-h-screen flex justify-center sm:gap-64 sm:p-4"> 

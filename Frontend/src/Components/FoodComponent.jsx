@@ -12,11 +12,11 @@ export default function FoodComponent({
 })
 {
 
-    const [number, setNumber] = useRecoilState(numberState(id));
-    const [cost,setcost]=useRecoilState(costState(id));
+    // const [number, setNumber] = useRecoilState(numberState(id));
+    // const [cost,setcost]=useRecoilState(costState(id));
 
-    // const[number,setNumber]=useState(1);
-    // const[cost,setcost]=useState(price);
+    const[number,setNumber]=useState(1);
+    const[cost,setcost]=useState(price);
     const[cart,setCart]=useRecoilState(cartState);
     const size=useRecoilValue(cartSize);
    

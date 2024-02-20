@@ -1,29 +1,51 @@
 import { useState,useEffect, Children } from "react";
 import axios from "axios"
 import { NETWORK } from "../../../network";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import Skeleton from "./Skeleton";
+import { statusState } from "../../atoms/statusState";
 
 export default function Tabble() {
   const [data, setData] = useState([]);
+  const[loading,setloading]=useState(true)
   const token = localStorage.getItem("token");
+  const [refresh, setRefresh] = useState(0);
+
+  const handleSelectChange = (event, id) => {
+    const newStatus = event.target.value;
+  
+    axios.put(`${NETWORK}:3000/food/order/put`, 
+    { id, status: newStatus })
+    
+      // Update the status of the order in the data state
+      setData(data.map(item => {
+        if (item._id === id) {
+          return { ...item, status: newStatus };
+        }
+        return item;
+      }));
+      // setRefresh(prevRefresh => prevRefresh + 1);
+   
+  };
+
+
+  
 
   useEffect(() => {
+    console.log(refresh)
     axios.get(`${NETWORK}:3000/food/order/sget`, { headers: { Authorization: token } })
       .then(res => {
         setData(res.data.list);
+        setloading(!loading)
       })
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [refresh]);
 
-  return <Childcomp data={data} />;
-}
-
- function Childcomp({data}){
-
-
-
+  if(loading){
+    return <Skeleton style={{ width: '100%' }} />;
+    }
 
 const format = (createdAt) => {
   const createdAtDate = new Date(createdAt);
@@ -80,6 +102,7 @@ return(
   <div className="flex items-center gap-3">
     <div className="flex flex-col">
       {
+        
         items.items.map((item)=>(
           <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">{item.name}-{item.quantity}</p>
         ))
@@ -100,11 +123,43 @@ return(
   </div>
 </td>
 <td className="p-4 border-b border-blue-gray-50">
-  <div className="w-max">
+  {/* <div className="w-max">
     <div className="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md" style={{ opacity: 1 }}>
       <span className="">{items.status}</span>
     </div>
-  </div>
+  </div> */}
+  {
+    <div>
+      {items.status ==="completed" ? (
+        <div className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md" style={{ opacity: 1 }}>
+        Completed
+      </div>
+      ): items.status ==="rejected"?(
+        <div className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-600 py-1 px-2 text-xs rounded-md" style={{ opacity: 1 }}>
+        Rejected
+      </div>
+      ):items.status ==="accepted"?(
+        <select onChange={(event)=>{handleSelectChange(event,items._id)}} value={items.status} className={`${items.status==="completed" || items.status==="rejected"?`hidden`:`flex`}`} id={items._id}>
+        <option value="">SELECT</option>
+        <option value="completed">Completed</option>
+        </select>
+      ):(
+        <select onChange={(event)=>{handleSelectChange(event,items._id)}} value={items.status} className={`${items.status==="completed" || items.status==="rejected"?`hidden`:`flex`}`} id={items._id}>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+        <option value="accepted">Accepted</option>
+        <option value="rejected">Rejected</option>
+      </select>
+       
+      
+      )}
+    </div>
+    
+    
+  }
+
+
+      
 </td>
 <td className="p-4 border-b border-blue-gray-50">
   <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">{format(items.createdAt)}</p>

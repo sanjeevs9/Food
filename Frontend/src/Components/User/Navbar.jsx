@@ -41,12 +41,12 @@ export default function Navbar({className}) {
 
 function handle(){
   localStorage.clear()
-  navigate('/signin')
+  navigate('/')
 }
 
   return (
     <>
-      <div className=" flex flex-row justify-between p-1 pr-16 pl-10 sm:pl-16 bg-">
+      <div className=" flex flex-row justify-between p-1 pr-16 pl-10 sm:pl-16">
         <div className="">
           <img src={logo} className="h-16 w-16"></img>
         </div>
@@ -89,6 +89,11 @@ function handle(){
               <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={
                 ()=>{navigate('/user')}
               }>Home</button>
+              </li>
+              <li>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={
+                ()=>{navigate('/wallet')}
+              }>My Wallet</button>
               </li>
           <li>
               <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={

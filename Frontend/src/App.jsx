@@ -26,6 +26,7 @@ import Tabble from './Components/Seller/Table';
 import Smenu from './Components/Seller/Smenu';
 import Ssettings from './Components/Seller/Ssettings';
 import Saccount from './Components/Seller/Saccount';
+import Wallet from './Components/User/Wallet';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
       <Route path='/smenu' element={<Smenu/>}/>
       <Route path='/ssettings' element={<Ssettings/>}/>
       <Route path='/saccount' element={<Saccount/>}/>
+      <Route path='/wallet' element={<Wallet/>}/>
       
       {/* <Route path='/*' element={<Resturant name="Uncles Cafe" description="New Fast Food Chain" imgUrl="https://static.vecteezy.com/system/resources/previews/023/010/452/non_2x/the-fast-food-meal-in-the-black-background-with-ai-generated-free-photo.jpg"/>}/> */}
       <Route path="/*" element={<Tabble/>}/>

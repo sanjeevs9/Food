@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import logo from "../../../public/Front/logo.png"
+import logo from "../../../public/Front/logo.png";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -9,18 +9,18 @@ export default function Sidebar() {
         <div className="flex flex-col justify-between h-full">
           <div className="flex-grow">
             <div className="px-4 py-6 text-center border-b flex">
-            <img src={logo} className="h-16 w-16"></img>
-            <div className="flex pt-6">
-              <h1 className="text-xl font-bold leading-none ">
-                <span className="text-yellow-700">Food2</span> You
-              </h1>
+              <img src={logo} className="h-16 w-16"></img>
+              <div className="flex pt-6">
+                <h1 className="text-xl font-bold leading-none ">
+                  <span className="text-yellow-700">Food2</span> You
+                </h1>
               </div>
             </div>
             <div className="p-4">
               <ul className="space-y-1">
                 <li>
                   <button
-                    className="flex items-center hover:bg-yellow-200 rounded-xl font-bold text-sm text-yellow-900 py-3 px-4 w-full"
+                    className="flex items-center hover:bg-yellow-200 rounded-xl font-bold text-sm  py-3 px-4 w-full"
                     onClick={() => {
                       navigate("/vendor");
                     }}
@@ -39,10 +39,12 @@ export default function Sidebar() {
                   </button>
                 </li>
                 <li>
-                  <button className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
-                  onClick={() => {
-                    navigate("/smenu");
-                  }}>
+                  <button
+                    className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900  py-3 px-4 w-full"
+                    onClick={() => {
+                      navigate("/smenu");
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="1em"
@@ -57,10 +59,12 @@ export default function Sidebar() {
                   </button>
                 </li>
                 <li>
-                  <button className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
-                  onClick={() => {
-                    navigate("/ssettings");
-                  }}>
+                  <button
+                    className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
+                    onClick={() => {
+                      navigate("/ssettings");
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="1.25em"
@@ -84,10 +88,12 @@ export default function Sidebar() {
                   </button>
                 </li>
                 <li>
-                  <button className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
-                  onClick={() => {
-                    navigate("/saccount");
-                  }}>
+                  <button
+                    className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
+                    onClick={() => {
+                      navigate("/saccount");
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="1.25em"
@@ -105,6 +111,32 @@ export default function Sidebar() {
                     My Account
                   </button>
                 </li>
+                <li>
+                  <button
+                    className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
+                    onClick={() => {
+                      navigate("/ssettings");
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 mr-4"
+                      
+                      
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
+                      />
+                    </svg>
+                    My Wallet
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -112,6 +144,10 @@ export default function Sidebar() {
             <button
               type="button"
               className="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition"
+              onClick={() => {
+                localStorage.clear();
+                navigate("/");
+              }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

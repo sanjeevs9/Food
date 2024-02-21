@@ -5,7 +5,8 @@ const jwt=require('jsonwebtoken')
 const {userSignup, userSignin} =require('../zod'); 
 const JWT_SECRET=require("../config");
 const bcrypt = require("bcryptjs")
-const {middleware}= require('../middleware')
+const {middleware}= require('../middleware');
+const { default: mongoose } = require('mongoose');
 
 const router = express.Router();
 
@@ -128,7 +129,92 @@ router.get('/getUser',middleware, async (req,res)=>{
     }
 })
 
+//get user balance and seller balance
+router.get('/balance',middleware,async(req,res)=>{
+    const UserId=req.UserId;
+    console.log(UserId)
+    let money=await Bank.findOne(
+        {userId:UserId},
+        "balance"
+    )
+    let balance=money.balance/100;
+    res.json({
+        "balance":balance
+    })
+    console.log(balance)
+})
 
+//add money for both seller and user for WALLET
+router.put('/addmoney',middleware,async(req,res)=>{
+    const UserId=req.UserId;
+    let money=req.body.money;
+    console.log(money)
+    console.log(UserId)
+    let newMoney=(Number)(money)*100;
+
+    await Bank.updateOne(
+        {userId:UserId},
+        {
+            $inc:{
+                balance:  newMoney
+            }
+        }
+    )
+    res.json({
+        "message":`You succesfully added Rs${money}`
+    })
+})
+
+
+//transaction 
+router.post('/transaction',middleware,async(req,res)=>{
+    const session =await mongoose.startSession()
+    session.startTransaction();
+
+    const UserId=req.UserId;
+    const sellerId=req.body.id;
+    console.log(sellerId)
+    let total=req.body.total;
+
+    const user=await Bank.findOne(
+        {userId:UserId}).session(session);
+
+    let balance=user.balance/100;
+
+    if(balance<total){
+        await session.abortTransaction();
+        res.status(400).json({
+            "message":"Insufficient Solution"
+        })
+        return
+    }
+    total=total*100;
+    await Bank.updateOne(
+        {userId:UserId},
+        {
+            $inc:{
+                balance: -total
+            }
+        }
+    ).session(session);
+
+    await Bank.updateOne(
+        {userId:sellerId},
+        {
+            $inc:{
+                balance: +total
+            }
+        }
+    ).session(session)
+
+    await session.commitTransaction();
+    res.json({
+        "message":"Tansfer Successful"
+    })
+
+    
+
+})
 
 
 module.exports = router;

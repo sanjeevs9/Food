@@ -8,6 +8,7 @@ import Cart from "../Cart";
 import axios from "axios"
 import { userState } from "../../atoms/userState";
 import { NETWORK } from "../../../network";
+import Wallet from "./Wallet";
 
 
 export default function Navbar({className}) {
@@ -15,6 +16,7 @@ export default function Navbar({className}) {
   const [isOpen, setIsOpen] = useState(false);
   const length=useRecoilValue(cartSize);
   const [open,setopen]=useState(false);
+  const [wallet,setWallet]=useState(false);
 
   const token=localStorage.getItem("token");
     const[user,setuser]=useRecoilState(userState);
@@ -44,6 +46,10 @@ function handle(){
   navigate('/')
 }
 
+function walletopen(){
+ setWallet(!wallet)
+}
+
   return (
     <>
       <div className=" flex flex-row justify-between p-1 pr-16 pl-10 sm:pl-16">
@@ -53,7 +59,7 @@ function handle(){
         <div className="hidden sm:flex justify-center items-center ">
       <Search  className={`${className}`}/>
       </div>
-     
+     <Wallet open={wallet} fn={walletopen}/>
       <Cart open={open} fn={help}/>
       
         <div className="p-4 flex w-44 sm:w-52 md:w-80 lg:w-96">
@@ -91,9 +97,8 @@ function handle(){
               }>Home</button>
               </li>
               <li>
-              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={
-                ()=>{navigate('/wallet')}
-              }>My Wallet</button>
+              <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={walletopen}
+              >My Wallet</button>
               </li>
           <li>
               <button className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 " onClick={

@@ -10,8 +10,8 @@ export default function OrderHistory() {
   const [data, setdata] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`${NETWORK}:3000/food/order/get`, {
+    const interval=()=>{
+      axios.get(`${NETWORK}:3000/food/order/get`, {
         headers: {
           Authorization: token,
         },
@@ -22,6 +22,13 @@ export default function OrderHistory() {
       .catch((error) => {
         console.log(error);
       });
+    }
+    interval()
+    const intervalId = setInterval(interval, 5000);
+    return () => {
+      clearInterval(intervalId);
+    };
+    
   }, []);
 
   const format = (createdAt) => {
@@ -136,7 +143,7 @@ export default function OrderHistory() {
           </table>
         </div>
         <div className="justify-end">
-          <Footer />
+          
         </div>
       </div>
     </>

@@ -6,6 +6,7 @@ import axios from "axios"
 import EmptyCart from "../../public/EmptyCart.svg";
 import { NETWORK } from "../../network";
 import { userState } from "../atoms/userState";
+import { balanceState } from "../atoms/balanceState";
 
 export default function Cart({ fn, open }) {
  
@@ -14,6 +15,7 @@ export default function Cart({ fn, open }) {
   const [total, setTotal] = useState(0);
   const size = useRecoilValue(cartSize);
   const user=useRecoilValue(userState)
+  const[balance,setbalance]=useRecoilState(balanceState);
  
   useEffect(() => {
     const newTotal = cart.reduce((total, item) => total + item.cost, 0);
@@ -31,9 +33,24 @@ export default function Cart({ fn, open }) {
   
   const token =localStorage.getItem("token")
   const restra=localStorage.getItem("restra")
+  
 
 
   async function checkout(){
+    
+    axios.post(`${NETWORK}:3000/food/user/transaction`,
+    {id:restra,total:total},
+    {headers:{Authorization:token}}
+    ).then(res=>{
+      setbalance()
+      order();
+    })
+    .catch((error)=>{
+      alert(error.response.data.message)
+      return;
+    })
+  }
+ async function order(){
     const name=user.firstName.concat(" ").concat(user.lastName);
     await axios.post(`${NETWORK}:3000/food/order/create`,
     {

@@ -32,20 +32,27 @@ export default function Tabble() {
   
 
   useEffect(() => {
-    console.log(refresh)
-    axios.get(`${NETWORK}:3000/food/order/sget`, { headers: { Authorization: token } })
-      .then(res => {
-        setData(res.data.list);
-        setloading(!loading)
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, [refresh]);
+const interval=()=>{
+  axios.get(`${NETWORK}:3000/food/order/sget`, { headers: { Authorization: token } })
+  .then(res => {
+    setData(res.data.list);
+    setloading(!loading)
+  })
+  .catch(error => {
+    console.log(error);
+  });
+}
+interval();
+const intId=setInterval(interval,5000);
+return()=>{
+  clearInterval(intId)
+}
+    
+  }, []);
 
-  if(loading){
-    return <Skeleton style={{ width: '100%' }} />;
-    }
+  // if(loading){
+  //   return <Skeleton style={{ width: '100%' }} />;
+  //   }
 
 const format = (createdAt) => {
   const createdAtDate = new Date(createdAt);

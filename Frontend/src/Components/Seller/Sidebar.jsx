@@ -125,8 +125,6 @@ export default function Sidebar() {
                       stroke-width="1.5"
                       stroke="currentColor"
                       class="w-6 h-6 mr-4"
-                      
-                      
                     >
                       <path
                         stroke-linecap="round"

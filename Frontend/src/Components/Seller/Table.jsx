@@ -149,6 +149,12 @@ return(
         <select onChange={(event)=>{handleSelectChange(event,items._id)}} value={items.status} className={`${items.status==="completed" || items.status==="rejected"?`hidden`:`flex`}`} id={items._id}>
         <option value="">SELECT</option>
         <option value="completed">Completed</option>
+        <option value="ready">Order is Ready</option>
+        </select>
+      ):items.status==="ready"?(
+      <select onChange={(event)=>{handleSelectChange(event,items._id)}} value={items.status} className={`${items.status==="completed" || items.status==="rejected"?`hidden`:`flex`}`} id={items._id}>
+        <option value="">SELECT</option>
+        <option value="completed">Completed</option>
         </select>
       ):(
         <select onChange={(event)=>{handleSelectChange(event,items._id)}} value={items.status} className={`${items.status==="completed" || items.status==="rejected"?`hidden`:`flex`}`} id={items._id}>
@@ -156,6 +162,7 @@ return(
         <option value="completed">Completed</option>
         <option value="accepted">Accepted</option>
         <option value="rejected">Rejected</option>
+        <option value="ready">Order is Ready</option>
       </select>
        
       

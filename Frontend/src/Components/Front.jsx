@@ -9,6 +9,7 @@ import pizza from "../../public/food/p12.png";
 import thali from "../../public/front/thali.png";
 import { useState } from "react";
 import axios from "axios"
+import { useEffect } from "react";
 
 import man from "../../public/work/man.png.png";
 import DropDown from "./DropDown";
@@ -41,6 +42,21 @@ async function handle(){
   })
  
 }
+
+  // useEffect(() => {
+  //   function requestNotificationPermission() {
+  //     Notification.requestPermission().then(function(permission) {
+  //       if (permission === 'granted') {
+  //         console.log('Notification permission granted.');
+  //       } else {
+  //         console.log('Unable to get permission to notify.');
+  //       }
+  //     });
+  //   }
+  
+  //   requestNotificationPermission();
+  // }, []);
+
 
 
 

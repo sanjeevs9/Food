@@ -4,7 +4,7 @@ import Signin from './Components/User/Signin';
 import Signup from './Components/User/Signup';
 import SellerSignup from './Components/Seller/SellerSignup'
 
-
+import { useEffect } from 'react';
 import './App.css'
 import SellerSignin from './Components/Seller/SellerSignin';
 import Help from './Components/Help';
@@ -27,10 +27,10 @@ import Smenu from './Components/Seller/Smenu';
 import Ssettings from './Components/Seller/Ssettings';
 import Saccount from './Components/Seller/Saccount';
 import Wallet from './Components/User/Wallet';
+import { useRecoilValue } from 'recoil';
+import { alertState } from './atoms/alert';
 
 function App() {
-
-
   return (
     <>
     <BrowserRouter>

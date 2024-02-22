@@ -4,10 +4,14 @@ import Front from "../Front";
 import Navbar from "./Navbar";
 import axios from "axios";
 import { NETWORK } from "../../../network";
+import { useRecoilState } from "recoil";
+import { alertState } from "../../atoms/alert";
 
 export default function OrderHistory() {
   const token = localStorage.getItem("token");
   const [data, setdata] = useState([]);
+  const [alertedOrders, setAlertedOrders] = useRecoilState(alertState)
+
 
   useEffect(() => {
     const interval=()=>{
@@ -18,18 +22,44 @@ export default function OrderHistory() {
       })
       .then((res) => {
         setdata(res.data.list);
+        res.data.list.slice(-10).forEach(order=>{
+          if(order.status==="ready" && !alertedOrders.includes(order._id)){
+            setAlertedOrders(prevAlertedOrders => {
+              if (!prevAlertedOrders.includes(order._id)) {
+                new Notification("Your order is ready");
+                // alert("order is ready")
+                return [...prevAlertedOrders, order._id];
+              } else {
+                return prevAlertedOrders;
+              }})
+          }
+        })
       })
       .catch((error) => {
         console.log(error);
       });
     }
     interval()
-    const intervalId = setInterval(interval, 5000);
-    return () => {
-      clearInterval(intervalId);
-    };
+   setInterval(interval, 5000);
+    // return () => {
+    //   clearInterval(intervalId);
+    // };
     
-  }, []);
+  }, [alertedOrders]);
+ 
+//   useEffect(() => {
+//    data.slice(-10).forEach(order=>{
+//     if(order.status==="ready" && !alertedOrders.includes(order._id)){
+//       console.log("OOOOOOOOOOOOOOO")
+//       setAlertedOrders(orders=>[...orders,order._id])
+//     }
+//    })
+// }, [data, alertedOrders]);
+
+
+
+
+ 
 
   const format = (createdAt) => {
     const createdAtDate = new Date(createdAt);
@@ -114,7 +144,14 @@ export default function OrderHistory() {
                         >
                           Cooking..
                         </div>
-                      ) : (
+                      ) : items.status === "ready" ? (
+                      <div
+                          className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-yellow-500/20 text-yellow-600-600 py-1 px-2 text-xs rounded-md"
+                          style={{ opacity: 1 }}
+                        >
+                          Ready
+                        </div>
+                      ):(
                         <div>
                           <svg
                             aria-hidden="true"

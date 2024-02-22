@@ -82,9 +82,6 @@ router.post('/signup',async (req,res)=>{
 //login
 router.post('/signin',async(req,res)=>{
     const payload=req.body;
-  
- 
-    
     const result=userSignin.safeParse(payload);
     if(!result.success){
         res.status(411).json({
@@ -132,11 +129,12 @@ router.get('/getUser',middleware, async (req,res)=>{
 //get user balance and seller balance
 router.get('/balance',middleware,async(req,res)=>{
     const UserId=req.UserId;
-    console.log(UserId)
+    
     let money=await Bank.findOne(
         {userId:UserId},
         "balance"
     )
+    
     let balance=money.balance/100;
     res.json({
         "balance":balance

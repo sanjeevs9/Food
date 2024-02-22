@@ -9,7 +9,7 @@ const router =express.Router();
 router.post('/create',middleware,async(req,res)=>{
     const UserId=req.UserId;
     const payload=req.body;
-    console.log(payload)
+    // console.log(payload)
     
     try {
         const seller = await Seller.findOne({ _id: payload.sellerId });

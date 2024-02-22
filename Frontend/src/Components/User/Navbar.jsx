@@ -11,6 +11,7 @@ import { NETWORK } from "../../../network";
 import Wallet from "./Wallet";
 
 
+
 export default function Navbar({className}) {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -49,6 +50,10 @@ function handle(){
 function walletopen(){
  setWallet(!wallet)
 }
+
+
+
+
 
   return (
     <>

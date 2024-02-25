@@ -2,21 +2,19 @@ import ReactDOM from "react-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartSize, cartState } from "../atoms/cartState";
 import { useState, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import EmptyCart from "../../public/EmptyCart.svg";
 import { NETWORK } from "../../network";
 import { userState } from "../atoms/userState";
 import { balanceState } from "../atoms/balanceState";
 
 export default function Cart({ fn, open }) {
- 
-
   const [cart, setCart] = useRecoilState(cartState);
   const [total, setTotal] = useState(0);
   const size = useRecoilValue(cartSize);
-  const user=useRecoilValue(userState)
-  const[balance,setbalance]=useRecoilState(balanceState);
- 
+  const user = useRecoilValue(userState);
+  const [balance, setbalance] = useRecoilState(balanceState);
+
   useEffect(() => {
     const newTotal = cart.reduce((total, item) => total + item.cost, 0);
     setTotal(newTotal);
@@ -24,60 +22,56 @@ export default function Cart({ fn, open }) {
 
   if (!open) return null;
 
-
   function removeFromCart(x) {
     setCart(cart.filter((item) => item.id !== x.id));
   }
-  
-  
-  
-  const token =localStorage.getItem("token")
-  const restra=localStorage.getItem("restra")
-  
 
+  const token = localStorage.getItem("token");
+  const restra = localStorage.getItem("restra");
 
-  async function checkout(){
-    
-    axios.post(`${NETWORK}:3000/food/user/transaction`,
-    {id:restra,total:total},
-    {headers:{Authorization:token}}
-    ).then(res=>{
-      setbalance()
-      order();
-    })
-    .catch((error)=>{
-      alert(error.response.data.message)
-      return;
-    })
+  async function checkout() {
+    axios
+      .post(
+        `${NETWORK}:3000/food/user/transaction`,
+        { id: restra, total: total },
+        { headers: { Authorization: token } }
+      )
+      .then((res) => {
+        setbalance();
+        order();
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+        return;
+      });
   }
- async function order(){
-    const name=user.firstName.concat(" ").concat(user.lastName);
-    await axios.post(`${NETWORK}:3000/food/order/create`,
-    {
-      sellerId:restra,
-      cost:(Number)(total),
-      status:"placed",
-      items:cart,
-      name:name
-    },{
-      headers:{
-        Authorization:token
-      }
-    })
-    .then(res=>{
-      console.log(res.data)
-      setCart([])
-      alert("Order placed")
-    })
-    .catch((error)=>{
-      console.log(error.response.data.message)
-    })
+  async function order() {
+    const name = user.firstName.concat(" ").concat(user.lastName);
+    await axios
+      .post(
+        `${NETWORK}:3000/food/order/create`,
+        {
+          sellerId: restra,
+          cost: Number(total),
+          status: "placed",
+          items: cart,
+          name: name,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setCart([]);
+        alert("Order placed");
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
   }
-
-
-
-
-  
 
   return ReactDOM.createPortal(
     <>
@@ -172,7 +166,10 @@ export default function Cart({ fn, open }) {
             <span className="font-bold pr-5">&#8377;{total}</span>
           </div>
 
-          <button className="w-full py-2 px-4 bg-blue-500 text-white rounded-md" onClick={checkout}>
+          <button
+            className="w-full py-2 px-4 bg-blue-500 text-white rounded-md"
+            onClick={checkout}
+          >
             Checkout
           </button>
         </div>

@@ -34,10 +34,10 @@ export default function Menutable() {
                 Item
               </th>
               <th scope="col" class="px-6 py-3">
-              Price
+                Price
               </th>
               <th scope="col" class="px-6 py-3">
-              Action
+                Action
               </th>
               {/* <th scope="col" class="px-6 py-3">
                 avaliable/
@@ -55,9 +55,11 @@ export default function Menutable() {
                   />
                 </td>
                 <td class="px-6 py-4 font-semibold text-gray-900 ">
-                 {item.foodName}
+                  {item.foodName}
                 </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 ">&#8377;{item.price}</td>
+                <td class="px-6 py-4 font-semibold text-gray-900 ">
+                  &#8377;{item.price}
+                </td>
                 <td class="px-6 py-4">
                   <a href="#" class="font-medium text-red-600 hover:underline">
                     Update

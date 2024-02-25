@@ -1,47 +1,44 @@
-import a from "../../public/Front/a.jpg";
-import b from "../../public/Front/b.jpg";
-import c from "../../public/Front/c.jpg";
-import d from "../../public/Front/d.jpg";
-import e from "../../public/Front/e.jpg";
 import logo from "../../public/front/logo.png";
 import burger from "../../public/food/p9.png";
 import pizza from "../../public/food/p12.png";
 import thali from "../../public/front/thali.png";
 import { useState } from "react";
-import axios from "axios"
-import { useEffect } from "react";
+import axios from "axios";
 
-import man from "../../public/work/man.png.png";
 import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
 import { NETWORK } from "../../network";
 
 export default function Front() {
   const [drop, setdrop] = useState(false);
-  const token=localStorage.getItem("token");
-  const navigate=useNavigate();
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-async function handle(){
-  if(!token){
-    alert("Please Login or Create Your account")
-    return;
-  }
-  await axios.post(`${NETWORK}:3000/food/local`,{},
-  {
-    headers:{
-      Authorization:token
+  async function handle() {
+    if (!token) {
+      alert("Please Login or Create Your account");
+      return;
     }
+    await axios
+      .post(
+        `${NETWORK}:3000/food/local`,
+        {},
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+      .then((res) => {
+        {
+          res.data === "user" ? navigate("/user") : navigate("/vendor");
+        }
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+        console.log(error.response.data.message);
+      });
   }
-  )
-  .then(res=>{
-    {res.data==="user"?navigate("/user"):navigate("/vendor")}
-  })
-  .catch((error)=>{
-    alert(error.response.data.message)
-    console.log(error.response.data.message);
-  })
- 
-}
 
   // useEffect(() => {
   //   function requestNotificationPermission() {
@@ -53,12 +50,9 @@ async function handle(){
   //       }
   //     });
   //   }
-  
+
   //   requestNotificationPermission();
   // }, []);
-
-
-
 
   return (
     <>
@@ -83,8 +77,17 @@ async function handle(){
           <div className="flex p-12 justify-between">
             <img src={logo} className="h-10 w-10"></img>
             <ul className="hidden sm:flex gap-10 pr-2 ">
-              <li className="cursor-pointer" onClick={handle}>Dashboard</li>
-              <li className="cursor-pointer" onClick={()=>{navigate('/help')}}>Contact Us</li>
+              <li className="cursor-pointer" onClick={handle}>
+                Dashboard
+              </li>
+              <li
+                className="cursor-pointer"
+                onClick={() => {
+                  navigate("/help");
+                }}
+              >
+                Contact Us
+              </li>
               {/* <li className=>Join</li> */}
               <li>
                 <button
@@ -102,7 +105,7 @@ async function handle(){
                 )}
               </li>
             </ul>
-           
+
             <div className="sm:hidden">
               <DropDown />
             </div>

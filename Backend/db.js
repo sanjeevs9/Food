@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const { number } = require('zod');
-mongoose.connect('mongodb+srv://sanjeev:VH2cYQkXF178eBsE@cluster0.v8nr0x6.mongodb.net/food');
+require('dotenv').config()
+
+mongoose.connect( `mongodb+srv://${process.env.MONGO_URI}`);
 
 const userSchema=new mongoose.Schema({
     email:{

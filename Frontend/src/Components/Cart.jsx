@@ -7,6 +7,7 @@ import EmptyCart from "../../public/EmptyCart.svg";
 import { NETWORK } from "../../network";
 import { userState } from "../atoms/userState";
 import { balanceState } from "../atoms/balanceState";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart({ fn, open }) {
   const [cart, setCart] = useRecoilState(cartState);
@@ -14,6 +15,8 @@ export default function Cart({ fn, open }) {
   const size = useRecoilValue(cartSize);
   const user = useRecoilValue(userState);
   const [balance, setbalance] = useRecoilState(balanceState);
+  const[delay,setdelay]=useState(true);
+  const navigate =useNavigate();
 
   useEffect(() => {
     const newTotal = cart.reduce((total, item) => total + item.cost, 0);
@@ -30,6 +33,7 @@ export default function Cart({ fn, open }) {
   const restra = localStorage.getItem("restra");
 
   async function checkout() {
+    setdelay(false)
     axios
       .post(
         `${NETWORK}:3000/food/user/transaction`,
@@ -65,8 +69,10 @@ export default function Cart({ fn, open }) {
       )
       .then((res) => {
         console.log(res.data);
+        setdelay(true)
         setCart([]);
         alert("Order placed");
+        navigate('/orderhistory')
       })
       .catch((error) => {
         console.log(error.response.data.message);
@@ -165,13 +171,27 @@ export default function Cart({ fn, open }) {
             <span className="font-bold">SubTotal</span>
             <span className="font-bold pr-5">&#8377;{total}</span>
           </div>
-
-          <button
+              {
+                delay===true? (
+                  <>
+                  <button
             className="w-full py-2 px-4 bg-blue-500 text-white rounded-md"
             onClick={checkout}
           >
             Checkout
           </button>
+          </>
+                ):(
+                  <>
+                  <button 
+                 className="w-full py-2 px-4 bg-blue-500 text-white rounded-md"
+                  >
+                    Loading...
+                  </button>
+                  </>
+                )
+              }
+          
         </div>
       </div>
     </>,

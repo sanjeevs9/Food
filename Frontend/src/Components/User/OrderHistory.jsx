@@ -10,56 +10,54 @@ import { alertState } from "../../atoms/alert";
 export default function OrderHistory() {
   const token = localStorage.getItem("token");
   const [data, setdata] = useState([]);
-  const [alertedOrders, setAlertedOrders] = useRecoilState(alertState)
-
+  const [alertedOrders, setAlertedOrders] = useRecoilState(alertState);
 
   useEffect(() => {
-    const interval=()=>{
-      axios.get(`${NETWORK}:3000/food/order/get`, {
-        headers: {
-          Authorization: token,
-        },
-      })
-      .then((res) => {
-        setdata(res.data.list);
-        res.data.list.slice(-10).forEach(order=>{
-          if(order.status==="ready" && !alertedOrders.includes(order._id)){
-            setAlertedOrders(prevAlertedOrders => {
-              if (!prevAlertedOrders.includes(order._id)) {
-                new Notification("Your order is ready");
-                // alert("order is ready")
-                return [...prevAlertedOrders, order._id];
-              } else {
-                return prevAlertedOrders;
-              }})
-          }
+    const interval = () => {
+      axios
+        .get(`${NETWORK}:3000/food/order/get`, {
+          headers: {
+            Authorization: token,
+          },
         })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
-    interval()
-   setInterval(interval, 5000);
+        .then((res) => {
+          setdata(res.data.list);
+          res.data.list.slice(-10).forEach((order) => {
+            if (
+              order.status === "ready" &&
+              !alertedOrders.includes(order._id)
+            ) {
+              setAlertedOrders((prevAlertedOrders) => {
+                if (!prevAlertedOrders.includes(order._id)) {
+                  new Notification("Your order is ready");
+                  // alert("order is ready")
+                  return [...prevAlertedOrders, order._id];
+                } else {
+                  return prevAlertedOrders;
+                }
+              });
+            }
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    interval();
+    setInterval(interval, 5000);
     // return () => {
     //   clearInterval(intervalId);
     // };
-    
   }, [alertedOrders]);
- 
-//   useEffect(() => {
-//    data.slice(-10).forEach(order=>{
-//     if(order.status==="ready" && !alertedOrders.includes(order._id)){
-//       console.log("OOOOOOOOOOOOOOO")
-//       setAlertedOrders(orders=>[...orders,order._id])
-//     }
-//    })
-// }, [data, alertedOrders]);
 
-
-
-
- 
+  //   useEffect(() => {
+  //    data.slice(-10).forEach(order=>{
+  //     if(order.status==="ready" && !alertedOrders.includes(order._id)){
+  //       console.log("OOOOOOOOOOOOOOO")
+  //       setAlertedOrders(orders=>[...orders,order._id])
+  //     }
+  //    })
+  // }, [data, alertedOrders]);
 
   const format = (createdAt) => {
     const createdAtDate = new Date(createdAt);
@@ -145,13 +143,13 @@ export default function OrderHistory() {
                           Cooking..
                         </div>
                       ) : items.status === "ready" ? (
-                      <div
+                        <div
                           className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-yellow-500/20 text-yellow-600-600 py-1 px-2 text-xs rounded-md"
                           style={{ opacity: 1 }}
                         >
                           Ready
                         </div>
-                      ):(
+                      ) : (
                         <div>
                           <svg
                             aria-hidden="true"
@@ -179,9 +177,7 @@ export default function OrderHistory() {
             </tbody>
           </table>
         </div>
-        <div className="justify-end">
-          
-        </div>
+        <div className="justify-end"></div>
       </div>
     </>
   );

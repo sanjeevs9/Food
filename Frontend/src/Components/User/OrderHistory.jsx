@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Footer from "../Footer";
 import Front from "../Front";
 import Navbar from "./Navbar";
@@ -11,6 +11,9 @@ export default function OrderHistory() {
   const token = localStorage.getItem("token");
   const [data, setdata] = useState([]);
   const [alertedOrders, setAlertedOrders] = useRecoilState(alertState);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const prevDataRef = useRef();
 
   useEffect(() => {
     const interval = () => {
@@ -21,23 +24,34 @@ export default function OrderHistory() {
           },
         })
         .then((res) => {
-          setdata(res.data.list);
-          res.data.list.slice(-10).forEach((order) => {
-            if (
-              order.status === "ready" &&
-              !alertedOrders.includes(order._id)
-            ) {
-              setAlertedOrders((prevAlertedOrders) => {
-                if (!prevAlertedOrders.includes(order._id)) {
-                  new Notification("Your order is ready");
-                  // alert("order is ready")
-                  return [...prevAlertedOrders, order._id];
-                } else {
-                  return prevAlertedOrders;
+          if (
+            JSON.stringify(res.data.list.reverse()) !==
+            JSON.stringify(prevDataRef.current)
+          ) {
+            console.log("sjdb");
+            setdata(res.data.list.reverse());
+            prevDataRef.current = res.data.list.reverse();
+            [...res.data.list]
+              .reverse()
+              .slice(-10)
+              .forEach((order) => {
+                if (
+                  order.status === "ready" &&
+                  !alertedOrders.includes(order._id)
+                ) {
+                  setAlertedOrders((prevAlertedOrders) => {
+                    if (!prevAlertedOrders.includes(order._id)) {
+                      new Notification("Your order is ready");
+                      // alert("order is ready")
+                      return [...prevAlertedOrders, order._id];
+                    } else {
+                      return prevAlertedOrders;
+                    }
+                  });
                 }
               });
-            }
-          });
+          }
+          // console.log(res.data.list)
         })
         .catch((error) => {
           console.log(error);
@@ -74,6 +88,10 @@ export default function OrderHistory() {
     return formattedDate;
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
   return (
     <>
       <div className="flex flex-col h-screen justify-between">
@@ -103,7 +121,7 @@ export default function OrderHistory() {
               </tr>
             </thead>
             <tbody>
-              {[...data].reverse().map((items) => {
+              {[...currentItems].map((items) => {
                 return (
                   <tr class="bg-white border-b ">
                     <th
@@ -176,6 +194,24 @@ export default function OrderHistory() {
               })}
             </tbody>
           </table>
+        </div>
+        <div className="flex justify-center gap-5">
+          <button
+            className=" flex  p-1 border-[1px] rounded-xl "
+            onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+          >
+            Previous
+          </button>
+          <button
+            className=" flex p-1 border-[1px] rounded-xl pl-2 pr-2"
+            onClick={() =>
+              setCurrentPage((page) =>
+                Math.min(page + 1, Math.ceil(data.length / itemsPerPage))
+              )
+            }
+          >
+            Next
+          </button>
         </div>
         <div className="justify-end"></div>
       </div>

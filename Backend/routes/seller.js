@@ -18,22 +18,15 @@ let tempSeller = {};
 //create Seller acc
 router.post("/create", async (req, res) => {
   const payload = req.body;
-  const result = sellerSignup.safeParse(payload);
 
-  if (!result.success) {
-    const errorMessages = result.error.errors.map((err) => err.message);
-    const formattedErrorMessage = errorMessages.join("\n");
-    res.status(411).json({
-      message: formattedErrorMessage,
-    });
-    return;
-  }
+  try{
+    await sellerSignup.parseAsync(payload);
 
-  const existingSeller = await Seller.find({
+  const existingSeller = await Seller.findOne({
     phoneNumber: payload.phoneNumber,
   });
 
-  if (existingSeller.length > 0) {
+  if (existingSeller) {
     res.status(411).json({
       message: "seller already exists",
     });
@@ -67,6 +60,15 @@ router.post("/create", async (req, res) => {
   //           "message": "Failed to send OTP"
   //         });
   //       })
+  }
+  catch(error){
+    console.log(error)
+        res.status(400).json({
+            message:error.errors[0].message
+        })
+        return
+  }
+  
 });
 
 router.post("/verify", async (req, res) => {
@@ -80,16 +82,12 @@ router.post("/verify", async (req, res) => {
     return;
   }
 
-  await Seller.create({
+  const seller=await Seller.create({
     phoneNumber: tempSeller.phoneNumber,
     password: tempSeller.password,
     shopName: tempSeller.shopName,
     imgUrl: tempSeller.imgUrl,
     description: tempSeller.description,
-  });
-
-  const seller = await Seller.findOne({
-    phoneNumber: tempSeller.phoneNumber,
   });
 
   const UserId = seller._id;
@@ -109,53 +107,46 @@ router.post("/verify", async (req, res) => {
 //Seller login
 router.post("/signin", async (req, res) => {
   const payload = req.body;
-  const result = sellerSignin.safeParse(payload);
 
-  if (!result.success) {
-    res.status(411).json({
-      message: "invalid Credentials",
+  try{
+   await sellerSignin.parseAsync(payload);
+  
+    const existingSeller = await Seller.findOne({
+      phoneNumber: payload.phoneNumber,
+      password: payload.password,
     });
-    return;
-  }
-
-  const existingSeller = await Seller.findOne({
-    phoneNumber: payload.phoneNumber,
-    password: payload.password,
-  });
-
-  if (!existingSeller) {
-    res.status(411).json({
-      message: "seller not found",
+  
+    if (!existingSeller) {
+      res.status(411).json({
+        message: "seller not found",
+      });
+      return;
+    }
+  
+    const UserId = existingSeller._id;
+    const token = jwt.sign({ UserId }, JWT_SECRET);
+  
+    res.json({
+      message: "Successfully logined",
+      token: token,
     });
-    return;
   }
-
-  const seller = await Seller.findOne({
-    phoneNumber: payload.phoneNumber,
-  });
-
-  const UserId = seller._id;
-  const token = jwt.sign({ UserId }, JWT_SECRET);
-
-  res.json({
-    message: "Successfully logined",
-    token: token,
-  });
+  catch(error){
+    console.log(error)
+    res.status(400).json({
+        message:error.errors[0].message
+    })
+    return
+  }
+  
 });
 
 //menu create
 router.post("/menu", middleware, async (req, res) => {
   const UserId = req.UserId;
   const payload = req.body;
-
-  const response = menuCheck.safeParse(payload);
-
-  if (!response.success) {
-    res.status(411).json({
-      message: "Please fill correctly",
-    });
-    return;
-  }
+  try{
+    await menuCheck.parseAsync(payload);
 
   const seller = await Seller.findOne({
     _id: UserId,
@@ -178,6 +169,15 @@ router.post("/menu", middleware, async (req, res) => {
   res.json({
     message: "Food Added",
   });
+  }
+  catch(error){
+    console.log(error)
+    res.status(400).json({
+        message:error.errors[0].message
+    })
+    return
+  }
+  
 });
 
 //menu get on user interface

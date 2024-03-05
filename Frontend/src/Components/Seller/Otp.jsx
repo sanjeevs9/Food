@@ -2,16 +2,30 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { NETWORK } from "../../../network";
+import { useRef,useEffect } from "react";
 
 export default function Otp() {
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
   const navigate = useNavigate();
+  const inputRefs = useRef([]);
 
   const handleInputChange = (index, value) => {
     const updatedVerificationCode = [...verificationCode];
     updatedVerificationCode[index] = value;
     setVerificationCode(updatedVerificationCode);
   };
+  useEffect(() => {
+    const index = verificationCode.findIndex((code) => code === "");
+    if (index !== -1 && inputRefs.current[index]) {
+      inputRefs.current[index].focus();
+    }
+  }, [verificationCode]);
+
+  useEffect(() => {
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, []);
 
   const handleSubmit = () => {
     const code = verificationCode.join("");
@@ -49,11 +63,17 @@ export default function Otp() {
               {verificationCode.map((digit, index) => (
                 <div className="w-16 h-16" key={index}>
                   <input
+                  ref={(el) => (inputRefs.current[index] = el)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Backspace" && digit === "" && inputRefs.current[index - 1]) {
+                      inputRefs.current[index - 1].focus();
+                    }
+                  }}
                     className="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
                     type="text"
                     maxLength={1}
                     value={digit}
-                    onChange={(e) => handleInputChange(index, e.target.value)}
+                    onInput={(e) => handleInputChange(index, e.target.value)}
                   />
                 </div>
               ))}

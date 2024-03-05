@@ -10,39 +10,30 @@ const { default: mongoose } = require('mongoose');
 
 const router = express.Router();
 
+let otp="";
+let tempUser={}
 
 //signup
 router.post('/signup',async (req,res)=>{
     const payload=req.body;
-  
-
-    const result= userSignup.safeParse(payload)
-    
-    if(!result.success){
-        const errorMessages=result.error.errors.map(err=>err.message);
-        const formattedErrorMessage = errorMessages.join('\n');
-        console.log(formattedErrorMessage);
-        res.status(411).json({
-            message: formattedErrorMessage
-        })
-        return
-    }
-
-    const student=await Student.find({email:payload.email})
+    console.log(payload)
+    try{
+        await userSignup.parseAsync(payload)
+        const student=await Student.find({email:payload.email})
    
 
     if(student.length===0){
-        res.status(411).json({
-            "message":"Please enter a valid email"
+        res.status(400).json({
+            message:"Please use Sharda email"
         })
         return
      }
 
-     const existingUser=await User.find({email:payload.email})
-
-     if(existingUser.length>0){
-        res.status(411).json({
-            "message":"User already exists"
+     const existingUser=await User.findOne({email:payload.email})
+     console.log(existingUser)
+     if(existingUser){
+        res.status(409).json({
+            message:"User already exists"
         })
         return
      }
@@ -50,18 +41,45 @@ router.post('/signup',async (req,res)=>{
      //BcryptJs
     //  const salt=await bcrypt.genSalt(10);
     //  const secure=await  bcrypt.hash(payload.password,salt)
-    await User.create({
+
+    otp=""
+    for (let i = 0; i < 4; i++) {
+        otp += Math.floor(Math.random() * 10);
+      }
+      tempUser=payload;
+      
+      res.json({
+        otp:otp,
         email:payload.email,
-        firstName:payload.firstName,
-        lastName:payload.lastName,
-        password:payload.password,
-        mobileNumber:payload.mobileNumber
-    })
+        name:payload.name
+      })
+    }
+    catch (error){
+        console.log(error)
+        res.status(400).json({
+            message:error.errors[0].message
+        })
+        return
+    }
+    
+})
 
-    const user=await User.findOne({
-        email:payload.email
-    })
+router.post('/verify',async(req,res)=>{{
+    let OTP=req.body.otp;
+    if(OTP!==otp){
+        res.status(400).json({
+            message:"Incorrect OTP please try again later"
+        })
+        return
+    }
 
+ const user = await User.create({
+        email:tempUser.email,
+        firstName:tempUser.firstName,
+        lastName:tempUser.lastName,
+        password:tempUser.password,
+        mobileNumber:tempUser.mobileNumber
+    })
 
     const UserId=user._id;
     const token=jwt.sign({UserId},JWT_SECRET);
@@ -73,23 +91,19 @@ router.post('/signup',async (req,res)=>{
     })
     
     res.json({
-        "message":"Account Created",
-        "token":token
+        message:"Account Created",
+        token:token
     })
-    
-})
+
+
+}})
 
 //login
 router.post('/signin',async(req,res)=>{
     const payload=req.body;
-    const result=userSignin.safeParse(payload);
-    if(!result.success){
-        res.status(411).json({
-            message: "Error while logging in",     
-        })
+    try{
+    await userSignin.parseAsync(payload);
     
-        return
-    }
 
     const existingUser=await User.findOne({
         email:payload.email,
@@ -98,48 +112,83 @@ router.post('/signin',async(req,res)=>{
 
     if(!existingUser){
         res.status(411).json({
-            "message":"Invalid Credentials"
+            message:"Invalid Credentials"
         })
         return
     }
 
-    const user=await User.findOne({
-        email:payload.email
-    })
-
-    const UserId=user._id;
+    const UserId=existingUser._id;
     const token=jwt.sign({UserId},JWT_SECRET);
     
     res.json({
-        "message":"Successfully Logined",
-        "token":token
+        message:"Successfully Logined",
+        token:token
     })
+    }
+    catch(error){
+        console.log(error)
+        res.status(400).json({
+            message:error.errors[0].message
+        })
+        return
+    }
+    
 })
 
 //get user detail
 router.get('/getUser',middleware, async (req,res)=>{
-    const UserId=req.UserId;
+    try{
+        const UserId=req.UserId;
     const user=await User.findOne({_id:UserId})
     if(user){
         res.send(user)
 
+    }else{
+        res.status(404).json({
+            message:"User not found"
+        })
+        
     }
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({
+            message:"server error"
+        })
+        
+    }
+    
 })
 
 //get user balance and seller balance
 router.get('/balance',middleware,async(req,res)=>{
-    const UserId=req.UserId;
+    try{
+        const UserId=req.UserId;
     
     let money=await Bank.findOne(
         {userId:UserId},
         "balance"
     )
+    if(!money){
+        res.status(404).json({
+            message:"User Not found"
+        })
+        return
+    }
     
     let balance=money.balance/100;
     res.json({
         "balance":balance
     })
     console.log(balance)
+    }
+    catch(error){
+        console.error(error)
+        res.status(500).json({
+            message:"Server error"
+        })
+    }
+    
 })
 
 //add money for both seller and user for WALLET

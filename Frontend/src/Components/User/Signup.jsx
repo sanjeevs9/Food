@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import  { useState } from "react"
 import axios from "axios";
 import { NETWORK } from '../../../network';
+import emailjs from "@emailjs/browser";
+
 
 export default function Signup(){
     const[firstname,setfirstname]=useState("");
@@ -12,6 +14,10 @@ export default function Signup(){
     const[email,setemail]=useState("");
     const[password,setpassword]=useState("");
     const[phone,setphone]=useState(0);
+    const navigate=useNavigate();
+    const serive = import.meta.env.VITE_SERVICE_ID;
+    const temp = import.meta.env.VITE_TEMPLATE_ID;
+    const key = import.meta.env.VITE_PUBLIC_KEY;
 
 async function handle(){
     await axios.post(`${NETWORK}:3000/food/user/signup`,
@@ -23,9 +29,10 @@ async function handle(){
             mobileNumber:(Number)(phone)
         })
     .then(res=>{
-       console.log(res.data.message)
-        alert(res.data.message)
-        localStorage.setItem("token",`Bearer ${res.data.token}`)
+       console.log(res.data)
+       SendEmail(res.data.email,res.data.name,res.data.otp)
+        alert(`otp send on ${res.data.email}` );
+        navigate('/uotp')
     })
     .catch(error=>{
         alert(error.response.data.message)
@@ -33,10 +40,34 @@ async function handle(){
     })
 }
 
+function SendEmail(email, name,otp) {
+    emailjs
+      .send(
+        serive,
+        temp,
+        {
+          to_name: name,
+          message: `Your otp is ${otp}`,
+          from_name: "Sanjeev",
+          receiver: "sanjeev.19kr@gmail.com",
+          reply_to: "sanjeev.19kr@gmail.com",
+        },
+        key
+      )
+      .then(
+        () => {
+          console.log("success");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 
 
 
-    const navigate=useNavigate();
+
+    
     return(
         <>
         <div className="min-h-screen p-1 ">

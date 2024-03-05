@@ -8,6 +8,7 @@ import { NETWORK } from "../../network";
 import { userState } from "../atoms/userState";
 import { balanceState } from "../atoms/balanceState";
 import { useNavigate } from "react-router-dom";
+import { successToast } from "../toast";
 
 export default function Cart({ fn, open }) {
   const [cart, setCart] = useRecoilState(cartState);
@@ -71,7 +72,8 @@ export default function Cart({ fn, open }) {
         console.log(res.data);
         setdelay(true)
         setCart([]);
-        alert("Order placed");
+        successToast("Order placed")
+        // alert("Order placed");
         navigate('/orderhistory')
       })
       .catch((error) => {

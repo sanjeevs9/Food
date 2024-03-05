@@ -62,12 +62,19 @@ router.get('/sget',middleware,async(req,res)=>{
 router.put('/put',async (req,res)=>{
     const orderId=req.body.id;
     const status=req.body.status;
+    try{
+        const order=await Order.updateOne(
+            {_id:orderId},
+            { $set:{status:status}}
+        )
+        console.log(order)
+    }catch(error){
+        res.status(404).json({
+            message:"Server Side issue"
+        })
+    }
 
-    const order=await Order.updateOne(
-        {_id:orderId},
-        { $set:{status:status}}
-    )
-    console.log(order)
+    
 })
 
 

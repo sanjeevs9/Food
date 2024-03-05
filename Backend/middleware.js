@@ -7,7 +7,7 @@ const middleware=((req,res,next)=>{
         
     if(!response || !response.startsWith('Bearer')){
         res.status(403).json({
-            "message":"Please Login or Create Your account"
+            message:"Please Login or Create Your account"
         });
         return;
     }
@@ -16,7 +16,7 @@ const middleware=((req,res,next)=>{
     const decoded=jwt.verify(token,JWT_SECRET);
     if(!decoded){
         res.status(403).json({
-            "message":"Please Login or Create Your account"
+            message:"Please Login or Create Your account"
         });
         return
     }

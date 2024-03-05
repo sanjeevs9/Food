@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 import { useEffect, useState } from 'react';
 import { NETWORK } from '../../../network';
+import { errorToast, successToast } from '../../toast';
 
 export default function Signin(){
     const navigate = useNavigate();
@@ -20,13 +21,15 @@ export default function Signin(){
         )
         .then(res=>{
             console.log(res.data.message);
-            alert(res.data.message)
+            successToast(res.data.message)
+            // alert(res.data.message)
             navigate('/user')
             localStorage.setItem("token",`Bearer ${res.data.token}`)
             
         })
         .catch(error => {
-            alert(error.response.data.message)
+            errorToast(error.response.data.message)
+            // alert(error.response.data.message)
         })
     }
 

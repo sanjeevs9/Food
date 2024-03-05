@@ -51,7 +51,7 @@ export default function Navbar({ className }) {
   return (
     <>
       <div className=" flex flex-row justify-between p-1 pr-16 pl-10 sm:pl-16">
-        <div className="">
+        <div className="cursor-pointer" onClick={()=>{navigate('/user')}}>
           <img src={logo} className="h-16 w-16"></img>
         </div>
         <div className="hidden sm:flex justify-center items-center ">

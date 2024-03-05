@@ -6,6 +6,7 @@ import  { useState } from "react"
 import axios from "axios";
 import { NETWORK } from '../../../network';
 import emailjs from "@emailjs/browser";
+import { errorToast, successToast } from '../../toast';
 
 
 export default function Signup(){
@@ -31,37 +32,39 @@ async function handle(){
     .then(res=>{
        console.log(res.data)
        SendEmail(res.data.email,res.data.name,res.data.otp)
-        alert(`otp send on ${res.data.email}` );
+       successToast(`otp sent on ${res.data.email}` )
+        // alert(`otp send on ${res.data.email}` );
         navigate('/uotp')
     })
     .catch(error=>{
-        alert(error.response.data.message)
+        errorToast(error.response.data.message)
+        // alert(error.response.data.message)
         console.log(error);
     })
 }
 
 function SendEmail(email, name,otp) {
-    emailjs
-      .send(
-        serive,
-        temp,
-        {
-          to_name: name,
-          message: `Your otp is ${otp}`,
-          from_name: "Sanjeev",
-          receiver: "sanjeev.19kr@gmail.com",
-          reply_to: "sanjeev.19kr@gmail.com",
-        },
-        key
-      )
-      .then(
-        () => {
-          console.log("success");
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    // emailjs
+    //   .send(
+    //     serive,
+    //     temp,
+    //     {
+    //       to_name: name,
+    //       message: `Your otp is ${otp}`,
+    //       from_name: "Sanjeev",
+    //       receiver: "sanjeev.19kr@gmail.com",
+    //       reply_to: "sanjeev.19kr@gmail.com",
+    //     },
+    //     key
+    //   )
+    //   .then(
+    //     () => {
+    //       console.log("success");
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
   }
 
 

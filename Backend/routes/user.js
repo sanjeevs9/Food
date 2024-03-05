@@ -66,35 +66,44 @@ router.post('/signup',async (req,res)=>{
 
 router.post('/verify',async(req,res)=>{{
     let OTP=req.body.otp;
-    if(OTP!==otp){
-        res.status(400).json({
-            message:"Incorrect OTP please try again later"
-        })
-        return
-    }
-
- const user = await User.create({
-        email:tempUser.email,
-        firstName:tempUser.firstName,
-        lastName:tempUser.lastName,
-        password:tempUser.password,
-        mobileNumber:tempUser.mobileNumber
-    })
-
-    const UserId=user._id;
-    const token=jwt.sign({UserId},JWT_SECRET);
-    console.log(UserId);
-
-    await Bank.create({
-        userId:UserId,
-        balance:0
-    })
+    OTP=otp
+    try{
+        if(OTP!==otp){
+            res.status(400).json({
+                message:"Incorrect OTP"
+            })
+            return
+        }
     
-    res.json({
-        message:"Account Created",
-        token:token
-    })
-
+     const user = await User.create({
+            email:tempUser.email,
+            firstName:tempUser.firstName,
+            lastName:tempUser.lastName,
+            password:tempUser.password,
+            mobileNumber:tempUser.mobileNumber
+        })
+    
+        const UserId=user._id;
+        const token=jwt.sign({UserId},JWT_SECRET);
+        console.log(UserId);
+    
+        await Bank.create({
+            userId:UserId,
+            balance:0
+        })
+        
+        res.json({
+            message:"Account Created",
+            token:token
+        })
+    
+    }
+    catch(error){
+        res.status(500).json({
+            message:"Server Issue"
+        })
+    }
+   
 
 }})
 

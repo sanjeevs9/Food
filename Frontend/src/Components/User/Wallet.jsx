@@ -7,6 +7,7 @@ import axios from "axios";
 import { NETWORK } from "../../../network";
 import { useRecoilState } from "recoil";
 import { balanceState } from "../../atoms/balanceState";
+import { successToast } from "../../toast";
 
 export default function Wallet({ fn, open }) {
     const[balance,setbalance]=useRecoilState(balanceState)
@@ -38,7 +39,8 @@ export default function Wallet({ fn, open }) {
         })
         .then(res=>{
             setbalance(balance=>balance+input)
-            alert(res.data.message)
+            // alert(res.data.message)
+            successToast(res.data.message)
         })
         .catch((error)=>{
             alert("something failed")
@@ -50,7 +52,7 @@ export default function Wallet({ fn, open }) {
 
   return ReactDOM.createPortal(
     <>
-      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 backdrop-blur-sm">
+      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-50 backdrop-blur-sm">
         <div className="h-96 w-2/3 xl:w-2/4 bg-[#E5E4E2] rounded-3xl flex p-5  flex-col items-center gap-5">
           <div className="flex flex-row justify-between  w-10/12 p-2">
             <div className="flex font-extrabold text-lg">Total balance</div>
@@ -66,9 +68,16 @@ export default function Wallet({ fn, open }) {
               <div className="border-[1px] border-gray-400 rounded-md p-2 w-full"  
               onClick={()=>{element.current.focus()}}>
                 <div className="text-sm font-light">Enter ammount</div>
-                <div className="text-2xl">
-                  &#8377;<input className="font-semibold border-0 focus:outline-none  placeholder-black" placeholder="1000" value={input} onChange={()=>setinput(value)} ref={element} ></input>
-                </div>
+                <div className="text-2xl w-full flex items-center">
+  &#8377;
+  <input
+    className="font-semibold border-0 focus:outline-none placeholder-black w-full"
+    placeholder="1000"
+    value={input}
+    onChange={() => setinput(value)}
+    ref={element}
+  />
+</div>
               </div>
               <div className="flex">
                 <div className="flex flex-row gap-2">
@@ -95,7 +104,7 @@ export default function Wallet({ fn, open }) {
           </div>
         </div>
         <div
-          className="absolute top-0 right-0 -translate-x-44 translate-y-40 cursor-pointer rotate-45"
+          className="relative top-0 right-0 -translate-x-7 -translate-y-44 cursor-pointer rotate-45"
           onClick={fn}
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

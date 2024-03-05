@@ -8,6 +8,7 @@ import axios from "axios";
 import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
 import { NETWORK } from "../../network";
+import { errorToast } from "../toast";
 
 export default function Front() {
   const [drop, setdrop] = useState(false);
@@ -16,7 +17,8 @@ export default function Front() {
 
   async function handle() {
     if (!token) {
-      alert("Please Login or Create Your account");
+      errorToast("Please login or Create your account")
+      // alert("Please Login or Create Your account");
       return;
     }
     await axios
@@ -35,7 +37,8 @@ export default function Front() {
         }
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        errorToast(error.response.data.message)
+        // alert(error.response.data.message);
         console.log(error.response.data.message);
       });
   }

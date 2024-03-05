@@ -2,6 +2,7 @@ import { useEffect, useState,useRef } from "react"
 import { useNavigate, useSearchParams } from "react-router-dom"
 import { NETWORK } from "../../../network";
 import axios from "axios";
+import { errorToast, successToast } from "../../toast";
 
 
 export default function UserOtp(){
@@ -25,22 +26,23 @@ export default function UserOtp(){
         value.current.focus()
     }
 
-     function handle(){
+    async function handle(){
       const num=value.one+value.two+value.three+value.four
   
       console.log(num)
-        // await axios.post(`${NETWORK}:3000/food/user/verify`,
-        // {
-        //     otp:value
-        // }
-        // ).then(res=>{
-        //     console.log(res.data.message);
-        //     localStorage.setItem("token",`Bearer ${res.data.token}`)
-        //     navigate("/user")
-        // }).catch((error)=>{
-        //     console.log(error)
-        //     alert("something went wrong")
-        // })
+        await axios.post(`${NETWORK}:3000/food/user/verify`,
+        {
+            otp:(num)
+        },
+        ).then(res=>{
+            console.log(res.data.message);
+            localStorage.setItem("token",`Bearer ${res.data.token}`)
+            successToast(res.data.message)
+            navigate("/user")
+        }).catch((error)=>{
+            console.log(error)
+            errorToast(error.response.data.message)
+        })
     }
     return (
         <>

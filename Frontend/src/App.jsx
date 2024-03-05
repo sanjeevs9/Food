@@ -30,6 +30,8 @@ import Wallet from "./Components/User/Wallet";
 import { useRecoilValue } from "recoil";
 import { alertState } from "./atoms/alert";
 import UserOtp from "./Components/User/UserOtp";
+import { ToastContainer,Bounce} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -52,12 +54,25 @@ function App() {
           <Route path="/smenu" element={<Smenu />} />
           <Route path="/ssettings" element={<Ssettings />} />
           <Route path="/saccount" element={<Saccount />} />
-          <Route path="/otpp" element={<UserOtp/>}/>
+          <Route path="/uotp" element={<UserOtp/>}/>
 
           {/* <Route path='/*' element={<Resturant name="Uncles Cafe" description="New Fast Food Chain" imgUrl="https://static.vecteezy.com/system/resources/previews/023/010/452/non_2x/the-fast-food-meal-in-the-black-background-with-ai-generated-free-photo.jpg"/>}/> */}
-          <Route path="/*" element={<Tabble />} />
+         
         </Routes>
       </BrowserRouter>
+      <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+transition= {Bounce}
+/>
     </>
   );
 }

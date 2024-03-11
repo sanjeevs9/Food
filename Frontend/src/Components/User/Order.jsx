@@ -6,8 +6,8 @@ import FoodComponent from "../FoodComponent";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { cartState, costState, numberState } from "../../atoms/cartState";
 import { useLocation } from "react-router-dom";
-import burger from '../../../public/food/p9.png'
-import pizza from '../../../public/food/p12.png'
+import burger from '../../img/food/p9.png'
+import pizza from '../../img/food/p12.png'
 import { NETWORK } from "../../../network";
 
 export default function Order() {

@@ -1,4 +1,4 @@
-import plate from "../../public/Plate.svg";
+import plate from "../img/Plate.svg";
 
 export default function Resturant({ name, description, imgUrl, onClick }) {
   return (

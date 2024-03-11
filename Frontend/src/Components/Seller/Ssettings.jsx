@@ -1,5 +1,5 @@
 import Sidebar from "./Sidebar";
-import image from "../../../public/settings.svg";
+import image from "../../img/settings.svg";
 
 export default function Ssettings() {
   return (

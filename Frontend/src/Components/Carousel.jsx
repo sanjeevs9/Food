@@ -1,9 +1,9 @@
 import { useState } from "react";
-import pic1 from "../../public/carousel/1.jpg";
-import pic2 from "../../public/carousel/2.jpg";
-import pic3 from "../../public/carousel/3.jpg";
-import pic4 from "../../public/carousel/4.jpg";
-import pic5 from "../../public/carousel/5.jpg";
+import pic1 from "../img/carousel/1.jpg";
+import pic2 from "../img/carousel/2.jpg";
+import pic3 from "../img/carousel/3.jpg";
+import pic4 from "../img/carousel/4.jpg";
+import pic5 from "../img/carousel/5.jpg";
 
 export default function Carousel() {
   const [currentSlide, setCurrentSlide] = useState(0);

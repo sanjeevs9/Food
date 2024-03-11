@@ -3,7 +3,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { cartSize, cartState } from "../atoms/cartState";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import EmptyCart from "../../public/EmptyCart.svg";
+import EmptyCart from "../img/EmptyCart.svg";
 import { NETWORK } from "../../network";
 import { userState } from "../atoms/userState";
 import { balanceState } from "../atoms/balanceState";

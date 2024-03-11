@@ -1,5 +1,5 @@
 import Sidebar from "./Sidebar";
-import image from "../../../public/moible.svg";
+import image from "../../img/moible.svg";
 
 export default function Saccount() {
   return (

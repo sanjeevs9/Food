@@ -1,6 +1,6 @@
-import work from "../../../public/work/—Pngtree—a man at work_4463549.png";
-import stair from "../../../public/work/pngwing.com.png";
-import man from "../../../public/work/man.png.png";
+import work from "../../img/work/—Pngtree—a man at work_4463549.png";
+import stair from "../../img/work/pngwing.com.png";
+import man from "../../img/work/man.png.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 

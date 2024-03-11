@@ -1,6 +1,6 @@
 import foodimg from '../../img/victoria-shes-UC0HZdUitWY-unsplash.jpg';
-import burger from '../../../public/food/p9.png'
-import pizza from '../../../public/food/p12.png'
+import burger from '../../img/food/p9.png'
+import pizza from '../../img/food/p12.png'
 import { useNavigate } from 'react-router-dom';
 import  { useState } from "react"
 import axios from "axios";

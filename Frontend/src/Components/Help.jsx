@@ -1,4 +1,4 @@
-import contruct from "../../public/construct.svg";
+import contruct from "../img/construct.svg";
 import Footer from "./Footer";
 import Navbar from "./User/Navbar";
 

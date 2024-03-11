@@ -1,1 +1,1 @@
-export const NETWORK="http://192.168.1.247";
+export const NETWORK="http://10.30.9.66";

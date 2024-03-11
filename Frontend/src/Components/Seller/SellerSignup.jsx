@@ -17,7 +17,7 @@ export default function SellerSignup() {
 
   async function handle() {
     await axios
-      .post(`${NETWORK}:3000/food/seller/create`, {
+      .post(`${NETWORK}/food/seller/create`, {
         shopName: ShopName,
         password,
         phoneNumber: Number(phone),

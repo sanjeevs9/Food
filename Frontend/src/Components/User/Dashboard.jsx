@@ -22,7 +22,7 @@ export default function Dashboard() {
   //all shopname
   useEffect(() => {
     axios
-      .get(`${NETWORK}:3000/food/seller/filter?filter=${filter}`)
+      .get(`${NETWORK}/food/seller/filter?filter=${filter}`)
       .then((res) => {
         console.log(res.data);
         setresturant(res.data);

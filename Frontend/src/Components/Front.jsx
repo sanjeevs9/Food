@@ -23,7 +23,7 @@ export default function Front() {
     }
     await axios
       .post(
-        `${NETWORK}:3000/food/local`,
+        `${NETWORK}/food/local`,
         {},
         {
           headers: {

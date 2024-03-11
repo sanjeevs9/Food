@@ -8,7 +8,7 @@ export default function Menutable() {
 
   useEffect(() => {
     axios
-      .get(`${NETWORK}:3000/food/seller/itemm`, {
+      .get(`${NETWORK}/food/seller/itemm`, {
         headers: {
           Authorization: token,
         },

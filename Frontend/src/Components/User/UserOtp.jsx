@@ -30,7 +30,7 @@ export default function UserOtp(){
       const num=value.one+value.two+value.three+value.four
   
       console.log(num)
-        await axios.post(`${NETWORK}:3000/food/user/verify`,
+        await axios.post(`${NETWORK}/food/user/verify`,
         {
             otp:(num)
         },

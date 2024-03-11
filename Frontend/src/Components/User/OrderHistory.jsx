@@ -18,7 +18,7 @@ export default function OrderHistory() {
   useEffect(() => {
     const interval = () => {
       axios
-        .get(`${NETWORK}:3000/food/order/get`, {
+        .get(`${NETWORK}/food/order/get`, {
           headers: {
             Authorization: token,
           },

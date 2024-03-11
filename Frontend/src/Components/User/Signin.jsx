@@ -13,7 +13,7 @@ export default function Signin(){
     const[password,setpassword]=useState("");
 
     async function handle(){
-        await axios.post(`${NETWORK}:3000/food/user/signin`,
+        await axios.post(`${NETWORK}/food/user/signin`,
         {
             email,
             password

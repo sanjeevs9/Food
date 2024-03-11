@@ -32,7 +32,7 @@ export default function Otp() {
     console.log("Verifying code:", code);
 
     axios
-      .post(`${NETWORK}:3000/food/seller/verify`, {
+      .post(`${NETWORK}/food/seller/verify`, {
         otp: code,
       })
       .then((res) => {

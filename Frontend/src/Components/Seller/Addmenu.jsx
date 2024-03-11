@@ -9,7 +9,7 @@ export default function AddMenu() {
     console.log(token);
     await axios
       .post(
-        `${NETWORK}:3000/food/seller/menu`,
+        `${NETWORK}/food/seller/menu`,
         {
           foodName: details.foodName,
           price: Number(details.price),

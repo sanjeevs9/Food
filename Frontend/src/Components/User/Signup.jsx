@@ -21,7 +21,7 @@ export default function Signup(){
     const key = import.meta.env.VITE_PUBLIC_KEY;
 
 async function handle(){
-    await axios.post(`${NETWORK}:3000/food/user/signup`,
+    await axios.post(`${NETWORK}/food/user/signup`,
         {
             firstName:firstname,
             lastName:lastname,

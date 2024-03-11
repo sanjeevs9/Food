@@ -14,7 +14,7 @@ export default function SellerSignin() {
 
   async function handle() {
     await axios
-      .post(`${NETWORK}:3000/food/seller/signin`, {
+      .post(`${NETWORK}/food/seller/signin`, {
         phoneNumber: Number(phone),
         password,
       })

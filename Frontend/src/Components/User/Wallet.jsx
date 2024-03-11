@@ -16,7 +16,7 @@ export default function Wallet({ fn, open }) {
     const element=useRef();
 
     useEffect(()=>{
-        axios.get(`${NETWORK}:3000/food/user/balance`,
+        axios.get(`${NETWORK}/food/user/balance`,
         {
             headers:{
                 Authorization:token
@@ -28,7 +28,7 @@ export default function Wallet({ fn, open }) {
     },[balance])
 
     function transaction(){
-        axios.put(`${NETWORK}:3000/food/user/addmoney`,
+        axios.put(`${NETWORK}/food/user/addmoney`,
         {
             money:(Number)(input)
         },

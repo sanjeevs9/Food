@@ -37,7 +37,7 @@ export default function Cart({ fn, open }) {
     setdelay(false)
     axios
       .post(
-        `${NETWORK}:3000/food/user/transaction`,
+        `${NETWORK}/food/user/transaction`,
         { id: restra, total: total },
         { headers: { Authorization: token } }
       )
@@ -54,7 +54,7 @@ export default function Cart({ fn, open }) {
     const name = user.firstName.concat(" ").concat(user.lastName);
     await axios
       .post(
-        `${NETWORK}:3000/food/order/create`,
+        `${NETWORK}/food/order/create`,
         {
           sellerId: restra,
           cost: Number(total),

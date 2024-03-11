@@ -11,7 +11,7 @@ export default function Tabble() {
   const handleSelectChange = (event, id) => {
     const newStatus = event.target.value;
 
-    axios.put(`${NETWORK}:3000/food/order/put`, { id, status: newStatus });
+    axios.put(`${NETWORK}/food/order/put`, { id, status: newStatus });
 
     // Update the status of the order in the data state
     setData(
@@ -27,7 +27,7 @@ export default function Tabble() {
   useEffect(() => {
     const interval = () => {
       axios
-        .get(`${NETWORK}:3000/food/order/sget`, {
+        .get(`${NETWORK}/food/order/sget`, {
           headers: { Authorization: token },
         })
         .then((res) => {

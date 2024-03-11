@@ -29,7 +29,7 @@ export default function Order() {
   //get items for resturant
   useEffect(() => {
     axios
-      .get(`${NETWORK}:3000/food/seller/item?id=${rest}`)
+      .get(`${NETWORK}/food/seller/item?id=${rest}`)
       .then((res) => {
         setitem(res.data);
       })
@@ -41,7 +41,7 @@ export default function Order() {
   //get resturant details
   useEffect(() => {
     axios
-      .get(`${NETWORK}:3000/food/seller/detail?id=${rest}`)
+      .get(`${NETWORK}/food/seller/detail?id=${rest}`)
       .then((res) => {
         setdetail(res.data);
       })

@@ -1,7 +1,7 @@
 import logo from "../img/logo.png";
 import burger from "../img/food/p9.png";
 import pizza from "../img/food/p12.png";
-import thali from "../img/front/thali.jpg";
+// import thali from "../img/front/thali.jpg";
 import { useState } from "react";
 import axios from "axios";
 
@@ -134,7 +134,7 @@ export default function Front() {
               </div>
             </div>
             <div>
-              <img src={thali} className="hidden md:flex h-80 w-80" />
+              {/* <img src={thali} className="hidden md:flex h-80 w-80" /> */}
             </div>
           </div>
         </div>

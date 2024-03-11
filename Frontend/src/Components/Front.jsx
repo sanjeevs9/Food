@@ -1,4 +1,4 @@
-import logo from "../../public/front/logo.png";
+import logo from "../img/logo.png";
 import burger from "../../public/food/p9.png";
 import pizza from "../../public/food/p12.png";
 import thali from "../../public/front/thali.png";

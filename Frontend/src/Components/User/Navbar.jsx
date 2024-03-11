@@ -1,4 +1,4 @@
-import logo from "../../../public/Front/logo.png";
+import logo from "../../img/logo.png";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Search from "./Search";

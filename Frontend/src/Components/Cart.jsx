@@ -35,6 +35,7 @@ export default function Cart({ fn, open }) {
 
   async function checkout() {
     setdelay(false)
+
     axios
       .post(
         `${NETWORK}/food/user/transaction`,
@@ -52,6 +53,7 @@ export default function Cart({ fn, open }) {
   }
   async function order() {
     const name = user.firstName.concat(" ").concat(user.lastName);
+    
     await axios
       .post(
         `${NETWORK}/food/order/create`,

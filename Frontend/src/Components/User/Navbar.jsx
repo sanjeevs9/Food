@@ -22,12 +22,13 @@ export default function Navbar({ className }) {
 
   useEffect(() => {
     axios
-      .get(`${NETWORK}:3000/food/user/getUser`, {
+      .get(`${NETWORK}/food/user/getUser`, {
         headers: {
           authorization: token,
         },
       })
       .then((res) => {
+        console.log(res.data);
         setuser(res.data);
       });
   }, []);

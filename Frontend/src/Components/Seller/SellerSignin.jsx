@@ -6,11 +6,13 @@ import axios from "axios";
 
 import { useState } from "react";
 import { NETWORK } from "../../../network";
+import { errorToast, successToast } from "../../toast";
 
 export default function SellerSignin() {
   const [phone, setphone] = useState(0);
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
+  const [check,setCheck]=useState(false);
 
   async function handle() {
     await axios
@@ -19,27 +21,30 @@ export default function SellerSignin() {
         password,
       })
       .then((res) => {
-        alert(res.data.message);
-        localStorage.setItem("token", `Bearer ${res.data.token}`);
+        successToast(res.data.message)
+        if(check){
+          localStorage.setItem("token", `Bearer ${res.data.token}`);
+        }
         navigate("/vendor");
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        errorToast(error.response.data.message)
+        // alert(error.response.data.message);
         console.log(error);
       });
   }
 
   return (
     <>
-      <div className="min-h-screen p-1 ">
-        <div className="bg-[#fff7ed]  min-h-screen   rounded-xl flex flex-row justify-center md:justify-between  lg:justify-center">
+      <div className=" p-1  h-screen">
+        <div className="bg-[#fff7ed]  h-[99vh]    rounded-xl flex flex-row justify-center md:justify-between  lg:justify-center">
           <div className="flex flex-col">
             <img
               src={work}
               className=" hidden md:flex h-96 w-96 mt-auto lg:absolute lg:inset-y-0 lg:left-0"
             />
           </div>
-          <div className="flex flex-col p-10 gap-5 w-96 pt-32 xl:ml-16">
+          <div className="flex flex-col p-10 gap-5 w-96 sm:pt-28 xl:ml-16">
             <input
               placeholder="Phone Number"
               className="p-2 border-2 rounded-lg"
@@ -58,16 +63,19 @@ export default function SellerSignin() {
               <div className="flex gap-2">
                 <div className="">
                   <input
-                    disabled
+                    checked={check}
                     id="disabled-checkbox"
                     type="checkbox"
                     value=""
                     className=" w-4 h-4 border-gray-300 rounded"
+                    onChange={()=>{
+                      setCheck(!check)
+                    }}
                   ></input>
                 </div>
-                <div className="">Remember me</div>
+                <div className="-my-0.5">Remember me</div>
               </div>
-              <div className="flex cursor-pointer text-xs pt-1">
+              <div className="flex cursor-pointer text-xs pt-1 underline" onClick={()=>{alert("Working On It")}}>
                 Term and Conditons
               </div>
             </div>
@@ -80,10 +88,10 @@ export default function SellerSignin() {
                 Signin
               </button>
             </div>
-            <div>
+            <div className="flex justify-center">
               <span className="font-bold text-sm">Dont have an account?</span>
               <button
-                className="text-red-600 font-semibold cursor-pointer"
+                className="text-red-600 font-semibold cursor-pointer -my-1"
                 onClick={() => {
                   navigate("/create");
                 }}

@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { NETWORK } from "../../../network";
 import { useRef,useEffect } from "react";
+import { sellerCheckBox } from "../../atoms/alert";
 
 export default function Otp() {
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
   const navigate = useNavigate();
   const inputRefs = useRef([]);
+  const check=useRecoilState(sellerCheckBox)
 
   const handleInputChange = (index, value) => {
     const updatedVerificationCode = [...verificationCode];
@@ -36,7 +38,9 @@ export default function Otp() {
         otp: code,
       })
       .then((res) => {
-        localStorage.setItem("token", `Bearer ${res.data.token}`);
+        if(check){
+          localStorage.setItem("token", `Bearer ${res.data.token}`);  
+        }
         alert(res.data.message);
         navigate("/vendor");
       })

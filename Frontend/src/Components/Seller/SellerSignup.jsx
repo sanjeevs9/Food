@@ -6,6 +6,9 @@ import axios from "axios";
 
 import { useState } from "react";
 import { NETWORK } from "../../../network";
+import { useRecoilState } from "recoil";
+import { sellerCheckBox } from "../../atoms/alert";
+import { errorToast, successToast } from "../../toast";
 
 export default function SellerSignup() {
   const [ShopName, setSopName] = useState("");
@@ -14,6 +17,7 @@ export default function SellerSignup() {
   const [imgUrl, setimgUrl] = useState("");
   const [description, setdescription] = useState("");
   const navigate = useNavigate();
+  const [check,setcheck]=useRecoilState(sellerCheckBox)
 
   async function handle() {
     await axios
@@ -25,11 +29,12 @@ export default function SellerSignup() {
         description,
       })
       .then((res) => {
-        alert(res.data.message);
+        successToast(res.data.message)
+
         navigate("/otp");
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        errorToast(error.response.data.message)
         console.log(error);
       });
   }
@@ -37,14 +42,14 @@ export default function SellerSignup() {
   return (
     <>
       <div className="min-h-screen p-1 ">
-        <div className="bg-[#fff7ed]  min-h-screen   rounded-xl flex flex-row justify-center md:justify-between  lg:justify-center">
+        <div className="bg-[#fff7ed] h-[95vh] sm:h-[99vh]   rounded-xl flex flex-row justify-center md:justify-between  lg:justify-center">
           <div className="flex flex-col">
             <img
               src={work}
               className=" hidden md:flex h-96 w-96 mt-auto lg:absolute lg:inset-y-0 lg:left-0"
             />
           </div>
-          <div className="flex flex-col p-10 gap-5 w-96 pt-32 xl:ml-16">
+          <div className="flex flex-col p-10 gap-5 w-96 sm:pt-28 xl:ml-16">
             <input
               placeholder="ShopName"
               className="p-2 border-2 rounded-lg "
@@ -84,16 +89,19 @@ export default function SellerSignup() {
               <div className="flex gap-2">
                 <div className="">
                   <input
-                    disabled
-                    id="disabled-checkbox"
+                    id="checkbox"
                     type="checkbox"
                     value=""
+                    checked={check}
                     className=" w-4 h-4 border-gray-300 rounded"
+                    onChange={()=>{
+                    setcheck(!check)
+                    }}
                   ></input>
                 </div>
-                <div className="">Remember me</div>
+                <div className="-my-0.5">Remember me</div>
               </div>
-              <div className="flex cursor-pointer text-xs pt-1">
+              <div className="flex cursor-pointer text-xs pt-1 underline" onClick={()=>{alert("Working On It")}}>
                 Term and Conditons
               </div>
             </div>
@@ -114,7 +122,7 @@ export default function SellerSignup() {
                   navigate("/login");
                 }}
               >
-                Signin
+                SignIn
               </button>
             </div>
             <img src={stair} className="flex md:hidden h-80" />

@@ -3,7 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom"
 import { NETWORK } from "../../../network";
 import axios from "axios";
 import { errorToast, successToast } from "../../toast";
-
+import { useRecoilValue } from "recoil";
+import { checkbox } from "../../atoms/alert";
 
 export default function UserOtp(){
     const navigate= useNavigate()
@@ -17,6 +18,7 @@ export default function UserOtp(){
     const num2=useRef();
     const num3=useRef();
     const num4=useRef();
+    const checkBox=useRecoilValue(checkbox);
 
     useEffect(()=>{
       num1.current.focus();
@@ -25,6 +27,8 @@ export default function UserOtp(){
     function focusclick(value){
         value.current.focus()
     }
+
+
 
     async function handle(){
       const num=value.one+value.two+value.three+value.four
@@ -36,7 +40,10 @@ export default function UserOtp(){
         },
         ).then(res=>{
             console.log(res.data.message);
-            localStorage.setItem("token",`Bearer ${res.data.token}`)
+            if(checkBox){
+              localStorage.setItem("token",`Bearer ${res.data.token}`)
+            }
+            
             successToast(res.data.message)
             navigate("/user")
         }).catch((error)=>{

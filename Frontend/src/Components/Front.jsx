@@ -59,7 +59,7 @@ export default function Front() {
 
   return (
     <>
-      <div className=" min-h-screen p-16">
+      <div className=" max-h-screen sm:p-16 p-8">
         <div
           className="absolute inset-0 bg-no-repeat bg-left-top filter blur-[6px] z-[-1]"
           style={{
@@ -76,15 +76,15 @@ export default function Front() {
           }}
         ></div>
 
-        <div className=" h-screen  bg-[#fff7ed] rounded-xl">
+        <div className=" h-[85vh] sm:h-[85vh]  bg-[#fff7ed] rounded-xl">
           <div className="flex p-12 justify-between">
             <img src={logo} className="h-10 w-10"></img>
-            <ul className="hidden sm:flex gap-10 pr-2 ">
-              <li className="cursor-pointer" onClick={handle}>
+            <ul className=" sm:flex gap-10 pr-2 ">
+              <li className="cursor-pointer hidden sm:flex" onClick={handle}>
                 Dashboard
               </li>
               <li
-                className="cursor-pointer"
+                className="cursor-pointer hidden sm:flex"
                 onClick={() => {
                   navigate("/help");
                 }}
@@ -109,9 +109,9 @@ export default function Front() {
               </li>
             </ul>
 
-            <div className="sm:hidden">
+            {/* <div className="">
               <DropDown />
-            </div>
+            </div> */}
           </div>
           <div className="flex flex-row justify-between p-12 xl:justify-around">
             <div className="">

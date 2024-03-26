@@ -180,10 +180,43 @@ router.post("/menu", middleware, async (req, res) => {
   
 });
 
+//update menu
+
+router.post("/updatemanu",middleware,async(req,res)=>{
+  const UserId = req.UserId;
+  const body =req.body;
+  const id=req.headers.id
+
+  try{
+    await menuCheck.parseAsync(body)
+
+    const seller=await Seller.updateMany({
+        _id:id
+    },{
+      $set:{
+        foodName:body.foodName,
+        price:body.price,
+        imageUrl:body.imgUrl
+      }
+    })
+    res.json({
+      message:"Updated"
+    })
+    
+  }catch(error){
+    console.log(error)
+    res.status(400).json({
+        message:error.errors[0].message
+    })
+    return
+  }
+
+})
+
 //menu get on user interface
 router.get("/item", async (req, res) => {
   const UserId = req.query.id;
-  const menu = await Menu.find({ userId: UserId }, "foodName price imgUrl");
+  const menu = await Menu.find({ userId: UserId }, "foodName price imgUrl _id");
   res.send(menu);
 });
 

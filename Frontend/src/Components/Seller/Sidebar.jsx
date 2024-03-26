@@ -1,11 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../../img/logo.png";
+import { useRecoilValue } from "recoil";
+import { sidebar } from "../../atoms/alert";
 
 export default function Sidebar() {
+  const bar=useRecoilValue(sidebar)
   const navigate = useNavigate();
   return (
     <>
-      <aside className="hidden sm:block sm:fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 ">
+<aside className={`${ !bar  && window.innerWidth < 640 ? 'hidden' : ''} sm:flex  sm:fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 `}>
         <div className="flex flex-col justify-between h-full">
           <div className="flex-grow">
             <div className="px-4 py-6 text-center border-b flex">

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { NETWORK } from "../../../network";
+import MenuUpdate from "./MenuUpdate";
 
 export default function Menutable() {
   const token = localStorage.getItem("token");
   const [menu, setmenu] = useState([]);
+  const[open,setopen]=useState(false);
 
   useEffect(() => {
     axios
@@ -21,13 +23,22 @@ export default function Menutable() {
       });
   }, []);
 
+  function handle(){
+    setopen(!open)
+  }
+
   return (
     <>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
           <thead class="text-xs text-white uppercase bg-yellow-700 ">
             <tr>
-              <th scope="col" class="px-16 py-3">
+              
+              <th scope="col" class="px-16 py-3 absolute">
+
+              <div className=" hidden sm:flex -translate-x-14 relative text-xs   lowercase underline cursor-pointer">
+                Add item
+              </div>
                 <span class="sr-only">Image</span>
               </th>
               <th scope="col" class="px-6 py-3">
@@ -61,9 +72,13 @@ export default function Menutable() {
                   &#8377;{item.price}
                 </td>
                 <td class="px-6 py-4">
-                  <a href="#" class="font-medium text-red-600 hover:underline">
+                  <div  className="font-medium text-red-600 hover:underline cursor-pointer" onClick={handle}>
                     Update
-                  </a>
+                  </div>
+                  {open?<div>
+                    <MenuUpdate prop1={handle} id={item._id}>
+                      </MenuUpdate>
+                  </div>:null}
                 </td>
               </tr>
             ))}

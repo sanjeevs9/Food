@@ -14,3 +14,8 @@ export const sellerCheckBox=atom({
     key:"scheckbox",
     default:false
 })
+
+export const sidebar=atom({
+    key:"sidebar",
+    default:"false"
+})

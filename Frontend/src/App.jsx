@@ -45,7 +45,6 @@ function App() {
           <Route path="/login" element={<SellerSignin />} />
 
           <Route path="/user" element={<Dashboard />} />
-          <Route path="/addmenu" element={<AddMenu />} />
           <Route path="/vendor" element={<Sdashoard />} />
           <Route path="/order" element={<Order />} />
           <Route path="/otp" element={<Otp />} />

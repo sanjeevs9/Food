@@ -48,6 +48,7 @@ export default function Cart({ fn, open }) {
       })
       .catch((error) => {
         alert(error.response.data.message);
+        setdelay(true)
         return;
       });
   }

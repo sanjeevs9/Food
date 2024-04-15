@@ -4,6 +4,7 @@ import axios from "axios";
 import { NETWORK } from "../../../network";
 import { useRef,useEffect } from "react";
 import { sellerCheckBox } from "../../atoms/alert";
+import { useRecoilState } from "recoil";
 
 export default function Otp() {
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);

@@ -67,8 +67,8 @@ const menuCheck=zod.object({
     foodName:zod
     .string({required_error:"FoodName is required"})
     .min(2,{message:"Minimum 2 characters"}),
-    price:zod.number({required_error:"price is required"}),
-    imgUrl:zod.string()
+    price: zod.number().min(11, { message: "Price must be greater than 10" }),
+    imgUrl:zod.string().url({required_error:"Url is required"})
 })
 
 module.exports={

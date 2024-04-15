@@ -66,7 +66,6 @@ router.post('/signup',async (req,res)=>{
 
 router.post('/verify',async(req,res)=>{{
     let OTP=req.body.otp;
-    OTP=otp
     try{
         if(OTP!==otp){
             res.status(400).json({
@@ -240,7 +239,7 @@ router.post('/transaction',middleware,async(req,res)=>{
     if(balance<total){
         await session.abortTransaction();
         res.status(400).json({
-            "message":"Insufficient Solution"
+            "message":"Insufficient Balance"
         })
         return
     }

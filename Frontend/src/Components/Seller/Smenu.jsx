@@ -16,7 +16,7 @@ export default function Smenu() {
         <div className="flex">
           <Sidebar/>
         </div>
-        <div className={`${bar ? 'w-1/6' : ''} w-full sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}>
+        <div className={`${bar ? 'w-2/6' : ''} w-full sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}>
           <div className="w-full">
           <div className="  flex sm:hidden relative mx-3 pt-2 cursor-pointer -translate-x-4 -translate-y-1"onClick={handle}> 
         

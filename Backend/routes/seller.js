@@ -159,7 +159,7 @@ router.post("/menu", middleware, async (req, res) => {
     return;
   }
 
-  await Menu.create({
+ const menu= await Menu.create({
     userId: UserId,
     foodName: payload.foodName,
     price: payload.price,
@@ -168,6 +168,7 @@ router.post("/menu", middleware, async (req, res) => {
 
   res.json({
     message: "Food Added",
+    menu
   });
   }
   catch(error){
@@ -186,19 +187,22 @@ router.post("/updatemanu",middleware,async(req,res)=>{
   const UserId = req.UserId;
   const body =req.body;
   const id=req.headers.id
-
+  console.log(body)
+  console.log(id)
+  console.log(body)
   try{
     await menuCheck.parseAsync(body)
-
-    const seller=await Seller.updateMany({
+      console.log(body.imgUrl)
+    const seller=await Menu.updateMany({
         _id:id
     },{
       $set:{
         foodName:body.foodName,
         price:body.price,
-        imageUrl:body.imgUrl
+        imgUrl:body.imgUrl
       }
     })
+    console.log(seller)
     res.json({
       message:"Updated"
     })

@@ -52,27 +52,27 @@ async function handle(){
 }
 
 function SendEmail(email, name,otp) {
-    // emailjs
-    //   .send(
-    //     serive,
-    //     temp,
-    //     {
-    //       to_name: name,
-    //       message: `Your otp is ${otp}`,
-    //       from_name: "Sanjeev",
-    //       receiver: "sanjeev.19kr@gmail.com",
-    //       reply_to: "sanjeev.19kr@gmail.com",
-    //     },
-    //     key
-    //   )
-    //   .then(
-    //     () => {
-    //       console.log("success");
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
+    emailjs
+      .send(
+        serive,
+        temp,
+        {
+          to_name: name,
+          message: `Your otp is ${otp}`,
+          from_name: "Sanjeev",
+          receiver: "sanjeev.19kr@gmail.com",
+          reply_to: "sanjeev.19kr@gmail.com",
+        },
+        key
+      )
+      .then(
+        () => {
+          console.log("success");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   }
 
 

@@ -66,7 +66,7 @@ export default function Tabble() {
 
   return (
     <>
-      <div className="p-6 overflow-scroll px-0">
+      <div className="p-6 overflow-scroll px-0 ">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <thead>
             <tr>

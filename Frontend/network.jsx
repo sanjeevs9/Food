@@ -1,1 +1,1 @@
-export const NETWORK="http://localhost:3000";
+export const NETWORK="http://192.168.1.247:3000";

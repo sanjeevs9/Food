@@ -1,10 +1,20 @@
 const mongoose = require('mongoose');
 require('dotenv').config()
 
-mongoose.connect( `mongodb+srv://${process.env.MONGO_URI}`,{
-  bufferCommands: false,
-  connectTimeoutMS: 30000
-});
+async function startServer() {
+  try {
+    await mongoose.connect(`mongodb+srv://${process.env.MONGO_URI}`, {
+      bufferCommands: false,
+      connectTimeoutMS: 30000
+    });
+    console.log('Database connected!');
+    // Start your server or perform database operations here
+  } catch (error) {
+    console.error('Failed to connect to database!', error);
+  }
+}
+
+startServer();
 
 const userSchema=new mongoose.Schema({
     email:{

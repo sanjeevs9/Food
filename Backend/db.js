@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config()
 
-await mongoose.connect( `mongodb+srv://${process.env.MONGO_URI}`,{
+mongoose.connect( `mongodb+srv://${process.env.MONGO_URI}`,{
   bufferCommands: false,
   connectTimeoutMS: 30000
 });

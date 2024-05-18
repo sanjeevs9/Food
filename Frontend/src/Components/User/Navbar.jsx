@@ -9,6 +9,7 @@ import axios from "axios";
 import { userState } from "../../atoms/userState";
 import { NETWORK } from "../../../network";
 import Wallet from "./Wallet";
+import { errorToast } from "../../toast";
 
 export default function Navbar({ className }) {
   const navigate = useNavigate();
@@ -17,10 +18,17 @@ export default function Navbar({ className }) {
   const [open, setopen] = useState(false);
   const [wallet, setWallet] = useState(false);
 
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
   const [user, setuser] = useRecoilState(userState);
 
   useEffect(() => {
+    if(!token){
+      token=sessionStorage.getItem("token")
+      if(!token){
+        errorToast("please login")
+        return
+      }
+    }
     axios
       .get(`${NETWORK}/food/user/getUser`, {
         headers: {

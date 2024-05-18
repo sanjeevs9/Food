@@ -3,16 +3,24 @@ import axios from "axios";
 import { NETWORK } from "../../../network";
 import MenuUpdate from "./MenuUpdate";
 import AddMenu from "./Addmenu";
+import { errorToast } from "../../toast";
 
 
 export default function Menutable() {
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
   const [menu, setmenu] = useState([]);
   const[open,setopen]=useState(false);
   const[menuadd,setmenuadd]=useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
+    if(!token){
+      token=sessionStorage.getItem("token")
+      if(!token){
+        errorToast("please login")
+        return
+      }
+    }
     axios
       .get(`${NETWORK}/food/seller/itemm`, {
         headers: {

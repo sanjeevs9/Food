@@ -6,9 +6,11 @@ import axios from "axios";
 import { NETWORK } from "../../../network";
 import { useRecoilState } from "recoil";
 import { alertState } from "../../atoms/alert";
+import errorMap from "zod/locales/en.js";
+import { errorToast } from "../../toast";
 
 export default function OrderHistory() {
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
   const [data, setdata] = useState([]);
   const [alertedOrders, setAlertedOrders] = useRecoilState(alertState);
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,6 +18,13 @@ export default function OrderHistory() {
   const prevDataRef = useRef();
 
   useEffect(() => {
+    if(!token){
+      token=sessionStorage.getItem("token")
+      if(!token){
+        errorToast("PLease login")
+        return
+      }
+    }
     const interval = () => {
       axios
         .get(`${NETWORK}/food/order/get`, {
@@ -28,7 +37,6 @@ export default function OrderHistory() {
             JSON.stringify(res.data.list.reverse()) !==
             JSON.stringify(prevDataRef.current)
           ) {
-            console.log("sjdb");
             setdata(res.data.list.reverse());
             prevDataRef.current = res.data.list.reverse();
             [...res.data.list]

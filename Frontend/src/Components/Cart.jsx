@@ -8,7 +8,7 @@ import { NETWORK } from "../../network";
 import { userState } from "../atoms/userState";
 import { balanceState } from "../atoms/balanceState";
 import { useNavigate } from "react-router-dom";
-import { successToast } from "../toast";
+import { errorToast, successToast } from "../toast";
 
 export default function Cart({ fn, open }) {
   const [cart, setCart] = useRecoilState(cartState);
@@ -30,10 +30,17 @@ export default function Cart({ fn, open }) {
     setCart(cart.filter((item) => item.id !== x.id));
   }
 
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
   const restra = localStorage.getItem("restra");
 
   async function checkout() {
+    if(!token){
+      token=sessionStorage.getItem("token");
+      if(!token){
+        errorToast("Please login")
+        return
+      }
+    }
     setdelay(false)
 
     axios

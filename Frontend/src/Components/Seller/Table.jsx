@@ -2,11 +2,12 @@ import { useState, useEffect, Children } from "react";
 import axios from "axios";
 import { NETWORK } from "../../../network";
 import Skeleton from "./Skeleton";
+import { errorToast } from "../../toast";
 
 export default function Tabble() {
   const [data, setData] = useState([]);
   const [loading, setloading] = useState(true);
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
 
   const handleSelectChange = (event, id) => {
     const newStatus = event.target.value;
@@ -25,6 +26,13 @@ export default function Tabble() {
   };
 
   useEffect(() => {
+    if(!token){
+      token=sessionStorage.getItem("token")
+      if(!token){
+        errorToast("please login")
+        return
+      }
+    }
     const interval = () => {
       axios
         .get(`${NETWORK}/food/order/sget`, {

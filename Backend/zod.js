@@ -3,7 +3,7 @@ const zod=require('zod');
 const userSignup=zod.object({
     email:zod
     .string({required_error:"email is required"})
-    .email({message:"Use sharda mail to signup"}),
+    .email({message:"Use valid mail to signup"}),
 
     firstName:zod
     .string({required_error:"FirstName is required"})

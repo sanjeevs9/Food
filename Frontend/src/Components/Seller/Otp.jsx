@@ -41,6 +41,8 @@ export default function Otp() {
       .then((res) => {
         if(check){
           localStorage.setItem("token", `Bearer ${res.data.token}`);  
+        }else{
+          sessionStorage.setItem("token",`Bearer ${res.data.token}`)
         }
         alert(res.data.message);
         navigate("/vendor");
@@ -56,7 +58,7 @@ export default function Otp() {
         <div className="mx-auto flex w-full max-w-md flex-col space-y-16">
           <div className="flex flex-col items-center justify-center text-center space-y-2">
             <div className="font-semibold text-3xl">
-              <p>Email Verification</p>
+              <p>Phone Verification</p>
             </div>
             <div className="flex flex-row text-sm font-medium text-gray-400">
               <p>We have sent a code to your Phone Number </p>

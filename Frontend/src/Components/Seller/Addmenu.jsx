@@ -2,14 +2,22 @@ import axios from "axios";
 import { NETWORK } from "../../../network";
 import { useState } from "react";
 import ReactDOM from "react-dom";
+import { errorToast } from "../../toast";
 
 export default function AddMenu({prop,addItem}) {
   const [details, setdetails] = useState({ foodName: "", price: "", url: "" });
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
   
 
   async function click() {
-    console.log(token);
+      if(!token){
+        token=sessionStorage.getItem("token")
+        if(!token){
+          errorToast("please login")
+          return
+        }
+       
+      }
     await axios
       .post(
         `${NETWORK}/food/seller/menu`,

@@ -7,15 +7,22 @@ import axios from "axios";
 import { NETWORK } from "../../../network";
 import { useRecoilState } from "recoil";
 import { balanceState } from "../../atoms/balanceState";
-import { successToast } from "../../toast";
+import { errorToast, successToast } from "../../toast";
 
 export default function Wallet({ fn, open }) {
     const[balance,setbalance]=useRecoilState(balanceState)
-    const token=localStorage.getItem("token");
+    let token=localStorage.getItem("token");
     const[input,setinput]=useState(1000);
     const element=useRef();
 
     useEffect(()=>{
+      if(!token){
+        token=sessionStorage.getItem("token")
+        if(!token){
+          errorToast("PLease login")
+          return
+        }
+      }
         axios.get(`${NETWORK}/food/user/balance`,
         {
             headers:{
@@ -28,6 +35,13 @@ export default function Wallet({ fn, open }) {
     },[balance])
 
     function transaction(){
+      if(!token){
+        token=sessionStorage.getItem("token")
+        if(!token){
+          errorToast("PLease login")
+          return
+        }
+      }
         axios.put(`${NETWORK}/food/user/addmoney`,
         {
             money:(Number)(input)

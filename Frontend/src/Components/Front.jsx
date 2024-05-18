@@ -12,14 +12,16 @@ import { errorToast } from "../toast";
 
 export default function Front() {
   const [drop, setdrop] = useState(false);
-  const token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   async function handle() {
     if (!token) {
-      errorToast("Please login or Create your account")
-      // alert("Please Login or Create Your account");
-      return;
+        token=sessionStorage.getItem("token");
+         if(!token){
+         errorToast("Please login or Create your account")
+         return;
+        } 
     }
     await axios
       .post(

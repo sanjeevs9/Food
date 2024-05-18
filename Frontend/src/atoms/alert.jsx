@@ -7,12 +7,12 @@ export const alertState=atom({
 
 export const checkbox=atom({
     key:"checkBox",
-    default:false
+    default:true
 })
 
 export const sellerCheckBox=atom({
     key:"scheckbox",
-    default:false
+    default:true
 })
 
 export const sidebar=atom({

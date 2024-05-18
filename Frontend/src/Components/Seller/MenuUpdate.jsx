@@ -9,11 +9,17 @@ import Loader from "../Loader";
 
 export default function MenuUpdate({prop1,id}){
     const [data,setData]=useState({foodName:"",price:0,imgUrl:""})
-    const token =localStorage.getItem("token");
+    let token =localStorage.getItem("token");
     const [load ,setlaod ]=useState(false);
 
     async function click(){
-      console.log(id)
+      if(!token){
+        token=sessionStorage.getItem("token")
+        if(!token){
+          errorToast("Please login")
+          return
+        }
+      }
         if(load){
             return
         }

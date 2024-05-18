@@ -12,7 +12,7 @@ export default function SellerSignin() {
   const [phone, setphone] = useState(0);
   const [password, setpassword] = useState("");
   const navigate = useNavigate();
-  const [check,setCheck]=useState(false);
+  const [check,setCheck]=useState(true);
 
   async function handle() {
     await axios
@@ -24,6 +24,8 @@ export default function SellerSignin() {
         successToast(res.data.message)
         if(check){
           localStorage.setItem("token", `Bearer ${res.data.token}`);
+        }else{
+          sessionStorage.setItem("token",`Bearer ${res.data.token}`)
         }
         navigate("/vendor");
       })

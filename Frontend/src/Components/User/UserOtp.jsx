@@ -42,6 +42,8 @@ export default function UserOtp(){
             console.log(res.data.message);
             if(checkBox){
               localStorage.setItem("token",`Bearer ${res.data.token}`)
+            }else{
+              sessionStorage.setItem("token",`Bearer ${res.data.token}`)
             }
             
             successToast(res.data.message)

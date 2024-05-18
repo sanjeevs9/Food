@@ -41,7 +41,7 @@ router.post("/create", async (req, res) => {
   //dummy otp json
   tempSeller = payload;
   res.json({
-    message: "dummy otp sended",
+    message: "dummy otp(Type Any number to create)",
   });
   //   client.messages
   //     .create({

@@ -1,6 +1,6 @@
 
 const express = require('express');
-const {User,Bank,Student} =require('../db')
+const {User,Bank} =require('../db')
 const jwt=require('jsonwebtoken')
 const {userSignup, userSignin} =require('../zod'); 
 const JWT_SECRET=require("../config");
@@ -19,15 +19,6 @@ router.post('/signup',async (req,res)=>{
     console.log(payload)
     try{
         await userSignup.parseAsync(payload)
-        const student=await Student.find({email:payload.email})
-   
-
-    if(student.length===0){
-        res.status(400).json({
-            message:"Please use Sharda email"
-        })
-        return
-     }
 
      const existingUser=await User.findOne({email:payload.email})
      console.log(existingUser)

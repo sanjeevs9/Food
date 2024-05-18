@@ -60,7 +60,7 @@ function SendEmail(email, name,otp) {
           to_name: name,
           message: `Your otp is ${otp}`,
           from_name: "Sanjeev",
-          receiver: "sanjeev.19kr@gmail.com",
+          receiver: email,
           reply_to: "sanjeev.19kr@gmail.com",
         },
         key

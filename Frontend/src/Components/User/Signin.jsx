@@ -11,7 +11,7 @@ export default function Signin(){
     const navigate = useNavigate();
     const[email,setEmail]=useState("");
     const[password,setpassword]=useState("");
-    const[check,setcheck] =useState(false);
+    const[check,setcheck] =useState(true);
     const[pass,setpass]=useState("password")
 
     function passHandle(){
@@ -32,6 +32,8 @@ export default function Signin(){
             // alert(res.data.message)
             if(check){
                 localStorage.setItem("token",`Bearer ${res.data.token}`)
+            }else{
+                sessionStorage.setItem("token",`Bearer ${res.data.token}`)
             }
             
             navigate('/user')

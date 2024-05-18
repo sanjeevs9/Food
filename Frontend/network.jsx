@@ -1,1 +1,1 @@
-export const NETWORK="https://food-pc2b.vercel.app";
+export const NETWORK="https://food-oplo.onrender.com";

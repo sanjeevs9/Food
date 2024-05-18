@@ -1,12 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import Footer from "../Footer";
-import Front from "../Front";
 import Navbar from "./Navbar";
 import axios from "axios";
 import { NETWORK } from "../../../network";
 import { useRecoilState } from "recoil";
 import { alertState } from "../../atoms/alert";
-import errorMap from "zod/locales/en.js";
 import { errorToast } from "../../toast";
 
 export default function OrderHistory() {

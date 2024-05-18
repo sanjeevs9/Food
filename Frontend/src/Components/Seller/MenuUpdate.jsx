@@ -1,11 +1,8 @@
 import ReactDOM from "react-dom";
-import bg from "../../img/update.jpg"
-import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { errorToast, successToast } from "../../toast";
 import { NETWORK } from "../../../network";
-import Loader from "../Loader";
 
 export default function MenuUpdate({prop1,id}){
     const [data,setData]=useState({foodName:"",price:0,imgUrl:""})

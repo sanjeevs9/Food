@@ -1,6 +1,4 @@
-import Footer from "../Footer";
-import Navbar from "./Navbar";
-import construct from "../../img/construct.svg";
+
 import ReactDOM from "react-dom";
 import { useEffect, useState,useRef } from "react";
 import axios from "axios";

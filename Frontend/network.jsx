@@ -1,1 +1,1 @@
-export const NETWORK="http://192.168.1.247:3000";
+export const NETWORK="https://foodbackend-sanjeevs9-sanjeevs9s-projects.vercel.app/";

@@ -86,11 +86,11 @@ function SendEmail(email, name,otp) {
         
         <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center p-5 sm:p-0">
             <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 ">
-                <div className="lg:w-1/2 xl:min-w-5/12   p-5 sm:p-12">
+                <div className="lg:w-1/2 xl:min-w-5/12   p-5 sm:p-12  sm:pt-0">
                     <div>
                         <img
                             src={logo}
-                            className="w-14 sm:w-24 mx-auto"
+                            className="w-12 mx-auto"
                             alt="Logo"
                         />
                     </div>
@@ -175,11 +175,11 @@ function SendEmail(email, name,otp) {
                                     <span className="ml-3">Sign Up</span>
                                 </button>
                                 <p className="mt-6 text-xs text-gray-600 text-center">
-                                    I agree to abide by templatana's
+                                    I agree to abide by templatana's ‎ ‎ 
                                     <a  className="border-b border-gray-500 border-dotted">
                                         Terms of Service
                                     </a>
-                                    and its
+                                    ‎ ‎     and its‎ ‎ 
                                     <a  className="border-b border-gray-500 border-dotted">
                                          Privacy Policy
                                     </a>

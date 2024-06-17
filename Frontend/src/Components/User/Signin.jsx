@@ -52,23 +52,23 @@ export default function Signin(){
    
     return(
         <>
-        <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center p-5 sm:p-0">
-            <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-                <div className="lg:w-1/2 xl:min-w-5/12 p-6 sm:p-12">
+        <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center p-4  ">
+            <div className="max-w-screen-xl m-0 md:m-10  bg-white shadow sm:rounded-lg flex justify-center flex-1 overflow-y-hidden">
+                <div className="lg:w-1/2 xl:min-w-5/12 p-6 sm:p-12 sm:pt-5 md  ">
                     <div>
                         <img
                             src={logo}
-                            className=" w-14 sm:w-24 mx-auto"
+                            className=" w-10 sm:w-12   mx-auto"
                             alt="Logo"
                         />
                     </div>
-                    <div className="sm:mt-5 flex flex-col items-center">
-                        <h1 className="text-2xl xl:text-3xl font-extrabold">
+                    <div className="sm:mt-1 flex flex-col items-center w-full ">
+                        <h1 className=" text-2xl xl:text-3xl font-bold ">
                             Sign In
                         </h1>
-                        <div className="w-full flex-1 pt-2 sm:mt-8">
-                            <div className="hidden sm:flex flex-col items-center">
-                                <button className="w-full max-w-xs font-bold shadow-sm text-sm sm:text-base rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
+                        <div className="w-full flex flex-col pt-2 sm:mt-8   items-center ">
+                            <div className="hidden md:flex flex-col items-center w-full justify-center ">
+                                <button className=" w-full max-w-sm font-bold shadow-sm text-sm sm:text-base rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline">
                                     <div className="bg-white p-2 rounded-full">
                                         <svg className="w-4" viewBox="0 0 533.5 544.3">
                                             <path
@@ -92,7 +92,7 @@ export default function Signin(){
                                     <span className="ml-4">Login with Google</span>
                                 </button>
 
-                                <button className="w-full max-w-xs text-sm sm:text-base font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
+                                <button className="w-full max-w-sm text-sm sm:text-base font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5">
                                     <div className="bg-white p-1 rounded-full">
                                         <svg className="w-6" viewBox="0 0 32 32">
                                             <path
@@ -105,13 +105,14 @@ export default function Signin(){
                                 </button>
                             </div>
 
+                          
+
+                            <div className="mx-auto max-w-sm">
                             <div className="my-12 border-b text-center">
                                 <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                                     Sign in with e-mail
                                 </div>
                             </div>
-
-                            <div className="mx-auto max-w-xs">
                                 <input
                                     className="w-full px-5 py-3 sm:px-8 sm:py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                                     type="email"
@@ -145,7 +146,7 @@ export default function Signin(){
                             <div className='-my-0.5'>Remember me</div>
                             
                         </div>
-                                <button className="mt-5 tracking-wide font-semibold bg-[#FC5664] text-gray-100 w-full py-4 rounded-lg hover:bg-red-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                <button className="mt-5 text-sm sm:text-base tracking-wide font-semibold bg-[#FC5664] text-gray-100 w-full py-3 sm:py-4 rounded-lg hover:bg-red-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                                 onClick={handle}>
                                     <svg
                                         className="w-6 h-6 -ml-2"
@@ -162,18 +163,18 @@ export default function Signin(){
                                     <span className="ml-3">Sign In</span>
                                 </button>
                                 <p className="mt-6 text-xs text-gray-600 text-center">
-                                    I agree to abide by templatana's
+                                    I agree to abide by templatana's ‎ ‎ 
                                     <a href="#" className="border-b border-gray-500 border-dotted">
                                         Terms of Service
                                     </a>
-                                    and its
+                                    ‎ ‎  and its ‎ ‎ 
                                     <a href="#" className="border-b border-gray-500 border-dotted">
                                         Privacy Policy
                                     </a>
                                 </p>
                                 <div className='flex justify-center pt-5 gap-1'>
                     <span className=' text-sm'>Dont have an account?</span>
-                    <button className='text-red-600 font-medium cursor-pointer -translate-y-[2px] ' onClick={
+                    <button className='text-red-600 text-xs sm:text-base font-medium cursor-pointer -translate-y-[2px] ' onClick={
                         ()=>{navigate('/signup')}
                     }>Sign Up</button>
                 </div>

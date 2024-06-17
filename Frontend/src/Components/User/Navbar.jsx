@@ -172,7 +172,7 @@ export default function Navbar({ className }) {
               className="relative flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."
               onClick={help}
             >
-              <svg className="h-5 sm:h-7"
+              <svg className="h-5"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -188,7 +188,7 @@ export default function Navbar({ className }) {
               </svg>
               <span className="cursor-pointer">Cart</span>
               <div
-                className={`bg-red-500 h-7 w-7 absolute rounded-full text-white flex justify-center items-center font-extrabold text-sm transform translate-x-28 -translate-y-5 ${
+                className={`bg-[#FC5664] h-7 w-7 absolute rounded-full text-white flex justify-center items-center font-extrabold text-sm transform translate-x-28 -translate-y-5 ${
                   length === 0 ? `hidden` : `flex`
                 }`}
                 style={{ top: "35px", right: "100px" }}

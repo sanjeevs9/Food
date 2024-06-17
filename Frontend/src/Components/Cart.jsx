@@ -93,11 +93,11 @@ export default function Cart({ fn, open }) {
 
   return ReactDOM.createPortal(
     <>
-      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 backdrop-blur-sm">
+      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 backdrop-blur-sm  ">
         <div
           className={`${
             size === 0 ? `flex` : `hidden`
-          } relative flex-col w-3/5 md:w-3/5 h-3/4 bg-white rounded-xl  inset-x-26 sm:inset-x-16 lg:inset-x-36 p-6`}
+          } relative flex-col w-5/6 h-3/5 md:w-3/5 sm:h-3/4 md:h-3/5 xl:w-2/5   bg-white rounded-xl  inset-x-26 sm:inset-x-16 lg:inset-x-36 p-6 -translate-y-12 sm:-translate-y-8 xl:-translate-y-20 md:-translate-x-10 xl:translate-x-32 2xl:translate-x-64`}
         >
           <div
             className="absolute top-0 right-0 translate-x-4 -translate-y-4 cursor-pointer"
@@ -128,7 +128,7 @@ export default function Cart({ fn, open }) {
         <div
           className={`${
             size === 0 ? `hidden` : `flex`
-          }  relative flex-col w-3/5 md:w-3/5 h-3/4 bg-white rounded-xl  inset-x-26 sm:inset-x-16 lg:inset-x-36 p-6`}
+          }  relative flex-col w-5/6 h-4/6 md:w-3/5 sm:h-3/4 xl:w-2/5 bg-white rounded-xl  inset-x-26 sm:inset-x-16 lg:inset-x-36 p-6 -translate-y-8 sm:-translate-y-0 xl:-translate-y-2 md:-translate-x-10 xl:translate-x-32 2xl:translate-x-64`}
         >
           <div
             className="absolute top-0 right-0 translate-x-4 -translate-y-4 cursor-pointer"
@@ -155,22 +155,22 @@ export default function Cart({ fn, open }) {
             <hr />
           </div>
 
-          <div className="flex-grow overflow-y-auto mb-4 space-y-3">
+          <div className="flex-grow overflow-y-auto mb-4 space-y-3 overflow-x-auto " >
             {cart.map((x) => (
-              <div className="flex  rounded-lg bg-white flex-row p-4">
+              <div className="flex  rounded-lg bg-white flex-row sm:p-4">
                 <img
-                  className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+                  className="m-2 h-14 w-16 sm:h-24 sm:w-28 rounded-md border object-cover object-center"
                   src={x.imageUrl}
                 />
                 <div className="flex w-full flex-col px-2 py-2">
-                  <span className="font-semibold">{x.name}</span>
-                  <span className="float-right text-gray-400">
+                  <span className="font-medium sm:font-semibold">{x.name}</span>
+                  <span className="float-right text-gray-400 text-sm sm:text-base">
                     {x.quantity}
                   </span>
-                  <p className="text-lg font-bold">&#8377;{x.cost}</p>
+                  <p className="text-sm sm:text-base font-semibold">&#8377;{x.cost}</p>
                 </div>
                 <div
-                  className=" text-red-600 cursor-pointer hidden sm:flex font-semibold "
+                  className=" text-red-600 cursor-pointer flex text-sm sm:text-base font-medium sm:font-semibold pt-2 sm:pt-0"
                   onClick={() => removeFromCart(x)}
                 >
                   remove
@@ -187,7 +187,7 @@ export default function Cart({ fn, open }) {
                 delay===true? (
                   <>
                   <button
-            className="w-full py-2 px-4 bg-blue-500 text-white rounded-md"
+            className="w-full py-2 px-4 bg-[#FC5664] hover:bg-red-500 text-white rounded-md"
             onClick={checkout}
           >
             Checkout

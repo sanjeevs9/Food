@@ -96,7 +96,7 @@ export default function Front() {
               {/* <li className=>Join</li> */}
               <li>
                 <button
-                  className=" bg-red-600 hover:bg-red-700 active:bg-red-600 rounded-lg font-semibold w-11  cursor-pointer h-7 text-white"
+                  className=" bg-[#FC5664] hover:bg-red-500 active:bg-red-600 rounded-lg font-semibold w-11  cursor-pointer h-7 text-white"
                   onClick={() => {
                     setdrop(!drop);
                   }}
@@ -126,13 +126,7 @@ export default function Front() {
                 Tasty and fresh Food
               </h3>
               <div>
-                <input
-                  placeholder="Search Burger"
-                  className="p-3 w-44 md:w-60 "
-                ></input>
-                <button className="bg-red-600 hover:bg-red-700 active:bg-red-600 text-white p-3  w-20 md:w-28">
-                  Search
-                </button>
+                
               </div>
             </div>
             <div>

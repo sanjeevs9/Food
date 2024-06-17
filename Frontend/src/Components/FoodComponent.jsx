@@ -50,22 +50,19 @@ export default function FoodComponent({
     <>
       <div>
         <div
-          className={`flex flex-col bg-white shadow-md rounded-lg  ${className}  w-56 sm:w-64 xl:w-72  `}
+          className={`flex flex-col bg-white shadow-md rounded-lg  ${className} w-32 sm:w-48  lg:w-56  `}
         >
           <div
-            className=" rounded-t-lg  h-32 sm:h-40 xl:h-44 w-full flex-grow bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center"
+            className=" rounded-t-lg h-24 sm:h-32 lg:h-36 xl:h-40  w-full flex-grow bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center"
             style={{ backgroundImage: `url('${imageUrl}')` }}
           >
-            <div className="flex flex-col justify-end flex-grow ">
-              
-            </div>
           </div>
-          <div className="p-4 flex flex-col items-center flex-grow sm:gap-2 xl:gap-3">
-            <h1 className="text-gray-800 text-center  font-bold sm:text-lg xl:text-xl">
+          <div className="p-2 sm:p-4 pt-1 flex flex-col items-center flex-grow sm:gap-1">
+            <h1 className="text-gray-800 text-center  font-semibold sm:text-lg xl:text-xl">
               {name}
             </h1>
             <div className="flex justify-between  flex-row  w-full ">
-              <p className=" text-center text-gray-800 mt-1 sm:text-lg ">
+              <p className=" text-center text-gray-800 mt-1 text-sm sm:text-base pt-1">
                 &#8377;{cost}
               </p>
 
@@ -76,7 +73,7 @@ export default function FoodComponent({
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-4"
+                    className="h-5 w-3 sm:h-6 sm:w-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -89,7 +86,7 @@ export default function FoodComponent({
                     />
                   </svg>
                 </button>
-                <div className="justify-center w-7 bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center  select-none">
+                <div className="justify-center w-5 text-sm sm:text-base sm:w-7 bg-gray-100 border-t border-b border-gray-100 text-gray-600 hover:bg-gray-100 inline-flex items-center  select-none">
                   {number}
                 </div>
                 <button
@@ -98,7 +95,7 @@ export default function FoodComponent({
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-4"
+                    className="h-5 w-3 sm:h-6 sm:w-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -114,13 +111,13 @@ export default function FoodComponent({
               </div>
             </div>
             <button
-              className="py-2 px-4 bg-red-600 text-white rounded hover:bg-red-700 active:bg-red-600 disabled:opacity-50 mt-4 w-full flex items-center justify-center"
+              className="py-2 px-4 bg-[#FC5664] text-xs sm:text-base text-white rounded hover:bg-red-500 active:bg-red-600 disabled:opacity-50 mt-4 w-full flex items-center justify-center"
               onClick={onClick}
             >
               Add Item
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 ml-2"
+                className=" h-4 w-4 sm:h-6 sm:w-6 ml-2"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

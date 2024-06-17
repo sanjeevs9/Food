@@ -24,7 +24,7 @@ export default function Carousel() {
   useEffect(()=>{
     let SI;
     function AutoScroll(){
-      SI= setInterval(()=>{handleNextSlide()},10000)
+      SI= setInterval(()=>{handleNextSlide()},3000)
     }
     AutoScroll();
 
@@ -39,7 +39,7 @@ export default function Carousel() {
         data-carousel="slide"
       >
         {/* Carousel wrapper */}
-        <div className="relative h-48 sm:h-56 overflow-hidden rounded-lg md:h-96 xl:h-[36rem]">
+        <div className="relative h-40 sm:h-56 overflow-hidden rounded-lg md:h-96 xl:h-[30rem]">
           {[1, 2, 3, 4, 5].map((item, index) => (
             <div
               key={index}
@@ -76,11 +76,11 @@ export default function Carousel() {
         {/* Slider controls */}
         <button
           type="button"
-          className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+          className="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group "
           data-carousel-prev
           onClick={handlePrevSlide}
         >
-          <span className="inline-flex items-center justify-center w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
+          <span className="inline-flex items-center justify-center w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/30  ">
             <svg
               className="h-2 w-2 sm:w-4 sm:h-4 text-white dark:text-gray-800 rtl:rotate-180"
               aria-hidden="true"
@@ -101,11 +101,11 @@ export default function Carousel() {
         </button>
         <button
           type="button"
-          className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+          className="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group "
           data-carousel-next
           onClick={handleNextSlide}
         >
-          <span className="inline-flex items-center justify-center w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
+          <span className="inline-flex items-center justify-center w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/30  ">
             <svg
               className="w-2 h-2 sm:h-4 sm:w-4 text-white dark:text-gray-800 rtl:rotate-180"
               aria-hidden="true"

@@ -39,7 +39,7 @@ export default function Dashboard() {
         <Navbar className="w-60 lg:w-96" />
         <Carousel />
 
-        <div className="grid items-center gap-5  justify-center sm:grid-cols-2 sm:justify-between  md:grid-cols-3   lg:grid-cols-4 ">
+        <div className="grid items-center gap-5  justify-center grid-cols-2 sm:justify-between  md:grid-cols-3   lg:grid-cols-4 xl:grid-cols-5 ">
           {resturant &&
             resturant.map((x) => (
               <div className="grid justify-center">

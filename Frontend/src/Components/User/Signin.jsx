@@ -145,7 +145,7 @@ export default function Signin(){
                             <div className='-my-0.5'>Remember me</div>
                             
                         </div>
-                                <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                <button className="mt-5 tracking-wide font-semibold bg-[#FC5664] text-gray-100 w-full py-4 rounded-lg hover:bg-red-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                                 onClick={handle}>
                                     <svg
                                         className="w-6 h-6 -ml-2"

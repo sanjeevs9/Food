@@ -9,6 +9,8 @@ import emailjs from "@emailjs/browser";
 import { errorToast, successToast } from '../../toast';
 import { useRecoilState } from 'recoil';
 import { checkbox } from '../../atoms/alert';
+import logo from "../../img/logo.png"
+import image from "../../img/sign.png"
 
 
 export default function Signup(){
@@ -81,33 +83,59 @@ function SendEmail(email, name,otp) {
     
     return(
         <>
-        <div className="max-h-screen p-1 ">
-        <div className="bg-[#fff7ed] p-10  h-[99vh]  rounded-xl flex flex-col lg:flex-row    justify-between gap-3  ">
-           <img src={pizza} className='hidden xl:block xl:h-80 xl:w-80'></img>
-           <img src={burger} className='hidden xl:block xl:h-80 xl:w-80'></img>
-           <img src={foodimg} className="  hidden lg:flex md:flex w-full h-60 object-cover items-center lg:h-96 lg:w-full rounded-lg xl:hidden  md:h-32"></img>
-           
-         
-        <div className='flex flex-col justify-center items-center'>
-            <div className='flex flex-col gap-5 items-center sm:pt-5 h-fit w-80 '>
-                <hr className="w-full h-px sm:my-8   bg-gray-200 border-0 flex lg:hidden"/>
-                <input className='p-2 w-80 rounded-lg border-2' placeholder='First Name' onChange={
-                    (e)=>{setfirstname(e.target.value)}
-                }></input>
-                <input className='p-2 w-80  rounded-lg border-2' placeholder='Last Name' onChange={
-                    (e)=>{setlastname(e.target.value)}
-                }></input>
-                <input className='p-2 w-80  rounded-lg border-2' placeholder='Email address' onChange={
-                    (e)=>{setemail(e.target.value)}
-                }></input>
-                <div className='relative'>
-                <input className='p-2  w-80 rounded-lg border-2' type={pass} placeholder='Password' id="password" onChange={
-                    (e)=>{setpassword(e.target.value)}
-                }></input>
-                 <button type="button" data-hs-toggle-password='{
+        
+        <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center p-5 sm:p-0">
+            <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1 ">
+                <div className="lg:w-1/2 xl:min-w-5/12   p-5 sm:p-12">
+                    <div>
+                        <img
+                            src={logo}
+                            className="w-14 sm:w-24 mx-auto"
+                            alt="Logo"
+                        />
+                    </div>
+                    <div className="mt-1 sm:mt-5 flex flex-col items-center">
+                        <h1 className="text-2xl xl:text-3xl font-extrabold">
+                            Sign up
+                        </h1>
+                        <div className="w-full flex-1  sm:mt-5 ">
+                            <div className="my-5 sm:my-10 border-b text-center">
+                                <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                                     sign up with e-mail
+                                </div>
+                            </div>
+
+                            <div className="mx-auto max-w-xs">
+                                <input
+                                    className="w-full px-5 py-3 sm:px-8 sm:py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                                    type=""
+                                    placeholder="First Name"
+                                    onChange={(e)=>{setfirstname(e.target.value)}}
+                                />
+                                
+                                <input
+                                    className="w-full px-5 py-3 sm:px-8 sm:py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                    type=""
+                                    placeholder="Last Name"
+                                    onChange={(e)=>{setlastname(e.target.value)}}
+                                />
+                                <input
+                                    className="w-full px-5 py-3 sm:px-8 sm:py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                    type="email"
+                                    placeholder="Email"
+                                    onChange={(e)=>{setemail(e.target.value)}}
+                                />
+                                <div className='relative'>
+                                 <input
+                                    className="w-full px-5 py-3 sm:px-8 sm:py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                    type={pass}
+                                    placeholder="Password"
+                                    onChange={(e)=>{setpassword(e.target.value)}}
+                                />
+                                <button  type="button" data-hs-toggle-password='{
         "target": "#hs-toggle-password"
-      }' class="absolute top-0 end-0 p-3.5 rounded-e-md dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" onClick={passHandle}>
-      <svg class="flex-shrink-0 size-3.5 text-gray-400 dark:text-neutral-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      }' className="absolute top-1/2   rounded-e-md right-0  pr-3" onClick={passHandle}>
+      <svg className="flex-shrink-0 size-3.5 text-gray-400 dark:text-neutral-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path className={pass=="text"?`hidden`:``} d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
         <path className={pass=="text"?`hidden`:``} d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
         <path className={pass=="text"?`hidden`:``} d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
@@ -117,32 +145,65 @@ function SendEmail(email, name,otp) {
       </svg>
     </button>
     </div>
-                <input className='p-2  w-80 rounded-lg border-2' placeholder='Phone Number' onChange={
-                    (e)=>{setphone(e.target.value)}
-                }></input>
-                    <div className='flex flex-row justify-between w-full sm:w-96 lg:w-full' >
-                        <div className='flex gap-2'>
-                            <input  id="checkbox" type="checkbox" value="" checked={isChecked} className="w-4 h-4 border-gray-300 rounded "
+                                
+                                <input
+                                    className="w-full px-5 py-3 sm:px-8 sm:py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                    type=""
+                                    placeholder="Mobile no."
+                                    onChange={(e)=>{setphone(e.target.value)}}
+                                />
+                                <div className='flex gap-2 pt-3 pl-2'>
+                            <input  id="checkbox" type="checkbox" value="" checked={isChecked} className="w-4 h-4 border-gray-300 rounded-xl "
                             onChange={()=>{setIsChecked(!isChecked)}}></input>
-                            <div className='-my-1'>Remember me</div>
+                            <div className='-my-[3px] text-sm'>Remember me</div>
                             
-                        </div>    
-                        <div className='flex cursor-pointer text-xs pt-1 underline' onClick={()=>{alert("Working On It")}}>Term and Conditons</div>
-                    </div>
-                <button className='bg-blue-500 p-2 w-32 rounded-md text-white' onClick={handle}>Sign Up</button>
-                <div>
-                    <span className='font-bold text-sm'>Already have an account?</span>
-                    <button className='text-red-600 font-semibold cursor-pointer' onClick={
+                        </div>  
+                                <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                                onClick={handle}>
+                                    <svg
+                                        className="w-6 h-6 -ml-2"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                        <circle cx="8.5" cy="7" r="4" />
+                                        <path d="M20 8v6M23 11h-6" />
+                                    </svg>
+                                    <span className="ml-3">Sign Up</span>
+                                </button>
+                                <p className="mt-6 text-xs text-gray-600 text-center">
+                                    I agree to abide by templatana's
+                                    <a  className="border-b border-gray-500 border-dotted">
+                                        Terms of Service
+                                    </a>
+                                    and its
+                                    <a  className="border-b border-gray-500 border-dotted">
+                                         Privacy Policy
+                                    </a>
+                                </p>
+                                <div className='pt-5 flex justify-center'>
+                    <span className=' text-sm'>Already have an account?</span>
+                    <button className='text-red-600 font-medium cursor-pointer -translate-y-[2px]' onClick={
                         ()=>{navigate('/signin')}
                     }> Login</button>
                 </div>
-                {/* <img src={burger} className='xl:hidden h-16 w-16 '></img> */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="flex-1 bg-indigo-100 text-center hidden lg:flex  items-center">
+                    <div
+                        className="h-[40rem]  w-full bg-contain bg-center bg-no-repeat"
+                        style={{
+                            backgroundImage: `url(${image})`,
+                        }}
+                        
+                    ></div>
+                </div>
             </div>
-            <div className='text-black'>
-               
-            </div>
-        </div> 
-        </div>
         </div>
        
         </>

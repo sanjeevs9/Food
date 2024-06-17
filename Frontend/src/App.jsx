@@ -32,6 +32,7 @@ import { alertState } from "./atoms/alert";
 import UserOtp from "./Components/User/UserOtp";
 import { ToastContainer,Bounce} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import TRYSIGNUP from "./Components/TRYSIGNUP";
 
 function App() {
   return (

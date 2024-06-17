@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import pic1 from "../img/carousel/1.jpg";
 import pic2 from "../img/carousel/2.jpg";
 import pic3 from "../img/carousel/3.jpg";
@@ -21,6 +21,16 @@ export default function Carousel() {
     setCurrentSlide(index);
   };
 
+  useEffect(()=>{
+    let SI;
+    function AutoScroll(){
+      SI= setInterval(()=>{handleNextSlide()},10000)
+    }
+    AutoScroll();
+
+    return()=>{clearInterval(SI)}
+  },[])
+
   return (
     <>
       <div
@@ -29,7 +39,7 @@ export default function Carousel() {
         data-carousel="slide"
       >
         {/* Carousel wrapper */}
-        <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+        <div className="relative h-48 sm:h-56 overflow-hidden rounded-lg md:h-96 xl:h-[36rem]">
           {[1, 2, 3, 4, 5].map((item, index) => (
             <div
               key={index}
@@ -48,7 +58,7 @@ export default function Carousel() {
         </div>
 
         {/* Slider indicators */}
-        <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+        {/* <div className="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
           {[...Array(5).keys()].map((index) => (
             <button
               key={index}
@@ -61,7 +71,7 @@ export default function Carousel() {
               onClick={() => handleSlideTo(index)}
             ></button>
           ))}
-        </div>
+        </div> */}
 
         {/* Slider controls */}
         <button
@@ -70,9 +80,9 @@ export default function Carousel() {
           data-carousel-prev
           onClick={handlePrevSlide}
         >
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <span className="inline-flex items-center justify-center w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
             <svg
-              className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+              className="h-2 w-2 sm:w-4 sm:h-4 text-white dark:text-gray-800 rtl:rotate-180"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -95,9 +105,9 @@ export default function Carousel() {
           data-carousel-next
           onClick={handleNextSlide}
         >
-          <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+          <span className="inline-flex items-center justify-center w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/30  group-hover:bg-white/50  group-focus:ring-4 group-focus:ring-white  group-focus:outline-none">
             <svg
-              className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+              className="w-2 h-2 sm:h-4 sm:w-4 text-white dark:text-gray-800 rtl:rotate-180"
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

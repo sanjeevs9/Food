@@ -25,12 +25,7 @@ const[filter,setfilter]=useRecoilState(filterState);
           placeholder="Search Food..."
           onChange={(e)=>{setfilter(e.target.value)}}
         />
-        <button
-          type="submit"
-          className="text-white absolute end-2.5 bottom-2.5 bg-red-600 hover:bg-red-700 active:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 "
-        >
-          Search
-        </button>
+        
       </div>
     </>
   );

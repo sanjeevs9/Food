@@ -50,24 +50,22 @@ export default function FoodComponent({
     <>
       <div>
         <div
-          className={`flex flex-col bg-white shadow rounded-lg  ${className}  w-56 `}
+          className={`flex flex-col bg-white shadow-md rounded-lg  ${className}  w-56 sm:w-64 xl:w-72  `}
         >
           <div
-            className=" rounded-t-lg  h-32 w-full flex-grow bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center"
+            className=" rounded-t-lg  h-32 sm:h-40 xl:h-44 w-full flex-grow bg-gray-200 flex flex-col justify-between p-4 bg-cover bg-center"
             style={{ backgroundImage: `url('${imageUrl}')` }}
           >
             <div className="flex flex-col justify-end flex-grow ">
-              <span className="uppercase w-fit text-xs bg-green-50 p-0.5 border-green-500 border rounded text-green-700 font-medium select-none">
-                {available ? "Available" : "Not Available"}
-              </span>
+              
             </div>
           </div>
-          <div className="p-4 flex flex-col items-center flex-grow">
-            <h1 className="text-gray-800 text-center  font-bold text-lg">
+          <div className="p-4 flex flex-col items-center flex-grow sm:gap-2 xl:gap-3">
+            <h1 className="text-gray-800 text-center  font-bold sm:text-lg xl:text-xl">
               {name}
             </h1>
             <div className="flex justify-between  flex-row  w-full ">
-              <p className=" text-center text-gray-800 mt-1 text-lg ">
+              <p className=" text-center text-gray-800 mt-1 sm:text-lg ">
                 &#8377;{cost}
               </p>
 

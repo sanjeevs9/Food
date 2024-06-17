@@ -25,7 +25,7 @@ export default function Navbar({ className }) {
     if(!token){
       token=sessionStorage.getItem("token")
       if(!token){
-        errorToast("please login")
+        // errorToast("please login")
         return
       }
     }
@@ -59,9 +59,9 @@ export default function Navbar({ className }) {
 
   return (
     <>
-      <div className=" flex flex-row justify-between p-1 pr-16 pl-10 sm:pl-16">
+      <div className=" flex flex-row justify-between p-1 sm:pr-16 pl-2 sm:pl-16">
         <div className="cursor-pointer" onClick={()=>{navigate('/user')}}>
-          <img src={logo} className="h-16 w-16"></img>
+          <img src={logo} className="h-11 w-11 sm:h-16 sm:w-16"></img>
         </div>
         <div className="hidden sm:flex justify-center items-center ">
           <Search className={`${className}`} />
@@ -70,12 +70,12 @@ export default function Navbar({ className }) {
         <Cart open={open} fn={help} />
 
         <div className="p-4 flex w-44 sm:w-52 md:w-80 lg:w-96">
-          <ul className="flex justify-between w-full">
+          <ul className="flex justify-between w-full text-sm sm:text-base">
             <li
               className=" relative flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."
               onClick={toggleDropdown}
             >
-              <svg
+              <svg className="h-5 sm:h-7"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -116,14 +116,7 @@ export default function Navbar({ className }) {
                     Home
                   </button>
                 </li>
-                <li>
-                  <button
-                    className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 "
-                    onClick={walletopen}
-                  >
-                    My Wallet
-                  </button>
-                </li>
+                
                 <li>
                   <button
                     className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 "
@@ -144,7 +137,14 @@ export default function Navbar({ className }) {
                     Settings
                   </button>
                 </li>
-
+                <li>
+                  <button
+                    className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 "
+                    onClick={()=>{navigate("/help")}}
+                  >
+                    Help
+                  </button>
+                </li>
                 <li>
                   <button
                     className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4"
@@ -157,32 +157,22 @@ export default function Navbar({ className }) {
             </div>
 
             <li
-              className="hidden md:flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."
+              className=" hidden md:flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."
               onClick={() => {
-                navigate("/help");
+                walletopen()
+                console.log("sdjfbsjdfbjkb")
               }}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
-                />
-              </svg>
-              <span className="cursor-pointer">Help</span>
+              <div>
+             <svg className="w-7 h-7 "   viewBox="0 0 100 100" ><path d="M93 48.627h-.5V34.968c0-4.263-3.157-7.792-7.254-8.398v-3.073c0-4.687-3.813-8.5-8.5-8.5H72.98l-1.983-5.285a1.5 1.5 0 0 0-1.864-.901l-19.201 6.186H10.735c-3.989 0-7.235 3.246-7.235 7.235V82.76c0 4.687 3.813 8.5 8.5 8.5h72c4.687 0 8.5-3.813 8.5-8.5V69.101h.5c1.93 0 3.5-1.57 3.5-3.5V52.127c0-1.929-1.57-3.5-3.5-3.5zM74.106 17.998h2.64c3.032 0 5.5 2.467 5.5 5.5v2.971h-4.961l-.299-.797-2.88-7.674zm-4.33-3 2.437 6.494 1.868 4.977H24.109l44.582-14.362 1.085 2.891zm-59.041 3h29.884l-18.84 6.07-7.453 2.401h-3.591c-2.335 0-4.235-1.9-4.235-4.235s1.9-4.236 4.235-4.236zM89.5 82.76c0 3.033-2.468 5.5-5.5 5.5H12a5.506 5.506 0 0 1-5.5-5.5V28.096c.021.016.046.026.068.042.262.185.535.354.821.504.053.028.109.052.163.079.265.131.538.246.82.344.048.017.094.036.142.052.312.101.633.177.962.235.073.013.147.023.221.034.34.049.685.083 1.038.083H84c3.032 0 5.5 2.467 5.5 5.5v13.659h-9.938c-4.687 0-8.5 3.813-8.5 8.5v3.474c0 4.687 3.813 8.5 8.5 8.5H89.5V82.76zm4-17.159a.5.5 0 0 1-.5.5H79.562a5.506 5.506 0 0 1-5.5-5.5v-3.474c0-3.033 2.468-5.5 5.5-5.5H93a.5.5 0 0 1 .5.5v13.474z"></path><path d="M83.449 54.522a4.347 4.347 0 0 0-4.343 4.342c0 2.395 1.948 4.342 4.343 4.342s4.342-1.948 4.342-4.342a4.347 4.347 0 0 0-4.342-4.342zm0 5.685c-.74 0-1.343-.602-1.343-1.342a1.343 1.343 0 0 1 2.685 0c0 .739-.602 1.342-1.342 1.342z"></path></svg>
+             </div>
+              <span className="cursor-pointer">Wallet</span>
             </li>
             <li
               className="relative flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."
               onClick={help}
             >
-              <svg
+              <svg className="h-5 sm:h-7"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

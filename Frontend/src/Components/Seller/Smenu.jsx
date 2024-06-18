@@ -12,7 +12,7 @@ export default function Smenu() {
   }
   return (
     <>
-      <div className="relative bg-[#fff7ed] overflow-y-scroll   flex justify-center sm:gap-64 sm:p-4">
+      <div className="relative bg-[#fff7ed]   flex justify-center sm:gap-64 sm:p-4">
         <div className="flex">
           <Sidebar/>
         </div>

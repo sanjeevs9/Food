@@ -39,7 +39,7 @@ export default function SellerSignin() {
 
   return (
     <>
-      <div className=" bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-indigo-800  to-indigo-100 bottom-0 leading-5 h-full w-full overflow-hidden"></div>
+      <div className=" bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-[#fff7ed]  to-[#e0e7ff] bottom-0 leading-5 h-full w-full overflow-hidden"></div>
     <div className="relative min-h-screen flex flex-row justify-center bg-transparent rounded-3xl shadow-xl">
       
       <div className="flex justify-center self-center ">
@@ -53,7 +53,7 @@ export default function SellerSignin() {
           <div className="space-y-6">
             <div>
               <input
-                className="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
+                className="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-red-500"
                 type="tel"
                 placeholder="Phone Number"
                 onChange={(e) => {
@@ -65,7 +65,7 @@ export default function SellerSignin() {
               <input
                 placeholder="Password"
                 type={showPassword ? 'text' : 'password'}
-                className="text-sm  px-4 py-3 rounded-lg w-full bg-gray-200  border-gray-200 focus:outline-none focus:border-purple-400"
+                className="text-sm  px-4 py-3 rounded-lg w-full bg-gray-200  border-gray-200 focus:outline-none focus:border-red-500"
                 onChange={(e) => {
                   setpassword(e.target.value);
                 }}
@@ -73,7 +73,7 @@ export default function SellerSignin() {
               <div className="flex items-center absolute inset-y-0 right-0 mr-3 text-sm leading-5">
                 <svg
                   onClick={() => setShowPassword(!showPassword)}
-                  className={`h-4 text-purple-700 ${showPassword ? 'hidden' : 'block'}`}
+                  className={`h-4 text-[#FC5664] ${showPassword ? 'hidden' : 'block'}`}
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 576 512"

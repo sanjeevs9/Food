@@ -13,7 +13,7 @@ export default function Sdashoard() {
 
   return (
     <>
-      <div className="relative bg-[#fff7ed] overflow-hidden min-h-screen flex justify-center sm:gap-64 sm:p-4">
+      <div className="relative bg-[#fff7ed] overflow-y-hidden overflow-x-hidden max-h-screen flex justify-center sm:gap-64 sm:p-4">
         <div className="flex">
           <Sidebar />
         </div>

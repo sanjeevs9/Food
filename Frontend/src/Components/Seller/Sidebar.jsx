@@ -19,7 +19,7 @@ export default function Sidebar() {
                 </h1>
               </div>
             </div>
-            <div className="p-4">
+            <div className="pl-5 sm:pl-4 sm:p-4">
               <ul className="space-y-1">
                 <li>
                   <button
@@ -141,7 +141,7 @@ export default function Sidebar() {
               </ul>
             </div>
           </div>
-          <div className="p-4">
+          <div className="pl-8 sm:pl-4 sm:p-4">
             <button
               type="button"
               className="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition"

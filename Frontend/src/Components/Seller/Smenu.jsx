@@ -12,11 +12,11 @@ export default function Smenu() {
   }
   return (
     <>
-      <div className="relative bg-[#fff7ed] overflow-hidden h-svh flex justify-center sm:gap-64 sm:p-4">
+      <div className="relative bg-[#fff7ed] overflow-y-scroll   flex justify-center sm:gap-64 sm:p-4">
         <div className="flex">
           <Sidebar/>
         </div>
-        <div className={`${bar ? 'w-5/12' : ''}  sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}>
+        <div className={`${bar ? 'w-5/12 h-svh sm:h-auto' : 'h-auto'}  sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}>
           <div className="w-full">
           <div className="  flex sm:hidden relative mx-3 pt-2 cursor-pointer -translate-x-4 -translate-y-1"onClick={handle}> 
         

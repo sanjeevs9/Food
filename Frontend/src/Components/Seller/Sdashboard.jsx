@@ -13,11 +13,11 @@ export default function Sdashoard() {
 
   return (
     <>
-      <div className="relative bg-[#fff7ed] overflow-y-hidden overflow-x-hidden h-svh flex justify-center sm:gap-64 sm:p-4">
+      <div className="relative bg-[#fff7ed] overflow-y-hidden overflow-x-hidden  flex justify-center sm:gap-64 sm:p-4">
         <div className="flex">
           <Sidebar />
         </div>
-        <div className={`${!bar ? 'w-2/6' : 'w-2/6'} sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}>
+        <div className={`${!bar ? 'w-2/6 h-auto' : 'h-svh sm:h-auto w-2/6'} sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}>
           <div className="w-full">
           <div className="  flex sm:hidden relative   cursor-pointer translate-x-2 translate-y-5"onClick={handle1}>
         

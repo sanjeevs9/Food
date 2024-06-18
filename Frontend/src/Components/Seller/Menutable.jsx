@@ -4,6 +4,8 @@ import { NETWORK } from "../../../network";
 import MenuUpdate from "./MenuUpdate";
 import AddMenu from "./Addmenu";
 import { errorToast } from "../../toast";
+import { sidebar } from "../../atoms/alert";
+import { useRecoilState } from "recoil";
 
 
 export default function Menutable() {
@@ -12,6 +14,7 @@ export default function Menutable() {
   const[open,setopen]=useState(false);
   const[menuadd,setmenuadd]=useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  const[bar ,setbarr]=useRecoilState(sidebar);
 
   useEffect(() => {
     if(!token){
@@ -58,7 +61,7 @@ export default function Menutable() {
               
               <th scope="col" class="px-16 py-3 absolute">
 
-              <div className=" hidden sm:flex -translate-x-14 relative text-xs   lowercase underline cursor-pointer"
+              <div className={` ${bar?`hidden`:``}  flex -translate-x-14 relative text-xs   lowercase underline cursor-pointer`}
               onClick={handleaddmenu}>
                 Add item
               </div>

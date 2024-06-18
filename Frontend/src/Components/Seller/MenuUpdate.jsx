@@ -50,7 +50,7 @@ export default function MenuUpdate({prop1,id}){
         <>
         <div className="backdrop-blur-sm z-50 h-screen w-screen fixed inset-0 justify-center items-center flex " >
         
-            <div className="h-[40rem] w-4/6 bg-[#fff7ed]  flex relative backdrop-blur-sm rounded-lg "  >
+            <div className="h-[30rem] sm:h-[40rem] w-[24rem] sm:w-4/6 bg-[#fff7ed]  flex relative backdrop-blur-sm rounded-lg "  >
                
             <div className="flex items-center justify-center  w-full">
         <div className="flex flex-col gap-6 w-72">

@@ -47,7 +47,7 @@ export default function SellerSignin() {
           <div className="mb-7">
             <h3 className="font-semibold text-2xl text-gray-800">Sign In</h3>
             <p className="text-gray-400">
-              Don't have an account? <a href="/create" className="text-sm text-purple-700 hover:text-purple-700">Sign Up</a>
+              Don't have an account? <a href="/create" className="text-sm text-red-500 ">Sign Up</a>
             </p>
           </div>
           <div className="space-y-6">
@@ -121,7 +121,7 @@ export default function SellerSignin() {
               <button
               onClick={handle}
                 type="submit"
-                className="w-full flex justify-center bg-indigo-800 hover:bg-indigo-700 text-gray-100 p-3 rounded-lg tracking-wide font-semibold cursor-pointer "
+                className="w-full flex justify-center bg-[#FC5664] hover:bg-red-600 text-gray-100 p-3 rounded-lg tracking-wide font-semibold cursor-pointer "
               >
                 Sign in
               </button>

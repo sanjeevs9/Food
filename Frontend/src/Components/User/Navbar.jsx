@@ -129,6 +129,16 @@ export default function Navbar({ className }) {
                 </li>
                 <li>
                   <button
+                    className=" md:hidden  text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 "
+                    onClick={() => {
+                      walletopen()
+                    }}
+                  >
+                   My Wallet
+                  </button>
+                </li>
+                <li>
+                  <button
                     className="text-sm hover:bg-gray-100 text-gray-700 block  py-2 w-full text-left px-4 "
                     onClick={() => {
                       navigate("/help");
@@ -160,7 +170,7 @@ export default function Navbar({ className }) {
               className=" hidden md:flex cursor-pointer hover:scale-95 motion-reduce:transform-none ..."
               onClick={() => {
                 walletopen()
-                console.log("sdjfbsjdfbjkb")
+                
               }}
             >
               <div>

@@ -21,7 +21,7 @@ const[filter,setfilter]=useRecoilState(filterState);
         <input
           type="search"
           id="default-search"
-          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 bg-transparent "
+          className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 bg-transparent focus:border-none "
           placeholder="Search Food..."
           onChange={(e)=>{setfilter(e.target.value)}}
         />

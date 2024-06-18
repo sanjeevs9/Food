@@ -35,10 +35,10 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="flex flex-col p-3 gap-7 bg-[#fff7ed] min-h-screen">
+      <div className="flex flex-col p-3 gap-7 bg-[#fff7ed] min-h-screen md:pl-10 md:pr-10">
         <Navbar className="w-60 lg:w-96" />
         <Carousel />
-
+      <div className="md:pl-5 md:pr-5">
         <div className="grid items-center gap-5  justify-center grid-cols-2 sm:justify-between  md:grid-cols-3   lg:grid-cols-4 xl:grid-cols-5 ">
           {resturant &&
             resturant.map((x) => (
@@ -54,6 +54,7 @@ export default function Dashboard() {
             ))}
         </div>
         <Footer />
+      </div>
       </div>
     </>
   );

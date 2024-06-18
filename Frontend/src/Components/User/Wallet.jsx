@@ -6,6 +6,7 @@ import { NETWORK } from "../../../network";
 import { useRecoilState } from "recoil";
 import { balanceState } from "../../atoms/balanceState";
 import { errorToast, successToast } from "../../toast";
+import { values } from "lodash";
 
 export default function Wallet({ fn, open }) {
     const[balance,setbalance]=useRecoilState(balanceState)
@@ -50,6 +51,7 @@ export default function Wallet({ fn, open }) {
             }
         })
         .then(res=>{
+            
             setbalance(balance=>balance+input)
             // alert(res.data.message)
             successToast(res.data.message)
@@ -65,14 +67,14 @@ export default function Wallet({ fn, open }) {
   return ReactDOM.createPortal(
     <>
       <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-50 backdrop-blur-sm">
-        <div className="h-96 w-2/3 xl:w-2/4 bg-[#E5E4E2] rounded-3xl flex p-5  flex-col items-center gap-5">
-          <div className="flex flex-row justify-between  w-10/12 p-2">
-            <div className="flex font-extrabold text-lg">Total balance</div>
-            <div className="flex font-extrabold text-black text-lg">
+        <div className="md:h-96 w-80 md:w-2/3 max-w-[50rem] xl:w-2/4 bg-[#E5E4E2] rounded-3xl flex p-5  flex-col items-center gap-5">
+          <div className="flex flex-row justify-between  w-10/12 md:p-2">
+            <div className="flex font-semibold md:text-lg">Total balance</div>
+            <div className="flex font-semibold text-black md:text-lg">
               &#8377;{balance}
             </div>
           </div>
-          <div className="w-10/12 h-3/4 bg-white justify-center flex p-3 rounded-2xl border-[1px] border-gray-400">
+          <div className="md:w-10/12 md:h-3/4 bg-white justify-center flex p-3 rounded-2xl border-[1px] border-gray-400">
             <div className="w-full gap-3 flex flex-col p-2">
               <div className="flex font-semibold">
                 Add gift cards to balance
@@ -84,9 +86,10 @@ export default function Wallet({ fn, open }) {
   &#8377;
   <input
     className="font-semibold border-0 focus:outline-none placeholder-black w-full"
-    placeholder="1000"
+    placeholder={input}
     value={input}
-    onChange={() => setinput(value)}
+    type="number"
+    onChange={(e) => setinput(Number(e.target.value))}
     ref={element}
   />
 </div>
@@ -108,7 +111,7 @@ export default function Wallet({ fn, open }) {
                 </div>
               </div>
 
-              <button className=" font-extrabold  justify-center  flex w-full bg-[#fce010] rounded-3xl  p-3"
+              <button className=" font-semibold  justify-center  flex w-full bg-[#fce010] rounded-3xl  p-3"
               onClick={transaction}>
                 <span>Add gift cards to balance</span>
               </button>
@@ -116,7 +119,7 @@ export default function Wallet({ fn, open }) {
           </div>
         </div>
         <div
-          className="relative top-0 right-0 -translate-x-7 -translate-y-44 cursor-pointer rotate-45"
+          className="relative top-0 right-0 -translate-x-7 -translate-y-36 md:-translate-x-7 md:-translate-y-44 cursor-pointer rotate-45"
           onClick={fn}
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

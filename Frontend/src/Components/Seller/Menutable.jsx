@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState } from "react";
 import axios from "axios";
 import { NETWORK } from "../../../network";
 import MenuUpdate from "./MenuUpdate";
@@ -8,13 +8,14 @@ import { sidebar } from "../../atoms/alert";
 import { useRecoilState } from "recoil";
 
 
-export default function Menutable() {
+ function Menutable() {
   let token = localStorage.getItem("token");
   const [menu, setmenu] = useState([]);
   const[open,setopen]=useState(false);
   const[menuadd,setmenuadd]=useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const[bar ,setbarr]=useRecoilState(sidebar);
+  const [refreshMenu, setRefreshMenu] = useState(false);
 
   useEffect(() => {
     if(!token){
@@ -32,7 +33,7 @@ export default function Menutable() {
       })
       .then((res) => {
         setmenu(res.data);
-        console.log(menu)
+        console.log("balle balle")
       })
       .catch((error) => {
         console.log(error);
@@ -41,6 +42,7 @@ export default function Menutable() {
 
   function handle(id){
     setSelectedId(id);
+    setRefreshMenu(p=>!p);
     setopen(!open)
   }
 
@@ -137,3 +139,5 @@ export default function Menutable() {
     </>
   );
 }
+
+export default React.memo(Menutable);

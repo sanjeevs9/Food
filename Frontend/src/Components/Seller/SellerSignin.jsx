@@ -7,6 +7,8 @@ import axios from "axios";
 import { useState } from "react";
 import { NETWORK } from "../../../network";
 import { errorToast, successToast } from "../../toast";
+import { useRecoilState } from "recoil";
+import { AdminLogin } from "../../atoms/AdminLogin";
 
 export default function SellerSignin() {
   const [phone, setphone] = useState(0);
@@ -14,6 +16,7 @@ export default function SellerSignin() {
   const navigate = useNavigate();
   const [check,setCheck]=useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [adminlogin,setAdminLogin]=useRecoilState(AdminLogin);
 
   async function handle() {
     await axios
@@ -28,6 +31,7 @@ export default function SellerSignin() {
         }else{
           sessionStorage.setItem("token",`Bearer ${res.data.token}`)
         }
+        setAdminLogin(!adminlogin)
         navigate("/vendor");
       })
       .catch((error) => {
@@ -39,7 +43,7 @@ export default function SellerSignin() {
 
   return (
     <>
-      <div className=" bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-[#fff7ed]  to-[#e0e7ff] bottom-0 leading-5 h-full w-full overflow-hidden"></div>
+      <div className=" bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-[#fff7ed]  to-[#e0e7ff] bottom-0 leading-5 min-h-screen w-full overflow-hidden"></div>
     <div className="relative min-h-screen flex flex-row justify-center bg-transparent rounded-3xl shadow-xl">
       
       <div className="flex justify-center self-center ">

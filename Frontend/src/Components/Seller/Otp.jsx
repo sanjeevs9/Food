@@ -5,12 +5,15 @@ import { NETWORK } from "../../../network";
 import { useRef,useEffect } from "react";
 import { sellerCheckBox } from "../../atoms/alert";
 import { useRecoilState } from "recoil";
+import { AdminLogin } from "../../atoms/AdminLogin";
+
 
 export default function Otp() {
   const [verificationCode, setVerificationCode] = useState(["", "", "", ""]);
   const navigate = useNavigate();
   const inputRefs = useRef([]);
   const check=useRecoilState(sellerCheckBox)
+  const[adminlogin,setAdminLogin]=useRecoilState(AdminLogin)
 
   const handleInputChange = (index, value) => {
     const updatedVerificationCode = [...verificationCode];
@@ -44,6 +47,7 @@ export default function Otp() {
         }else{
           sessionStorage.setItem("token",`Bearer ${res.data.token}`)
         }
+        setAdminLogin(!adminlogin)
         alert(res.data.message);
         navigate("/vendor");
       })

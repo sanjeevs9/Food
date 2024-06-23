@@ -1,7 +1,7 @@
 const express = require("express");
 const { Seller, Bank, Menu } = require("../db");
 const jwt = require("jsonwebtoken");
-const { sellerSignup, sellerSignin, menuCheck } = require("../zod");
+const { sellerSignup, sellerSignin, menuCheck, AdminUpdate } = require("../zod");
 const { route } = require("./user");
 const JWT_SECRET = require("../config");
 const { middleware } = require("../middleware");
@@ -255,23 +255,49 @@ router.get("/detail", async (req, res) => {
   res.send(detail);
 });
 
+//get resturant details for admin
+
+router.get("/admin",middleware,async(req,res)=>{
+  const userId=req.UserId;
+  const detail=await Seller.findOne({_id:userId},"shopName phoneNumber imgUrl description");
+  const balance=await Bank.findOne({userId:userId},"balance");
+  return  res.json({
+    detail,balance
+  })
+})
+
 //update Image
-router.post("/updateimg", middleware, async (req, res) => {
-  const img = req.body.img;
-
+router.post("/updateAdmin", middleware, async (req, res) => {
+  const payload=req.body;
   const UserId = req.UserId;
+  
 
+ try{
+  await AdminUpdate.parseAsync(payload)
+  console.log("asdfasdfsdf")
   await Seller.updateOne(
     { _id: UserId },
     {
       $set: {
-        imgUrl: img,
-      },
+        imgUrl: payload.imgUrl,
+        phoneNumber: payload.phoneNumber,
+        shopName:payload.shopName,
+        description:payload.description
+      }
     }
   );
-  res.status(411).json({
-    message: "Image updated",
+  return res.json({
+    message: "details updated",
   });
+
+ }catch(error){
+      res.status(411).json({
+        message:error.errors[0].message
+      })
+ }
+
+  
+  
 });
 
 //update description
@@ -288,7 +314,7 @@ router.post("/updatedescription", async (req, res) => {
       },
     }
   );
-  res.status(411).json({
+  return res.json({
     message: "Description updated",
   });
 });

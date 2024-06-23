@@ -1,11 +1,15 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../img/logo.png";
 import { useRecoilValue } from "recoil";
 import { sidebar } from "../../atoms/alert";
+import { useEffect } from "react";
 
 export default function Sidebar() {
   const bar=useRecoilValue(sidebar)
   const navigate = useNavigate();
+  useEffect(()=>{
+    console.log("renderrrr");
+  },[])
   return (
     <>
 <aside className={`${ !bar  && window.innerWidth < 640 ? 'hidden' : ''} sm:flex  sm:fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 `}>
@@ -21,12 +25,34 @@ export default function Sidebar() {
             </div>
             <div className="p-4">
               <ul className="space-y-1">
+              <li>
+                  <button
+                    className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
+                    onClick={() => {
+                      navigate("/saccount");
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1.25em"
+                      height="1.25em"
+                      fill="currentColor"
+                      className="text-lg mr-4"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                      />
+                    </svg>
+                    My Account
+                  </button>
+                </li>
                 <li>
+                  <Link to="/vendor" >
                   <button
                     className="flex items-center hover:bg-yellow-200 rounded-xl font-bold text-sm  py-3 px-4 w-full"
-                    onClick={() => {
-                      navigate("/vendor");
-                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +66,7 @@ export default function Sidebar() {
                     </svg>
                     Orders
                   </button>
+                  </Link>
                 </li>
                 <li>
                   <button
@@ -61,6 +88,8 @@ export default function Sidebar() {
                     Menu
                   </button>
                 </li>
+                
+               
                 <li>
                   <button
                     className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
@@ -88,54 +117,6 @@ export default function Sidebar() {
                       />
                     </svg>
                     Settings
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
-                    onClick={() => {
-                      navigate("/saccount");
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="1.25em"
-                      height="1.25em"
-                      fill="currentColor"
-                      className="text-lg mr-4"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
-                      />
-                    </svg>
-                    My Account
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className="flex bg-white hover:bg-yellow-200 rounded-xl font-bold text-sm text-gray-900 py-3 px-4 w-full"
-                    onClick={() => {
-                      navigate("/ssettings");
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-6 h-6 mr-4"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"
-                      />
-                    </svg>
-                    My Wallet
                   </button>
                 </li>
               </ul>

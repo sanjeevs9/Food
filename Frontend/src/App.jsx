@@ -44,7 +44,6 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/create" element={<SellerSignup />} />
           <Route path="/login" element={<SellerSignin />} />
-
           <Route path="/user" element={<Dashboard />} />
           <Route path="/vendor" element={<Sdashoard />} />
           <Route path="/order" element={<Order />} />

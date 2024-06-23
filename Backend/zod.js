@@ -71,6 +71,24 @@ const menuCheck=zod.object({
     imgUrl:zod.string().url({required_error:"Url is required"})
 })
 
+const AdminUpdate=zod.object({
+    phoneNumber: zod
+    .number({required_error:"Number is required"})
+    .refine(num => num >= 1000, {
+        message: 'Phone number must be at least 4 digits long',
+      }),
+
+    shopName:zod
+    .string({required_error:"email is required"})
+    .min(4, {message:'Shop name must be at least 4 characters long'}),
+
+    description:zod
+    .string({required_error:"email is required"})
+    .min(4,{message:"description is requried"}),
+
+    imgUrl: zod.string().url()
+})
+
 module.exports={
-    userSignup,userSignin,sellerSignup,sellerSignin,menuCheck
+    userSignup,userSignin,sellerSignup,sellerSignin,menuCheck,AdminUpdate
 };

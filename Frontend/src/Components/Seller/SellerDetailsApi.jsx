@@ -30,14 +30,14 @@ export default function DetailsProcider(props){
             Authorization:token
         }
       }).then(res=>{
-        console.log(res.data);
+     
         setRevenue(res.data.balance.balance);
         setName(res.data.detail.shopName);
         setdescription(res.data.detail.description);
         setImage(res.data.detail.imgUrl);
         setPhone(res.data.detail.phoneNumber);
       }).catch(err=>{
-        console.log(err)
+       
       })
 
     },[adminLogin])

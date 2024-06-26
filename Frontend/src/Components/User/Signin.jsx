@@ -29,7 +29,7 @@ export default function Signin(){
         }
         )
         .then(res=>{
-            console.log(res.data.message);
+      
             successToast(res.data.message)
             // alert(res.data.message)
             if(check){

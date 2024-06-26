@@ -34,7 +34,7 @@ export default function Order() {
         setitem(res.data);
       })
       .catch((error) => {
-        console.log(error);
+    
       });
   }, []);
 
@@ -46,7 +46,7 @@ export default function Order() {
         setdetail(res.data);
       })
       .catch((error) => {
-        console.log(error);
+     
       });
   }, []);
 

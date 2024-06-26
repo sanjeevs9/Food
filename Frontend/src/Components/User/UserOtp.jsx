@@ -33,13 +33,13 @@ export default function UserOtp(){
     async function handle(){
       const num=value.one+value.two+value.three+value.four
   
-      console.log(num)
+  
         await axios.post(`${NETWORK}/food/user/verify`,
         {
             otp:(num)
         },
         ).then(res=>{
-            console.log(res.data.message);
+      
             if(checkBox){
               localStorage.setItem("token",`Bearer ${res.data.token}`)
             }else{
@@ -49,7 +49,7 @@ export default function UserOtp(){
             successToast(res.data.message)
             navigate("/user")
         }).catch((error)=>{
-            console.log(error)
+       
             errorToast(error.response.data.message)
         })
     }

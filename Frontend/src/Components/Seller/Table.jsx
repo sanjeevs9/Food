@@ -43,7 +43,7 @@ export default function Tabble() {
           setloading(!loading);
         })
         .catch((error) => {
-          console.log(error);
+    
         });
     };
     interval();

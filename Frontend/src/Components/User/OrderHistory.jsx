@@ -56,10 +56,10 @@ export default function OrderHistory() {
                 }
               });
           }
-          // console.log(res.data.list)
+       
         })
         .catch((error) => {
-          console.log(error);
+      
         });
     };
     interval();
@@ -72,7 +72,7 @@ export default function OrderHistory() {
   //   useEffect(() => {
   //    data.slice(-10).forEach(order=>{
   //     if(order.status==="ready" && !alertedOrders.includes(order._id)){
-  //       console.log("OOOOOOOOOOOOOOO")
+  //     
   //       setAlertedOrders(orders=>[...orders,order._id])
   //     }
   //    })

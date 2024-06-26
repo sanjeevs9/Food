@@ -36,7 +36,7 @@ export default function SellerSignup() {
       })
       .catch((error) => {
         errorToast(error.response.data.message)
-        console.log(error);
+
       });
   }
 

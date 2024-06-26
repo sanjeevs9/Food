@@ -41,7 +41,7 @@ export default function Front() {
       .catch((error) => {
         errorToast(error.response.data.message)
         // alert(error.response.data.message);
-        console.log(error.response.data.message);
+  
       });
   }
 

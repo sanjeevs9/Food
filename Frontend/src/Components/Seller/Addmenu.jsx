@@ -43,7 +43,7 @@ export default function AddMenu({prop,addItem}) {
         addItem(data)
       })
       .catch((error) => {
-        console.log(error);
+
         alert(error.response.data.message);
       });
   }

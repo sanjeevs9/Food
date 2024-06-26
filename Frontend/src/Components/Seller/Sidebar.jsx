@@ -7,9 +7,7 @@ import { useEffect } from "react";
 export default function Sidebar() {
   const bar=useRecoilValue(sidebar)
   const navigate = useNavigate();
-  useEffect(()=>{
-    console.log("renderrrr");
-  },[])
+ 
   return (
     <>
 <aside className={`${ !bar  && window.innerWidth < 640 ? 'hidden' : ''} sm:flex  sm:fixed inset-y-0 left-0 bg-white shadow-md max-h-screen w-60 `}>

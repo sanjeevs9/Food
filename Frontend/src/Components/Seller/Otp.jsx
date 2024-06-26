@@ -35,7 +35,7 @@ export default function Otp() {
 
   const handleSubmit = () => {
     const code = verificationCode.join("");
-    console.log("Verifying code:", code);
+
 
     axios
       .post(`${NETWORK}/food/seller/verify`, {

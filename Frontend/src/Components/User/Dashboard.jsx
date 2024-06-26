@@ -24,12 +24,12 @@ export default function Dashboard() {
     axios
       .get(`${NETWORK}/food/seller/filter?filter=${filter}`)
       .then((res) => {
-        console.log(res.data);
+    
         setresturant(res.data);
-        console.log(resturant);
+    
       })
       .catch((error) => {
-        console.log(error);
+     
       });
   }, [filter]);
 

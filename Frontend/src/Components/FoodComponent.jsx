@@ -38,13 +38,10 @@ export default function FoodComponent({
     } else {
       setCart([...cart, { id, name, quantity: number, cost, imageUrl }]);
     }
-    console.log(cart);
+  
   }
 
-  useEffect(() => {
-    console.log(cart);
-    console.log(size);
-  }, [cart]);
+
 
   return (
     <>

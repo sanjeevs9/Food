@@ -79,7 +79,7 @@ export default function Cart({ fn, open }) {
         }
       )
       .then((res) => {
-        console.log(res.data);
+     
         setdelay(true)
         setCart([]);
         successToast("Order placed")
@@ -87,7 +87,7 @@ export default function Cart({ fn, open }) {
         navigate('/orderhistory')
       })
       .catch((error) => {
-        console.log(error.response.data.message);
+      
       });
   }
 

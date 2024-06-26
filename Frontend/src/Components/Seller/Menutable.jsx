@@ -33,10 +33,10 @@ import { useRecoilState } from "recoil";
       })
       .then((res) => {
         setmenu(res.data);
-        console.log("balle balle")
+    
       })
       .catch((error) => {
-        console.log(error);
+   
       });
   }, []);
 
@@ -51,7 +51,7 @@ import { useRecoilState } from "recoil";
     }
 
     function addItem(data){
-      console.log(data)
+
       setmenu([data, ...menu])
     }
   return (
@@ -63,7 +63,7 @@ import { useRecoilState } from "recoil";
               
               <th scope="col" class="px-16 py-3 absolute">
 
-              <div className={` ${bar?`hidden`:``}  flex -translate-x-14 relative text-xs   lowercase underline cursor-pointer`}
+              <div className={` ${bar?`hidden`:``}  sm:flex -translate-x-14 relative text-xs   lowercase underline cursor-pointer`}
               onClick={handleaddmenu}>
                 Add item
               </div>

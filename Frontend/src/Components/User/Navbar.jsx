@@ -36,7 +36,7 @@ export default function Navbar({ className }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
+     
         setuser(res.data);
       });
   }, []);

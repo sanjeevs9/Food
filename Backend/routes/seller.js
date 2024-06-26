@@ -62,7 +62,7 @@ router.post("/create", async (req, res) => {
   //       })
   }
   catch(error){
-    console.log(error)
+  
         res.status(400).json({
             message:error.errors[0].message
         })
@@ -132,7 +132,7 @@ router.post("/signin", async (req, res) => {
     });
   }
   catch(error){
-    console.log(error)
+  
     res.status(400).json({
         message:error.errors[0].message
     })
@@ -172,7 +172,7 @@ router.post("/menu", middleware, async (req, res) => {
   });
   }
   catch(error){
-    console.log(error)
+  
     res.status(400).json({
         message:error.errors[0].message
     })
@@ -187,12 +187,9 @@ router.post("/updatemanu",middleware,async(req,res)=>{
   const UserId = req.UserId;
   const body =req.body;
   const id=req.headers.id
-  console.log(body)
-  console.log(id)
-  console.log(body)
   try{
     await menuCheck.parseAsync(body)
-      console.log(body.imgUrl)
+ 
     const seller=await Menu.updateMany({
         _id:id
     },{
@@ -202,13 +199,13 @@ router.post("/updatemanu",middleware,async(req,res)=>{
         imgUrl:body.imgUrl
       }
     })
-    console.log(seller)
+
     res.json({
       message:"Updated"
     })
     
   }catch(error){
-    console.log(error)
+
     res.status(400).json({
         message:error.errors[0].message
     })
@@ -274,7 +271,7 @@ router.post("/updateAdmin", middleware, async (req, res) => {
 
  try{
   await AdminUpdate.parseAsync(payload)
-  console.log("asdfasdfsdf")
+
   await Seller.updateOne(
     { _id: UserId },
     {

@@ -9,7 +9,7 @@ const router =express.Router();
 router.post('/create',middleware,async(req,res)=>{
     const UserId=req.UserId;
     const payload=req.body;
-    console.log(payload)
+
     
     try {
         const seller = await Seller.findOne({ _id: payload.sellerId });
@@ -67,7 +67,7 @@ router.put('/put',async (req,res)=>{
             {_id:orderId},
             { $set:{status:status}}
         )
-        console.log(order)
+      
     }catch(error){
         res.status(404).json({
             message:"Server Side issue"

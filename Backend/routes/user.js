@@ -16,12 +16,12 @@ let tempUser={}
 //signup
 router.post('/signup',async (req,res)=>{
     const payload=req.body;
-    console.log(payload)
+
     try{
         await userSignup.parseAsync(payload)
 
      const existingUser=await User.findOne({email:payload.email})
-     console.log(existingUser)
+  
      if(existingUser){
         res.status(409).json({
             message:"User already exists"
@@ -46,7 +46,7 @@ router.post('/signup',async (req,res)=>{
       })
     }
     catch (error){
-        console.log(error)
+       
         res.status(400).json({
             message:error.errors[0].message
         })
@@ -75,7 +75,7 @@ router.post('/verify',async(req,res)=>{{
     
         const UserId=user._id;
         const token=jwt.sign({UserId},JWT_SECRET);
-        console.log(UserId);
+   
     
         await Bank.create({
             userId:UserId,
@@ -125,7 +125,7 @@ router.post('/signin',async(req,res)=>{
     })
     }
     catch(error){
-        console.log(error)
+      
         res.status(400).json({
             message:error.errors[0].message
         })
@@ -179,7 +179,7 @@ router.get('/balance',middleware,async(req,res)=>{
     res.json({
         "balance":balance
     })
-    console.log(balance)
+  
     }
     catch(error){
         console.error(error)
@@ -194,8 +194,7 @@ router.get('/balance',middleware,async(req,res)=>{
 router.put('/addmoney',middleware,async(req,res)=>{
     const UserId=req.UserId;
     let money=req.body.money;
-    console.log(money)
-    console.log(UserId)
+  
     let newMoney=(Number)(money)*100;
 
     await Bank.updateOne(
@@ -219,7 +218,7 @@ router.post('/transaction',middleware,async(req,res)=>{
 
     const UserId=req.UserId;
     const sellerId=req.body.id;
-    console.log(sellerId)
+
     let total=req.body.total;
 
     const user=await Bank.findOne(

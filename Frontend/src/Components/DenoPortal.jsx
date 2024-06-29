@@ -13,7 +13,7 @@ export default function Demo({isOpen,fn}) {
     async function LoginUser(){
         await axios.post(`${NETWORK}/food/user/signin`,
             {
-                email:"sanjeev.19kr@gmail.com",
+                email:"guest1@gmail.com",
                 password:"password"
             }
         ).then(res=>{
@@ -22,6 +22,7 @@ export default function Demo({isOpen,fn}) {
             navigate("/user");
         }).catch(err=>{
             errorToast(err.response.data.message);
+            console.log(err)
         })
     }
 

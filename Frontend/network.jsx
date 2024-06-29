@@ -1,1 +1,2 @@
-export const NETWORK="http://192.168.148.248:5000";
+//backend in render
+export const NETWORK="https://food-oplo.onrender.com";

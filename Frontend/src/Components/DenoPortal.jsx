@@ -47,7 +47,7 @@ export default function Demo({isOpen,fn}) {
         <>
             <div className="backdrop-blur-sm z-50 h-screen w-screen fixed inset-0 justify-center items-center flex " >
 
-                <div className="h-[10rem] sm:h-[15rem] w-[27rem]  bg-[#e0e7ff]   flex relative backdrop-blur-sm rounded-lg border-[1px] border-gray-500"  >
+                <div className="h-[15rem] w-[27rem]  bg-[#e0e7ff]   flex relative backdrop-blur-sm rounded-lg border-[1px] border-gray-500"  >
 
                     <div className="flex items-center justify-center w-full">
                         <div className="flex text-black flex-col w-full items-center   h-full justify-center">

@@ -40,7 +40,6 @@ async function handle(){
             mobileNumber:(Number)(phone)
         })
     .then(res=>{
-       console.log(res.data)
        SendEmail(res.data.email,res.data.name,res.data.otp)
        successToast(`otp sent on ${res.data.email}` )
         // alert(`otp send on ${res.data.email}` );
@@ -49,7 +48,6 @@ async function handle(){
     .catch(error=>{
         errorToast(error.response.data.message)
         // alert(error.response.data.message)
-        console.log(error);
     })
 }
 

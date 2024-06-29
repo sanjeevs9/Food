@@ -50,6 +50,7 @@ export default function Navbar({ className }) {
 
   function handle() {
     localStorage.clear();
+    sessionStorage.clear();
     navigate("/");
   }
 

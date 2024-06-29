@@ -229,7 +229,7 @@ router.post('/transaction',middleware,async(req,res)=>{
     if(balance<total){
         await session.abortTransaction();
         res.status(400).json({
-            "message":"Insufficient Balance"
+            "message":"Insufficient Balance! Please add money in wallet"
         })
         return
     }

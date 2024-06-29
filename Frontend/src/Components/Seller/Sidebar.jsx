@@ -126,6 +126,7 @@ export default function Sidebar() {
               className="inline-flex items-center justify-center h-9 px-4 rounded-xl bg-gray-900 text-gray-300 hover:text-white text-sm font-semibold transition"
               onClick={() => {
                 localStorage.clear();
+                sessionStorage.clear()
                 navigate("/");
               }}
             >

@@ -16,14 +16,17 @@ export default function DetailsProcider(props){
     const[totalMenu,setTotalMenu]=useState("...");
     const[totalOrder,setTotalOrder]=useState("...");
     const[edit,setEdit]=useState(false);
-    const token=localStorage.getItem("token");
+    let token=localStorage.getItem("token");
     const adminLogin=useRecoilValue(AdminLogin)
 
   
 
     useEffect(()=>{
         if(!token){
-            return;
+            token=sessionStorage.getItem("token");
+        }
+        if(!token){
+          return 
         }
       axios.get(`${NETWORK}/food/seller/admin`,{
         headers:{

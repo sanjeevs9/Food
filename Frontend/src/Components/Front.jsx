@@ -9,11 +9,17 @@ import DropDown from "./DropDown";
 import { useNavigate } from "react-router-dom";
 import { NETWORK } from "../../network";
 import { errorToast } from "../toast";
+import Demo from "./DenoPortal";
 
 export default function Front() {
   const [drop, setdrop] = useState(false);
   let token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const [demo,setDemo]=useState(false);
+
+  function handleDemo(){
+    setDemo(!demo)
+  }
 
   async function handle() {
     if (!token) {
@@ -79,6 +85,9 @@ export default function Front() {
         ></div>
 
         <div className=" h-[85vh] sm:h-[85vh]  bg-[#fff7ed] rounded-xl">
+          
+         <Demo isOpen={demo} fn={handleDemo}/>
+
           <div className="flex p-12 justify-between">
             <img src={logo} className="h-10 w-10"></img>
             <ul className=" sm:flex gap-10 pr-2 ">
@@ -99,6 +108,7 @@ export default function Front() {
                   className=" bg-[#FC5664] hover:bg-red-500 active:bg-red-600 rounded-lg font-semibold w-11  cursor-pointer h-7 text-white"
                   onClick={() => {
                     setdrop(!drop);
+                    setDemo(!demo)
                   }}
                 >
                   Join

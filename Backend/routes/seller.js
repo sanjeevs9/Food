@@ -5,6 +5,7 @@ const { sellerSignup, sellerSignin, menuCheck, AdminUpdate } = require("../zod")
 const { route } = require("./user");
 const JWT_SECRET = require("../config");
 const { middleware } = require("../middleware");
+const { Seller, Bank, Menu } = require("../db");
 require("dotenv").config();
 
 const accountSid = process.env.AccountSID;

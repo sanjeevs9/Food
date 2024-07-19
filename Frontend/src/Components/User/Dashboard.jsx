@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Carousel from "../Carousel";
 import Footer from "../Footer";
 import Resturant from "../Resturant";
@@ -8,11 +8,12 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { filterState } from "../../atoms/filterState";
 import { NETWORK } from "../../../network";
+import { Rcontext } from "./ResturantContext";
 
 export default function Dashboard() {
-  const [resturant, setresturant] = useState([]);
   const [filter, setfilter] = useRecoilState(filterState);
   const navigate = useNavigate();
+  const {resturant}=useContext(Rcontext)
 
   function handle(x) {
     localStorage.setItem("restra", x);
@@ -20,18 +21,7 @@ export default function Dashboard() {
   }
 
   //all shopname
-  useEffect(() => {
-    axios
-      .get(`${NETWORK}/food/seller/filter?filter=${filter}`)
-      .then((res) => {
-    
-        setresturant(res.data);
-    
-      })
-      .catch((error) => {
-     
-      });
-  }, [filter]);
+  
 
   return (
     <>

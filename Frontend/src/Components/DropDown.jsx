@@ -9,12 +9,12 @@ export default function DropDown(){
             <button className="text-white bg-[#FC5664] hover:bg-red-500 active:bg-red-600 rounded-md font-semibold p-2" onClick={
                 ()=>{navigate('/signup')}
             }>    
-                Join as user
+                Login as user
             </button>
             <button className=" text-white bg-[#FC5664] hover:bg-red-500 active:bg-red-600 rounded-md font-semibold p-2 "onClick={
                 ()=>{navigate('/create')}
             }>
-            Join as Seller
+            Login as Seller
             </button>
         </div>
         </>

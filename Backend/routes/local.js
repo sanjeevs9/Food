@@ -1,6 +1,6 @@
 const express = require("express");
 const { middleware } = require("../middleware");
-const {User,Seller} =require("../db")
+
 
 const router=express.Router();
 

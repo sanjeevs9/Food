@@ -1,5 +1,5 @@
 const express = require("express");
-const { Seller, Bank, Menu } = require("../db");
+
 const jwt = require("jsonwebtoken");
 const { sellerSignup, sellerSignin, menuCheck, AdminUpdate } = require("../zod");
 const { route } = require("./user");

@@ -86,16 +86,34 @@ export default function Front() {
 
         <div className=" h-[85vh] sm:h-[85vh]  bg-[#fff7ed] rounded-xl">
           
-         <Demo isOpen={demo} fn={handleDemo}/>
+        
 
           <div className="flex p-12 justify-between">
             <img src={logo} className="h-10 w-10"></img>
             <ul className=" sm:flex gap-10 pr-2 ">
-              <li className="cursor-pointer hidden sm:flex" onClick={handle}>
+            <li>
+                <button
+                  className=" bg-[#FC5664] flex justify-center   hover:bg-red-500 active:bg-red-600 rounded-lg font-semibold w-32  cursor-pointer h-8 items-center text-white"
+                  onClick={() => {
+                    setDemo(!demo);
+                  }}
+                >
+                  <div className="flex flex-row ">
+                  Join as Guest
+                  </div>
+                  
+                </button>
+                {demo && (
+                  <div className="absolute -mx-20 mt-1">
+                    <Demo />
+                  </div>
+                )}
+              </li>
+              <li className="cursor-pointer hidden sm:flex pt-1" onClick={handle}>
                 Dashboard
               </li>
               <li
-                className="cursor-pointer hidden sm:flex"
+                className="cursor-pointer hidden sm:flex pt-1"
                 onClick={() => {
                   navigate("/help");
                 }}
@@ -105,13 +123,12 @@ export default function Front() {
               {/* <li className=>Join</li> */}
               <li>
                 <button
-                  className=" bg-[#FC5664] hover:bg-red-500 active:bg-red-600 rounded-lg font-semibold w-11  cursor-pointer h-7 text-white"
+                  className=" bg-[#FC5664] hover:bg-red-500 active:bg-red-600 rounded-lg font-semibold w-14   cursor-pointer h-8 text-white"
                   onClick={() => {
                     setdrop(!drop);
-                    setDemo(!demo)
                   }}
                 >
-                  Join
+                  Login
                 </button>
                 {drop && (
                   <div className="absolute -mx-36">

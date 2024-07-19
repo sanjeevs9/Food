@@ -24,10 +24,7 @@ export default function ResturantProvider({children}){
           });
       }, [filter]);
 
-      useEffect(()=>{
-        console.log(resturant)
-      },[resturant])
-
+  
     return(
         <>
         <Rcontext.Provider value={{resturant}}>

@@ -9,9 +9,12 @@ import { errorSelector } from "recoil";
 export default function Edit({type,fn}){
     const details=useContext(DetailsContext);
     const[update,setUpdate]=useState({name:details.name,description:details.description,image:details.image,phone:details.phone})
-    const token=localStorage.getItem("token")
+    let token=localStorage.getItem("token")
 
     async function handle(){
+      if(!token){
+        token=sessionStorage.getItem("token")
+      }
         await axios.post(`${NETWORK}/food/seller/updateAdmin`,
            {
             imgUrl:update.image,

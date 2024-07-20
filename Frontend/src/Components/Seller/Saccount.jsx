@@ -18,6 +18,7 @@ export default function Saccount() {
   }
 
   function handle(id){
+    console.log(isOpen);
     setType(id);
     setOpen(!isOpen);
   }
@@ -29,6 +30,9 @@ export default function Saccount() {
         <div className="flex  ">
           <Sidebar />
         </div>
+        {isOpen ? 
+         <Edit type={type} fn={()=>{setOpen(!open)}}></Edit>:""}
+        
         <div className={`${!bar ? 'w-2/6  ' : 'overflow-hidden h-screen   w-2/6'} sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}style={{height:"100vh"}}>
         <div className="w-full ">
         <div className="  flex sm:hidden relative   cursor-pointer translate-x-2 translate-y-5"onClick={handle1}>

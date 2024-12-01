@@ -32,6 +32,46 @@
 - **E-Wallet** for transaction
 - **Remember me**
 
+## Setting Up the Environment Variables
+## Frontend Environment Variables
+
+The frontend requires a `.env` file to store the environment variables. Follow these steps to set it up:
+
+1. **Create the `.env` file**  
+   In the root directory of the frontend project, create a file named `.env`.
+
+2. **Add the following variables**  
+   Add the following keys to the `.env` file:
+   ```env
+   VITE_SERVICE_ID=
+   VITE_TEMPLATE_ID=
+   VITE_PUBLIC_KEY=
+   Obtain the values
+3.Get these keys from EmailJS to set up the email service for your application.
+
+# Backend Environment Variables
+
+The backend requires a `.env` file to store the environment variables. Follow these steps to set it up:
+
+1. **Create the `.env` file**  
+   In the root directory of the backend project, create a file named `.env`.
+
+2. **Add the following variables**  
+   Add the following keys to the `.env` file:
+   ```env
+   MONGO_URI=
+   AccountSID=
+   AUTHTOKEN=
+
+3.Obtain the values
+
+MONGO_URI: Add your MongoDB connection URL.
+AccountSID: Get the SID from Twilio.
+AUTHTOKEN: Get the Auth Token from Twilio.
+
+   
+
+   
 
 ## Learning
 - **JWT** tokens for Authentication

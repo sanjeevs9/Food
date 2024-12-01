@@ -46,8 +46,8 @@ The frontend requires a `.env` file to store the environment variables. Follow t
    VITE_SERVICE_ID=
    VITE_TEMPLATE_ID=
    VITE_PUBLIC_KEY=
-   Obtain the values
-3.Get these keys from EmailJS to set up the email service for your application.
+   
+3. Get these keys from EmailJS to set up the email service for your application.
 
 # Backend Environment Variables
 
@@ -63,7 +63,7 @@ The backend requires a `.env` file to store the environment variables. Follow th
    AccountSID=
    AUTHTOKEN=
 
-3.Obtain the values
+3. Obtain the values
 
 MONGO_URI: Add your MongoDB connection URL.
 AccountSID: Get the SID from Twilio.

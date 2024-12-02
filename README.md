@@ -10,8 +10,7 @@
 ## Screenshots
 
 **User Interface**
-![Uploading image.png…]()
-
+![image](https://github.com/user-attachments/assets/f0294c29-57f1-406c-9412-6a4413bbbf5b)
 ![User Interface](https://github.com/sanjeevs9/Food/assets/88326960/069a53e8-d9d5-4c71-8fc6-718507958b06)
 
 **E-Wallet**

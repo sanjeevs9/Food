@@ -1,7 +1,7 @@
 import {Link, useNavigate} from "react-router-dom"
 import { Button } from "@/Components/ui/button"
 import { Github } from 'lucide-react'
-import { Testimonial } from "@/Components/testimonial"
+import { Testimonial } from "@/Components/Testimonial"
 import image from "../img/food/m2.png"
 import logo from "../img/logo.png"
 import { LoginDropdown } from "@/Components/LoginDropdown"

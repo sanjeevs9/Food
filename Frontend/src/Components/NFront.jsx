@@ -1,12 +1,12 @@
 import {Link, useNavigate} from "react-router-dom"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/Components/ui/button"
 import { Github } from 'lucide-react'
 import { Testimonial } from "@/Components/testimonial"
 import image from "../img/food/m2.png"
 import logo from "../img/logo.png"
-import { LoginDropdown } from "@/components/LoginDropdown"
-import { SignupDropdown } from "@/components/SignupDropdown"
-import { FoodIcons } from "@/components/FoodIcons"
+import { LoginDropdown } from "@/Components/LoginDropdown"
+import { SignupDropdown } from "@/Components/SignupDropdown"
+import { FoodIcons } from "@/Components/FoodIcons"
 import { errorToast } from "../toast";
 import axios from "axios"
 import { NETWORK } from "../../network";

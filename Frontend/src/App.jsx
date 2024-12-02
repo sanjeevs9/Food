@@ -4,7 +4,7 @@ import Signin from "./Components/User/Signin";
 import Signup from "./Components/User/Signup";
 import SellerSignup from "./Components/Seller/SellerSignup";
 
-import { useEffect } from "react";
+
 import "./App.css";
 import SellerSignin from "./Components/Seller/SellerSignin";
 import Help from "./Components/Help";

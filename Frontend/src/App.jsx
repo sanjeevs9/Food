@@ -33,13 +33,14 @@ import UserOtp from "./Components/User/UserOtp";
 import { ToastContainer,Bounce} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import TRYSIGNUP from "./Components/TRYSIGNUP";
+import LandingPage from "./Components/NFront";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Front />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/create" element={<SellerSignup />} />

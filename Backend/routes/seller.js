@@ -10,7 +10,10 @@ require("dotenv").config();
 
 const accountSid = process.env.AccountSID;
 const authToken = process.env.AUTHTOKEN;
-const client = require("twilio")(accountSid, authToken);
+const client =
+  accountSid && authToken
+    ? require("twilio")(accountSid, authToken)
+    : null;
 
 const router = express.Router();
 let otp = "";
@@ -233,6 +236,25 @@ router.get("/itemm", middleware, async (req, res) => {
 router.get("/shopname", async (req, res) => {
   const shop = await Seller.find({}, "shopName phoneNumber");
   res.json(shop);
+});
+
+// delete a restaurant
+router.post("/delete/:id", async (req, res) => {
+  const sellerId = req.params.id;
+  console.log({sellerId});
+  try {
+    const seller = await Seller.findById(sellerId);
+    if (!seller) {
+      return res.status(404).json({ message: "Restaurant not found" });
+    }
+    await Bank.deleteMany({ userId: sellerId });
+    await Menu.deleteMany({ userId: sellerId });
+    await Seller.findByIdAndDelete(sellerId);
+    return res.json({ message: "Restaurant deleted" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Failed to delete restaurant" });
+  }
 });
 
 //filter

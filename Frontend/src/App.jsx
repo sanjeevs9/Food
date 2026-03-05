@@ -34,6 +34,7 @@ import { ToastContainer,Bounce} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 import LandingPage from "./Components/NFront";
+import AdminPage from "./Components/Admin/AdminPage";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           <Route path="/ssettings" element={<Ssettings />} />
           <Route path="/saccount" element={<Saccount />} />
           <Route path="/uotp" element={<UserOtp/>}/>
+          <Route path="/admin" element={<AdminPage />} />
 
           {/* <Route path='/*' element={<Resturant name="Uncles Cafe" description="New Fast Food Chain" imgUrl="https://static.vecteezy.com/system/resources/previews/023/010/452/non_2x/the-fast-food-meal-in-the-black-background-with-ai-generated-free-photo.jpg"/>}/> */}
          

@@ -8,7 +8,7 @@ app.use(express.json());
 
 const mainRouter = require('./routes/index')
 
-const PORT = process.env.PORT || 5000; 
+const PORT = process.env.PORT || 5001; 
 
 app.get("/",(req,res)=>{
     res.json({

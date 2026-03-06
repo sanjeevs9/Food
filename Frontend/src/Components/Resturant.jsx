@@ -2,36 +2,28 @@ import plate from "../img/Plate.svg";
 
 export default function Resturant({ name, description, imgUrl, onClick }) {
   return (
-    <>
-      <div
-        onClick={onClick}
-        className="cursor-pointer transform motion-safe:hover:scale-105 rounded-xl  "
-      >
-        <div className="flex flex-col  w-36   h-auto sm:w-64  md:w-60 lg:w-52  2xl:w-72   ">
-          <div
-            className="h-28 w-36 sm:h-44 md:h-48 lg:h-40 xl:h-52 rounded-xl  sm:w-full bg-cover bg-center flex-shrink-0"
-            style={{ backgroundImage: `url('${imgUrl ? imgUrl : plate}')` }}
-          ></div>
-
-          <div className="h-fit flex flex-col pl-2 break-words">
-            <div className="flex flex-row gap-2 ">
-              <div className="font-sans font-semibold  text-lg sm:text-xl xl:text-[24px]  leading-tight pt-[1px]  truncate h-7 overflow-hidden ">{name}</div>
-              <div className="pt-[4px] flex gap-1  h-fit -translate-y-[1px] sm:translate-y-[3px] leading-none">
-                <div
-                  className="h-3 w-3 bg-cover bg-center rounded-full translate-y-[3px]"
-                  style={{
-                    backgroundImage: `url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSokvLLBOHLxXQqxAnbEb5VEQKK8rzhSNwXrT-Tgkur0eYfaqPfr_U1ErWRGtwT1e-SnLE&usqp=CAU")`,
-                  }}
-                ></div>
-                <div className="-translate-y-[1px]  ">
-                  <span className="font-semibold text-[12px] sm:text-sm  ">4.3</span>
-                </div>
-              </div>
+    <div
+      onClick={onClick}
+      className="cursor-pointer group"
+    >
+      <div className="flex flex-col">
+        <div
+          className="aspect-[4/3] w-full rounded-2xl bg-stone-100 bg-cover bg-center transition-transform duration-300 group-hover:scale-[1.02]"
+          style={{ backgroundImage: `url('${imgUrl ? imgUrl : plate}')` }}
+        />
+        <div className="pt-3 px-0.5">
+          <div className="flex items-center justify-between gap-2">
+            <h3 className="font-['Outfit'] font-semibold text-stone-900 text-sm sm:text-base truncate">{name}</h3>
+            <div className="flex items-center gap-1 shrink-0">
+              <svg className="w-3.5 h-3.5 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <span className="font-['Outfit'] text-xs font-medium text-stone-500">4.3</span>
             </div>
-            <div className="font-semibold italic text-[10px] sm:text-xs max-w-full overflow-hidden sm:pt-[5px]">{description}</div>
           </div>
+          <p className="font-['Outfit'] text-xs text-stone-400 mt-0.5 truncate">{description}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -39,6 +39,8 @@ export default function DetailsProcider(props){
         setdescription(res.data.detail.description);
         setImage(res.data.detail.imgUrl);
         setPhone(res.data.detail.phoneNumber);
+        setTotalMenu(res.data.totalMenu);
+        setTotalOrder(res.data.totalOrder);
       }).catch(err=>{
        
       })

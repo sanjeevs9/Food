@@ -9,48 +9,27 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-white rounded-lg shadow m-4 ">
-      <div className="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-        <span className="text-[9px] sm:text-sm text-gray-500 sm:text-center ">
-          © 2023{" "}
-          <a href="" className="hover:underline">
-            Food2You™
-          </a>
-          . All Rights Reserved.
+    <footer className="border-t border-stone-200 mt-8">
+      <div className="w-full py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <span className="font-['Outfit'] text-xs sm:text-sm text-stone-400">
+          &copy; 2024 SnackSync. All Rights Reserved.
         </span>
-        <ul className="flex flex-wrap items-center mt-3 text-[12px] sm:text-sm font-medium text-gray-500  sm:mt-0">
-          <li>
-            <button
-              onClick={() => handleNavigation("/about")}
-              className="hover:underline me-4 md:me-6"
-            >
-              About
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => handleNavigation("/privacy-policy")}
-              className="hover:underline me-4 md:me-6"
-            >
-              Privacy Policy
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => handleNavigation("/licensing")}
-              className="hover:underline me-4 md:me-6"
-            >
-              Licensing
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => handleNavigation("/contact")}
-              className="hover:underline"
-            >
-              Contact
-            </button>
-          </li>
+        <ul className="flex flex-wrap items-center gap-4 sm:gap-6">
+          {[
+            { label: "About", path: "/about" },
+            { label: "Privacy", path: "/privacy-policy" },
+            { label: "Licensing", path: "/licensing" },
+            { label: "Contact", path: "/contact" },
+          ].map((item) => (
+            <li key={item.label}>
+              <button
+                onClick={() => handleNavigation(item.path)}
+                className="font-['Outfit'] text-xs sm:text-sm text-stone-400 hover:text-stone-600 transition-colors"
+              >
+                {item.label}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </footer>

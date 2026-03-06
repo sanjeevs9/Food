@@ -18,7 +18,6 @@ export default function OrderHistory() {
     if(!token){
       token=sessionStorage.getItem("token")
       if(!token){
-        // errorToast("PLease login")
         return
       }
     }
@@ -47,7 +46,6 @@ export default function OrderHistory() {
                   setAlertedOrders((prevAlertedOrders) => {
                     if (!prevAlertedOrders.includes(order._id)) {
                       new Notification("Your order is ready");
-                      // alert("order is ready")
                       return [...prevAlertedOrders, order._id];
                     } else {
                       return prevAlertedOrders;
@@ -56,27 +54,12 @@ export default function OrderHistory() {
                 }
               });
           }
-       
         })
-        .catch((error) => {
-      
-        });
+        .catch((error) => {});
     };
     interval();
     setInterval(interval, 5000);
-    // return () => {
-    //   clearInterval(intervalId);
-    // };
   }, [alertedOrders]);
-
-  //   useEffect(() => {
-  //    data.slice(-10).forEach(order=>{
-  //     if(order.status==="ready" && !alertedOrders.includes(order._id)){
-  //     
-  //       setAlertedOrders(orders=>[...orders,order._id])
-  //     }
-  //    })
-  // }, [data, alertedOrders]);
 
   const format = (createdAt) => {
     const createdAtDate = new Date(createdAt);
@@ -89,7 +72,6 @@ export default function OrderHistory() {
       second: "numeric",
       timeZone: "UTC",
     });
-
     return formattedDate;
   };
 
@@ -97,129 +79,107 @@ export default function OrderHistory() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  return (
-    <>
-      <div className="flex flex-col h-screen justify-between">
-        <div>
-          <Navbar className="hidden" />
-        </div>
+  const StatusBadge = ({ status }) => {
+    const styles = {
+      completed: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      rejected: "bg-red-50 text-red-600 border-red-200",
+      accepted: "bg-blue-50 text-blue-600 border-blue-200",
+      ready: "bg-amber-50 text-amber-700 border-amber-200",
+    };
+    const labels = {
+      completed: "Completed",
+      rejected: "Rejected",
+      accepted: "Cooking",
+      ready: "Ready",
+    };
 
-        <div class="overflow-x-auto flex-grow">
-          <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-200 ">
-              <tr>
-                <th scope="col" class="px-6 py-3">
-                  Items
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Time
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Order Id
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Price
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Order Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {[...currentItems].map((items) => {
-                return (
-                  <tr class="bg-white border-b ">
-                    <th
-                      scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap transform -translate-y-3"
-                    >
-                      {items.items.map((item) => (
-                        <span>
-                          <br></br>
-                          {item.name}-{item.quantity}
-                        </span>
-                      ))}
+    if (styles[status]) {
+      return (
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg border font-['Outfit'] text-xs font-medium ${styles[status]}`}>
+          {labels[status]}
+        </span>
+      );
+    }
+
+    return (
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-stone-200 bg-stone-50 font-['Outfit'] text-xs font-medium text-stone-500">
+        <span className="w-1.5 h-1.5 rounded-full bg-stone-400 animate-pulse" />
+        Pending
+      </span>
+    );
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen bg-[#FAFAF8]">
+      <div className="px-4 md:px-10 lg:px-16">
+        <Navbar className="hidden" />
+      </div>
+
+      <div className="flex-grow px-4 md:px-10 lg:px-16 py-6">
+        <h2 className="font-['Fraunces'] text-2xl font-semibold text-stone-900 mb-6">Order History</h2>
+
+        <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-stone-200">
+                  {["Items", "Time", "Order ID", "Price", "Status"].map((header) => (
+                    <th key={header} className="px-6 py-3.5 font-['Outfit'] text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                      {header}
                     </th>
-                    <td class="px-6 py-4">{format(items.createdAt)}</td>
-                    <td class="px-6 py-4 text-red-600">{items._id}</td>
-                    <td class="px-6 py-4">&#8377;{items.cost}</td>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-stone-100">
+                {currentItems.map((items) => (
+                  <tr key={items._id} className="hover:bg-stone-50 transition-colors">
                     <td className="px-6 py-4">
-                      {items.status === "completed" ? (
-                        <div
-                          className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                          style={{ opacity: 1 }}
-                        >
-                          Completed
-                        </div>
-                      ) : items.status === "rejected" ? (
-                        <div
-                          className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-600 py-1 px-2 text-xs rounded-md"
-                          style={{ opacity: 1 }}
-                        >
-                          Rejected
-                        </div>
-                      ) : items.status === "accepted" ? (
-                        <div
-                          className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                          style={{ opacity: 1 }}
-                        >
-                          Cooking..
-                        </div>
-                      ) : items.status === "ready" ? (
-                        <div
-                          className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-yellow-500/20 text-yellow-600-600 py-1 px-2 text-xs rounded-md"
-                          style={{ opacity: 1 }}
-                        >
-                          Ready
-                        </div>
-                      ) : (
-                        <div>
-                          <svg
-                            aria-hidden="true"
-                            class="inline w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                            viewBox="0 0 100 101"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                              fill="currentColor"
-                            />
-                            <path
-                              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                              fill="currentFill"
-                            />
-                          </svg>
-                          <span>Pending</span>
-                        </div>
-                      )}
+                      <div className="flex flex-col gap-0.5">
+                        {items.items.map((item, i) => (
+                          <span key={i} className="font-['Outfit'] text-sm text-stone-700">
+                            {item.name} &times; {item.quantity}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-['Outfit'] text-sm text-stone-500">{format(items.createdAt)}</td>
+                    <td className="px-6 py-4 font-['Outfit'] text-xs text-stone-400 font-mono">{items._id}</td>
+                    <td className="px-6 py-4 font-['Outfit'] text-sm font-semibold text-stone-900">&#8377;{items.cost}</td>
+                    <td className="px-6 py-4">
+                      <StatusBadge status={items.status} />
                     </td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="flex justify-center gap-5">
+
+        {/* Pagination */}
+        <div className="flex items-center justify-center gap-3 mt-6">
           <button
-            className=" flex  p-1 border-[1px] rounded-xl "
+            className="px-4 py-2 font-['Outfit'] text-sm font-medium text-stone-600 border border-stone-200 rounded-xl hover:bg-stone-50 transition-colors disabled:opacity-40"
             onClick={() => setCurrentPage((page) => Math.max(page - 1, 1))}
+            disabled={currentPage === 1}
           >
             Previous
           </button>
+          <span className="font-['Outfit'] text-sm text-stone-400">
+            Page {currentPage} of {Math.max(1, Math.ceil(data.length / itemsPerPage))}
+          </span>
           <button
-            className=" flex p-1 border-[1px] rounded-xl pl-2 pr-2"
+            className="px-4 py-2 font-['Outfit'] text-sm font-medium text-stone-600 border border-stone-200 rounded-xl hover:bg-stone-50 transition-colors disabled:opacity-40"
             onClick={() =>
               setCurrentPage((page) =>
                 Math.min(page + 1, Math.ceil(data.length / itemsPerPage))
               )
             }
+            disabled={currentPage >= Math.ceil(data.length / itemsPerPage)}
           >
             Next
           </button>
         </div>
-        <div className="justify-end"></div>
       </div>
-    </>
+    </div>
   );
 }

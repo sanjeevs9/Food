@@ -5,7 +5,7 @@ const { sellerSignup, sellerSignin, menuCheck, AdminUpdate } = require("../zod")
 const { route } = require("./user");
 const JWT_SECRET = require("../config");
 const { middleware } = require("../middleware");
-const { Seller, Bank, Menu } = require("../db");
+const { Seller, Bank, Menu, Order } = require("../db");
 require("dotenv").config();
 
 const accountSid = process.env.AccountSID;
@@ -218,6 +218,22 @@ router.post("/updatemanu",middleware,async(req,res)=>{
 
 })
 
+//delete menu item
+router.delete("/menuitem/:id", middleware, async (req, res) => {
+  const UserId = req.UserId;
+  const itemId = req.params.id;
+  try {
+    const item = await Menu.findOne({ _id: itemId, userId: UserId });
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+    await Menu.findByIdAndDelete(itemId);
+    return res.json({ message: "Item deleted" });
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to delete item" });
+  }
+});
+
 //menu get on user interface
 router.get("/item", async (req, res) => {
   const UserId = req.query.id;
@@ -281,8 +297,10 @@ router.get("/admin",middleware,async(req,res)=>{
   const userId=req.UserId;
   const detail=await Seller.findOne({_id:userId},"shopName phoneNumber imgUrl description");
   const balance=await Bank.findOne({userId:userId},"balance");
+  const totalMenu=await Menu.countDocuments({userId:userId});
+  const totalOrder=await Order.countDocuments({sellerId:userId});
   return  res.json({
-    detail,balance
+    detail,balance,totalMenu,totalOrder
   })
 })
 

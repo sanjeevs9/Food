@@ -6,7 +6,6 @@ import { NETWORK } from "../../../network";
 import { useRecoilState } from "recoil";
 import { balanceState } from "../../atoms/balanceState";
 import { errorToast, successToast } from "../../toast";
-import { values } from "lodash";
 
 export default function Wallet({ fn, open }) {
     const[balance,setbalance]=useRecoilState(balanceState)
@@ -51,9 +50,7 @@ export default function Wallet({ fn, open }) {
             }
         })
         .then(res=>{
-            
             setbalance(balance=>balance+input)
-            // alert(res.data.message)
             successToast(res.data.message)
         })
         .catch((error)=>{
@@ -65,70 +62,76 @@ export default function Wallet({ fn, open }) {
   if (!open) return null;
 
   return ReactDOM.createPortal(
-    <>
-      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-50 backdrop-blur-sm">
-        <div className="md:h-96 w-80 md:w-2/3 max-w-[50rem] xl:w-2/4 bg-[#E5E4E2] rounded-3xl flex p-5  flex-col items-center gap-5">
-          <div className="flex flex-row justify-between  w-10/12 md:p-2">
-            <div className="flex font-semibold md:text-lg">Total balance</div>
-            <div className="flex font-semibold text-black md:text-lg">
-              &#8377;{balance}
-            </div>
-          </div>
-          <div className="md:w-10/12 md:h-3/4 bg-white justify-center flex p-3 rounded-2xl border-[1px] border-gray-400">
-            <div className="w-full gap-3 flex flex-col p-2">
-              <div className="flex font-semibold">
-                Add gift cards to balance
-              </div>
-              <div className="border-[1px] border-gray-400 rounded-md p-2 w-full"  
-              onClick={()=>{element.current.focus()}}>
-                <div className="text-sm font-light">Enter ammount</div>
-                <div className="text-2xl w-full flex items-center">
-  &#8377;
-  <input
-    className="font-semibold border-0 focus:outline-none placeholder-black w-full"
-    placeholder={input}
-    value={input}
-    type="number"
-    onChange={(e) => setinput(Number(e.target.value))}
-    ref={element}
-  />
-</div>
-              </div>
-              <div className="flex">
-                <div className="flex flex-row gap-2">
-                  <button className="flex border-[0.5px] border-gray-400 rounded-md p-1 font-semibold pr-2 ps-2"
-                  onClick={()=>{setinput(500)}}>
-                    &#8377;500
-                  </button>
-                  <button className="flex border-[0.5px] border-gray-400 rounded-md p-1 font-semibold pr-2 ps-2"
-                  onClick={()=>{setinput(1000)}}>
-                    &#8377;1000
-                  </button>
-                  <button className="flex border-[0.5px] border-gray-400 rounded-md p-1 font-semibold pr-2 ps-2"
-                  onClick={()=>{setinput(1500)}}>
-                    &#8377;1500
-                  </button>
-                </div>
-              </div>
-
-              <button className=" font-semibold  justify-center  flex w-full bg-[#fce010] rounded-3xl  p-3"
-              onClick={transaction}>
-                <span>Add gift cards to balance</span>
-              </button>
-            </div>
-          </div>
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30 backdrop-blur-sm" onClick={fn}>
+      <div
+        className="bg-white rounded-2xl border border-stone-200 w-[90%] max-w-md shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-stone-100">
+          <h2 className="font-['Fraunces'] text-lg font-semibold text-stone-900">Wallet</h2>
+          <button
+            onClick={fn}
+            className="w-8 h-8 rounded-lg flex items-center justify-center hover:bg-stone-100 transition-colors"
+          >
+            <svg className="w-5 h-5 text-stone-400" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
-        <div
-          className="relative top-0 right-0 -translate-x-7 -translate-y-36 md:-translate-x-7 md:-translate-y-44 cursor-pointer rotate-45"
-          onClick={fn}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-</svg>
 
+        {/* Balance */}
+        <div className="px-6 py-5 border-b border-stone-100 bg-stone-50">
+          <p className="font-['Outfit'] text-sm text-stone-400 mb-1">Available Balance</p>
+          <p className="font-['Fraunces'] text-3xl font-semibold text-stone-900">&#8377;{balance}</p>
+        </div>
+
+        {/* Add Funds */}
+        <div className="px-6 py-5">
+          <p className="font-['Outfit'] text-sm font-medium text-stone-700 mb-3">Add funds</p>
+
+          <div className="border border-stone-200 rounded-xl px-4 py-3 focus-within:border-stone-400 transition-colors cursor-text"
+            onClick={()=>{element.current.focus()}}
+          >
+            <p className="font-['Outfit'] text-xs text-stone-400 mb-1">Enter amount</p>
+            <div className="flex items-center">
+              <span className="font-['Outfit'] text-xl text-stone-900 mr-1">&#8377;</span>
+              <input
+                className="font-['Outfit'] text-xl font-semibold text-stone-900 border-0 focus:outline-none w-full bg-transparent placeholder:text-stone-300"
+                value={input}
+                type="number"
+                onChange={(e) => setinput(Number(e.target.value))}
+                ref={element}
+              />
+            </div>
+          </div>
+
+          {/* Quick amounts */}
+          <div className="flex gap-2 mt-3">
+            {[500, 1000, 1500].map((amount) => (
+              <button
+                key={amount}
+                className={`flex-1 py-2 border rounded-xl font-['Outfit'] text-sm font-medium transition-colors ${
+                  input === amount
+                    ? 'border-stone-900 bg-stone-900 text-white'
+                    : 'border-stone-200 text-stone-600 hover:border-stone-300'
+                }`}
+                onClick={()=>{setinput(amount)}}
+              >
+                &#8377;{amount}
+              </button>
+            ))}
+          </div>
+
+          <button
+            className="mt-4 w-full py-3 bg-stone-900 hover:bg-stone-800 text-white font-['Outfit'] text-sm font-medium rounded-xl transition-colors"
+            onClick={transaction}
+          >
+            Add to wallet
+          </button>
         </div>
       </div>
-    </>,
+    </div>,
     document.getElementById("wallet")
   );
 }

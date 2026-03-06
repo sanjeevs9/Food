@@ -1,7 +1,6 @@
 import { useRecoilState } from "recoil";
 import Sidebar from "./Sidebar";
 import Table from "./Table";
-import { useState } from "react";
 import { sidebar } from "../../atoms/alert";
 
 export default function Sdashoard() {
@@ -12,23 +11,28 @@ export default function Sdashoard() {
   }
 
   return (
-    <>
-      <div className="relative bg-[#fff7ed] overflow-y-hidden overflow-x-hidden  flex justify-center sm:gap-64 sm:p-4">
-        <div className="flex">
-          <Sidebar />
+    <div className="min-h-screen bg-[#FAFAF8] flex">
+      <Sidebar />
+      <div className={`${!bar ? 'flex-1' : 'flex-1'} sm:ml-60`}>
+        {/* Mobile menu toggle */}
+        <div className="flex sm:hidden p-4">
+          <button
+            onClick={handle1}
+            className="w-10 h-10 rounded-xl border border-stone-200 flex items-center justify-center hover:bg-stone-50 transition-colors"
+          >
+            <svg className="w-5 h-5 text-stone-600" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
         </div>
-        <div className={`${!bar ? 'w-2/6 h-auto' : 'h-svh sm:h-auto w-2/6'} sm:w-3/5 bg-white rounded-3xl flex flex-grow transform sm:-translate-x-3`}>
-          <div className="w-full">
-          <div className="  flex sm:hidden relative   cursor-pointer translate-x-2 translate-y-5"onClick={handle1}>
-        
-        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="30" viewBox="0 0 50 50">
-        <path d="M 3 9 A 1.0001 1.0001 0 1 0 3 11 L 47 11 A 1.0001 1.0001 0 1 0 47 9 L 3 9 z M 3 24 A 1.0001 1.0001 0 1 0 3 26 L 47 26 A 1.0001 1.0001 0 1 0 47 24 L 3 24 z M 3 39 A 1.0001 1.0001 0 1 0 3 41 L 47 41 A 1.0001 1.0001 0 1 0 47 39 L 3 39 z"></path>
-        </svg>
-          </div>
+
+        <div className="p-4 sm:p-8">
+          <h1 className="font-['Fraunces'] text-2xl font-semibold text-stone-900 mb-6">Orders</h1>
+          <div className="bg-white border border-stone-200 rounded-2xl overflow-hidden">
             <Table />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

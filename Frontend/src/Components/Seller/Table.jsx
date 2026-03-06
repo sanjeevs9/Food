@@ -1,4 +1,4 @@
-import { useState, useEffect, Children } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { NETWORK } from "../../../network";
 import Skeleton from "./Skeleton";
@@ -11,10 +11,7 @@ export default function Tabble() {
 
   const handleSelectChange = (event, id) => {
     const newStatus = event.target.value;
-
     axios.put(`${NETWORK}/food/order/put`, { id, status: newStatus });
-
-    // Update the status of the order in the data state
     setData(
       data.map((item) => {
         if (item._id === id) {
@@ -42,9 +39,7 @@ export default function Tabble() {
           setData(res.data.list);
           setloading(!loading);
         })
-        .catch((error) => {
-    
-        });
+        .catch((error) => {});
     };
     interval();
     const intId = setInterval(interval, 5000);
@@ -59,7 +54,7 @@ export default function Tabble() {
 
   const format = (createdAt) => {
     const createdAtDate = new Date(createdAt);
-    const formattedDate = createdAtDate.toLocaleString("en-US", {
+    return createdAtDate.toLocaleString("en-US", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -68,179 +63,102 @@ export default function Tabble() {
       second: "numeric",
       timeZone: "UTC",
     });
-
-    return formattedDate;
   };
 
+  const StatusBadge = ({ status }) => {
+    const styles = {
+      completed: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      rejected: "bg-red-50 text-red-600 border-red-200",
+    };
+
+    if (styles[status]) {
+      return (
+        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg border font-['Outfit'] text-xs font-medium capitalize ${styles[status]}`}>
+          {status}
+        </span>
+      );
+    }
+
+    return null;
+  };
+
+  const StatusSelect = ({ status, id, options }) => (
+    <select
+      onChange={(event) => handleSelectChange(event, id)}
+      value={status}
+      className="font-['Outfit'] text-sm border border-stone-200 rounded-lg px-3 py-1.5 bg-white text-stone-700 focus:outline-none focus:border-stone-400"
+      id={id}
+    >
+      {options.map((opt) => (
+        <option key={opt.value} value={opt.value}>{opt.label}</option>
+      ))}
+    </select>
+  );
+
   return (
-    <>
-      <div className="p-6 overflow-scroll px-0 ">
-        <table className="mt-4 w-full min-w-max table-auto text-left">
-          <thead>
-            <tr>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Orders
-                </p>
+    <div className="overflow-x-auto">
+      <table className="w-full text-left">
+        <thead>
+          <tr className="border-b border-stone-200">
+            {["Orders", "Order ID", "Customer", "Status", "Placed At", "Cost"].map((h) => (
+              <th key={h} className="px-6 py-3.5 font-['Outfit'] text-xs font-semibold text-stone-500 uppercase tracking-wider">
+                {h}
               </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Order Id
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Customer
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Status
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Placed At
-                </p>
-              </th>
-              <th className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50">
-                <p className="antialiased font-sans text-sm text-blue-gray-900 flex items-center justify-between gap-2 font-normal leading-none opacity-70">
-                  Cost
-                </p>
-              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-stone-100">
+          {[...data].reverse().map((items) => (
+            <tr key={items._id} className="hover:bg-stone-50 transition-colors">
+              <td className="px-6 py-4">
+                <div className="flex flex-col gap-0.5">
+                  {items.items.map((item, i) => (
+                    <span key={i} className="font-['Outfit'] text-sm text-stone-700">
+                      {item.name} &times; {item.quantity}
+                    </span>
+                  ))}
+                </div>
+              </td>
+              <td className="px-6 py-4 font-['Outfit'] text-xs text-stone-400 font-mono">
+                {items._id}
+              </td>
+              <td className="px-6 py-4 font-['Outfit'] text-sm text-stone-700">
+                {items.name}
+              </td>
+              <td className="px-6 py-4">
+                {items.status === "completed" || items.status === "rejected" ? (
+                  <StatusBadge status={items.status} />
+                ) : items.status === "accepted" ? (
+                  <StatusSelect status={items.status} id={items._id} options={[
+                    { value: "", label: "Select..." },
+                    { value: "completed", label: "Completed" },
+                    { value: "ready", label: "Order Ready" },
+                  ]} />
+                ) : items.status === "ready" ? (
+                  <StatusSelect status={items.status} id={items._id} options={[
+                    { value: "", label: "Select..." },
+                    { value: "completed", label: "Completed" },
+                  ]} />
+                ) : (
+                  <StatusSelect status={items.status} id={items._id} options={[
+                    { value: "pending", label: "Pending" },
+                    { value: "completed", label: "Completed" },
+                    { value: "accepted", label: "Accepted" },
+                    { value: "rejected", label: "Rejected" },
+                    { value: "ready", label: "Order Ready" },
+                  ]} />
+                )}
+              </td>
+              <td className="px-6 py-4 font-['Outfit'] text-sm text-stone-500">
+                {format(items.createdAt)}
+              </td>
+              <td className="px-6 py-4 font-['Outfit'] text-sm font-semibold text-stone-900">
+                &#8377;{items.cost}
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {[...data].reverse().map((items) => {
-              return (
-                <tr>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <div className="flex items-center gap-3">
-                      <div className="flex flex-col">
-                        {items.items.map((item) => (
-                          <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                            {item.name}-{item.quantity}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <div className="flex items-center gap-3">
-                      <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal text-red-400">
-                        {items._id}
-                      </p>
-                    </div>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <div className="flex flex-col">
-                      <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                        {items.name}
-                      </p>
-                    </div>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    {/* <div className="w-max">
-    <div className="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md" style={{ opacity: 1 }}>
-      <span className="">{items.status}</span>
+          ))}
+        </tbody>
+      </table>
     </div>
-  </div> */}
-                    {
-                      <div>
-                        {items.status === "completed" ? (
-                          <div
-                            className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-green-500/20 text-green-600 py-1 px-2 text-xs rounded-md"
-                            style={{ opacity: 1 }}
-                          >
-                            Completed
-                          </div>
-                        ) : items.status === "rejected" ? (
-                          <div
-                            className="w-fit relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-red-500/20 text-red-600 py-1 px-2 text-xs rounded-md"
-                            style={{ opacity: 1 }}
-                          >
-                            Rejected
-                          </div>
-                        ) : items.status === "accepted" ? (
-                          <select
-                            onChange={(event) => {
-                              handleSelectChange(event, items._id);
-                            }}
-                            value={items.status}
-                            className={`${
-                              items.status === "completed" ||
-                              items.status === "rejected"
-                                ? `hidden`
-                                : `flex`
-                            }`}
-                            id={items._id}
-                          >
-                            <option value="">SELECT</option>
-                            <option value="completed">Completed</option>
-                            <option value="ready">Order is Ready</option>
-                          </select>
-                        ) : items.status === "ready" ? (
-                          <select
-                            onChange={(event) => {
-                              handleSelectChange(event, items._id);
-                            }}
-                            value={items.status}
-                            className={`${
-                              items.status === "completed" ||
-                              items.status === "rejected"
-                                ? `hidden`
-                                : `flex`
-                            }`}
-                            id={items._id}
-                          >
-                            <option value="">SELECT</option>
-                            <option value="completed">Completed</option>
-                          </select>
-                        ) : (
-                          <select
-                            onChange={(event) => {
-                              handleSelectChange(event, items._id);
-                            }}
-                            value={items.status}
-                            className={`${
-                              items.status === "completed" ||
-                              items.status === "rejected"
-                                ? `hidden`
-                                : `flex`
-                            }`}
-                            id={items._id}
-                          >
-                            <option value="pending">Pending</option>
-                            <option value="completed">Completed</option>
-                            <option value="accepted">Accepted</option>
-                            <option value="rejected">Rejected</option>
-                            <option value="ready">Order is Ready</option>
-                          </select>
-                        )}
-                      </div>
-                    }
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <p className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-normal">
-                      {format(items.createdAt)}
-                    </p>
-                  </td>
-                  <td className="p-4 border-b border-blue-gray-50">
-                    <button
-                      className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
-                      type="button"
-                    >
-                      <span className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                        &#8377;{items.cost}
-                      </span>
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    </>
   );
 }

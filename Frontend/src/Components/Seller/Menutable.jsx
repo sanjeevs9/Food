@@ -3,7 +3,7 @@ import axios from "axios";
 import { NETWORK } from "../../../network";
 import MenuUpdate from "./MenuUpdate";
 import AddMenu from "./Addmenu";
-import { errorToast } from "../../toast";
+import { errorToast, successToast } from "../../toast";
 import { sidebar } from "../../atoms/alert";
 import { useRecoilState } from "recoil";
 
@@ -13,9 +13,8 @@ import { useRecoilState } from "recoil";
   const [menu, setmenu] = useState([]);
   const[open,setopen]=useState(false);
   const[menuadd,setmenuadd]=useState(false);
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
   const[bar ,setbarr]=useRecoilState(sidebar);
-  const [refreshMenu, setRefreshMenu] = useState(false);
 
   useEffect(() => {
     if(!token){
@@ -33,110 +32,119 @@ import { useRecoilState } from "recoil";
       })
       .then((res) => {
         setmenu(res.data);
-    
       })
-      .catch((error) => {
-   
-      });
+      .catch((error) => {});
   }, []);
 
-  function handle(id){
-    setSelectedId(id);
-    setRefreshMenu(p=>!p);
-    setopen(!open)
+  function handle(item){
+    if (item && typeof item === 'object') {
+      setSelectedItem(item);
+      setopen(true);
+    } else {
+      setSelectedItem(null);
+      setopen(false);
+    }
   }
 
-    function handleaddmenu(){
-      setmenuadd(!menuadd)
-    }
+  function handleaddmenu(){
+    setmenuadd(!menuadd)
+  }
 
-    function addItem(data){
+  function addItem(data){
+    setmenu([data, ...menu])
+  }
 
-      setmenu([data, ...menu])
+  async function deleteItem(id){
+    if(!token){
+      token=sessionStorage.getItem("token")
     }
+    try {
+      await axios.delete(`${NETWORK}/food/seller/menuitem/${id}`, {
+        headers: { Authorization: token }
+      });
+      setmenu(menu.filter(item => item._id !== id));
+      successToast("Item deleted");
+    } catch (error) {
+      errorToast(error.response?.data?.message || "Failed to delete");
+    }
+  }
+
   return (
-    <>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg  ">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-          <thead class="text-xs text-white uppercase bg-yellow-700 ">
-            <tr>
-              
-              <th scope="col" class="px-16 py-3 absolute">
+    <div className="overflow-x-auto">
+      {/* Add Item button */}
+      <div className="px-6 py-4 border-b border-stone-100 flex items-center justify-between">
+        <p className="font-['Outfit'] text-sm text-stone-500">{menu.length} items</p>
+        <button
+          className="px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white font-['Outfit'] text-sm font-medium rounded-xl transition-colors"
+          onClick={handleaddmenu}
+        >
+          + Add Item
+        </button>
+        {menuadd ? <AddMenu prop={handleaddmenu} addItem={addItem} /> : null}
+      </div>
 
-              <div className={` ${bar?`hidden`:``}  sm:flex -translate-x-14 relative text-xs   lowercase underline cursor-pointer`}
-              onClick={handleaddmenu}>
-                Add item
-              </div>
-              {
-                menuadd?<div><AddMenu prop={handleaddmenu} addItem={addItem}> </AddMenu> </div>:null
-              }
-                
-              
-                <span class="sr-only">Image</span>
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Item
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Price
-              </th>
-              <th scope="col" class="px-6 py-3">
-                Action
-              </th>
-              {/* <th scope="col" class="px-6 py-3">
-                avaliable/
-              </th> */}
+      {open && selectedItem && (
+        <MenuUpdate
+          prop1={() => handle(null)}
+          id={selectedItem._id}
+          itemData={selectedItem}
+        />
+      )}
+
+      <table className="w-full text-left">
+        <thead>
+          <tr className="border-b border-stone-200">
+            <th className="px-6 py-3.5 font-['Outfit'] text-xs font-semibold text-stone-500 uppercase tracking-wider">Image</th>
+            <th className="px-6 py-3.5 font-['Outfit'] text-xs font-semibold text-stone-500 uppercase tracking-wider">Item</th>
+            <th className="px-6 py-3.5 font-['Outfit'] text-xs font-semibold text-stone-500 uppercase tracking-wider">Price</th>
+            <th className="px-6 py-3.5 font-['Outfit'] text-xs font-semibold text-stone-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-stone-100">
+          {menu.length === 0 ? (
+            <tr>
+              <td colSpan={4} className="px-6 py-12 text-center">
+                <p className="font-['Outfit'] text-sm text-stone-400">No menu items yet. Add your first item above.</p>
+              </td>
             </tr>
-          </thead>
-          <tbody>{
-            menu.length==0?<>
-              <tr class="bg-[#fff7ed] border-b  hover:bg-gray-50 ">
-                <td class="p-4">
-                 
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
-                
-                </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
-                 
-                </td>
-                <td class="px-6 py-4">
-                  <div  className="font-medium text-red-600 hover:underline cursor-pointer" onClick={handle}>
-                 
-                  </div>
-                </td>
-              </tr>
-            </>
-            :menu.map((item) => (
-              <tr class="bg-[#fff7ed] border-b  hover:bg-gray-50 ">
-                <td class="p-4">
+          ) : (
+            menu.map((item) => (
+              <tr key={item._id} className="hover:bg-stone-50 transition-colors">
+                <td className="px-6 py-4">
                   <img
                     src={item.imgUrl}
-                    class="w-16 md:w-32 max-w-full max-h-full"
-                    alt="Apple Watch"
+                    className="w-14 h-14 sm:w-20 sm:h-16 rounded-xl object-cover bg-stone-100"
+                    alt={item.foodName}
                   />
                 </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
+                <td className="px-6 py-4 font-['Outfit'] text-sm font-medium text-stone-900">
                   {item.foodName}
                 </td>
-                <td class="px-6 py-4 font-semibold text-gray-900 ">
+                <td className="px-6 py-4 font-['Outfit'] text-sm font-semibold text-stone-900">
                   &#8377;{item.price}
                 </td>
-                <td class="px-6 py-4">
-                  <div  className="font-medium text-red-600 hover:underline cursor-pointer" onClick={()=>{handle(item._id)}}>
-                    Update
+                <td className="px-6 py-4">
+                  <div className="flex items-center gap-3">
+                    <button
+                      className="font-['Outfit'] text-sm font-medium text-orange-600 hover:text-orange-700 transition-colors"
+                      onClick={() => handle(item)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="font-['Outfit'] text-sm font-medium text-red-500 hover:text-red-600 transition-colors"
+                      onClick={() => deleteItem(item._id)}
+                    >
+                      Delete
+                    </button>
                   </div>
-                 
-                  {selectedId === item._id && (
-  <MenuUpdate prop1={handle} id={item._id} />
-)}
                 </td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
